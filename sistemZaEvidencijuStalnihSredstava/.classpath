@@ -22,11 +22,10 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/User/Downloads/jcalendar-1.4.zip"/>
-	<classpathentry kind="lib" path="C:/Users/User/Downloads/jcalendar-1.4/lib/jcalendar-1.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/User/Downloads/jcalendar-1.4/lib/jgoodies-common-1.2.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/User/Downloads/jcalendar-1.4/lib/jgoodies-looks-2.4.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/User/Downloads/jcalendar-1.4/lib/junit-4.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/User/Downloads/forms-1.0.3.jar/forms-1.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Layla/Desktop/forms-1.0.3.jar/forms-1.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Layla/Desktop/jcalendar-1.4/jcalendar-1.4/lib/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Layla/Desktop/jcalendar-1.4/jcalendar-1.4/lib/jgoodies-common-1.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Layla/Desktop/jcalendar-1.4/jcalendar-1.4/lib/jgoodies-looks-2.4.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Layla/Desktop/jcalendar-1.4/jcalendar-1.4/lib/junit-4.6.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
