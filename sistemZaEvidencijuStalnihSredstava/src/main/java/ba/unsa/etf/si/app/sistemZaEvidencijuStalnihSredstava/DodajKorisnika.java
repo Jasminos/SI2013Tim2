@@ -4,15 +4,25 @@ package ba.unsa.etf.si.app.sistemZaEvidencijuStalnihSredstava;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
 import com.toedter.calendar.JDateChooser;
+
 import javax.swing.JButton;
+
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Date;
+
+import ba.unsa.etf.si.klase.Korisnik;
+import ba.unsa.etf.si.korisnik.*;
+import ba.unsa.etf.si.util.HibernateUtil;
 
 public class DodajKorisnika extends JFrame {
 
@@ -27,7 +37,6 @@ public class DodajKorisnika extends JFrame {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
-	private JTextField textField_6;
 
 	/**
 	 * Launch the application.
@@ -51,7 +60,7 @@ public class DodajKorisnika extends JFrame {
 	 */
 	public DodajKorisnika() {
 		setTitle("Dodavanje korisnika");
-		setBounds(100, 100, 340, 330);
+		setBounds(100, 100, 340, 303);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -85,10 +94,6 @@ public class DodajKorisnika extends JFrame {
 		lblDatumKreiranja.setBounds(23, 181, 119, 14);
 		contentPane.add(lblDatumKreiranja);
 		
-		JLabel lblVrijemeKreiranja = new JLabel("Vrijeme kreiranja:");
-		lblVrijemeKreiranja.setBounds(17, 206, 107, 14);
-		contentPane.add(lblVrijemeKreiranja);
-		
 		textField = new JTextField();
 		textField.setBounds(129, 24, 156, 20);
 		contentPane.add(textField);
@@ -119,26 +124,36 @@ public class DodajKorisnika extends JFrame {
 		contentPane.add(textField_5);
 		textField_5.setColumns(10);
 		
-		JDateChooser dateChooser = new JDateChooser();
+		final JDateChooser dateChooser = new JDateChooser();
 		dateChooser.setBounds(129, 179, 156, 20);
 		contentPane.add(dateChooser);
-		
-		textField_6 = new JTextField();
-		textField_6.setBounds(129, 203, 156, 20);
-		contentPane.add(textField_6);
-		textField_6.setColumns(10);
 		
 		
 		
 		JButton btnDodaj = new JButton("Dodaj");
 		btnDodaj.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			    JOptionPane.showMessageDialog(null, "Nije implementirano! \nKlikom na ovo dugme korisnik �e biti spa�en u bazu.");
+				Session session = HibernateUtil.getSessionFactory().openSession();
+				Transaction t = session.beginTransaction(); 
+				
+				  String ime = textField.getText();
+				  String prezime=textField_1.getText();
+				  String jmbg=textField_2.getText();
+				  String tel=textField_3.getText();
+				  String username=textField_3.getText();
+				  String password=textField_4.getText();
+				  Date datum=(Date) dateChooser.getDate();
+				  
+				  Korisnik k=new Korisnik(6,ime,prezime,jmbg,tel,username,password,datum);
+				  session.save(k);
+				  System.out.println("Dodan korisnik"); 
+				  t.commit(); 
+			 
 			     
 			}
 			
 		});
-		btnDodaj.setBounds(116, 246, 89, 23);
+		btnDodaj.setBounds(114, 226, 89, 23);
 		contentPane.add(btnDodaj);
 		
 		JButton button_1 = new JButton("Iza\u0111i");
@@ -147,7 +162,7 @@ public class DodajKorisnika extends JFrame {
 				dispose();
 			}
 		});
-		button_1.setBounds(215, 246, 89, 23);
+		button_1.setBounds(213, 226, 89, 23);
 		contentPane.add(button_1);
 	}
 }

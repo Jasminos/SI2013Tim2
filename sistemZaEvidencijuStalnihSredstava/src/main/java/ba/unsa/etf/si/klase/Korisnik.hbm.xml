@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 15, 2014 6:12:54 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="ba.unsa.etf.si.klase.Korisnik" table="KORISNIK">
+        <id name="id" type="long">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <property name="ime" type="java.lang.String">
+            <column name="IME" />
+        </property>
+        <property name="prezime" type="java.lang.String">
+            <column name="PREZIME" />
+        </property>
+        <property name="jmbg" type="java.lang.String">
+            <column name="JMBG" />
+        </property>
+        <property name="brTel" type="java.lang.String">
+            <column name="BRTEL" />
+        </property>
+        <property name="username" type="java.lang.String">
+            <column name="USERNAME" />
+        </property>
+        <property name="password" type="java.lang.String">
+            <column name="PASSWORD" />
+        </property>
+        <property name="datumKreiranja" type="java.util.Date">
+            <column name="DATUMKREIRANJA" />
+        </property>
+    </class>
+</hibernate-mapping>
