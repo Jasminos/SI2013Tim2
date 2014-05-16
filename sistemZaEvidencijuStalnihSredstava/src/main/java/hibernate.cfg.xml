@@ -9,6 +9,10 @@
   <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
   <property name="hibernate.hbm2ddl.auto">update</property>
   <mapping resource="ba/unsa/etf/si/klase/Korisnik.hbm.xml"/>
+  <mapping resource="ba/unsa/etf/si/klase/OtpisanoSS.hbm.xml"/>
+  <mapping resource="ba/unsa/etf/si/klase/ProdanoSS.hbm.xml"/>
+  <mapping resource="ba/unsa/etf/si/klase/SSuUpotrebi.hbm.xml"/>
   <mapping resource="ba/unsa/etf/si/klase/StalnaSredstva.hbm.xml"/>
+  <mapping resource="ba/unsa/etf/si/klase/TipStalnogSredstva.hbm.xml"/>
  </session-factory>
 </hibernate-configuration>

@@ -15,10 +15,7 @@ package ba.unsa.etf.si.klase;
 		private Double nabavnaVrijednost;
 		private Date datumNabavke; 
 		
-		
 
-		
-		
 		
 		
 		public StalnaSredstva() {}

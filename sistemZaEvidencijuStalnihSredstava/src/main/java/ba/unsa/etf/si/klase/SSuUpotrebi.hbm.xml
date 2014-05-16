@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 16, 2014 4:01:16 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <joined-subclass name="ba.unsa.etf.si.klase.SSuUpotrebi" extends="ba.unsa.etf.si.klase.StalnaSredstva" table="SSUUPOTREBI" lazy="false">
+        <key>
+            <column name="ID" />
+        </key>
+        <property name="id" type="java.lang.Long">
+            <column name="ID" />
+        </property>
+        <property name="trenutnaVrijednost" type="double">
+            <column name="TRENUTNAVRIJEDNOST" />
+        </property>
+        <property name="stopaAmortizacije" type="double">
+            <column name="STOPAAMORTIZACIJE" />
+        </property>
+        <property name="datumStavljanjaUUpotrebu" type="java.util.Date">
+            <column name="DATUMSTAVLJANJAUUPOTREBU" />
+        </property>
+        <property name="godisnjaAmort" type="boolean">
+            <column name="GODISNJAAMORT" />
+        </property>
+    </joined-subclass>
+</hibernate-mapping>
