@@ -13,22 +13,41 @@ public class ProdanoSS extends SSuUpotrebi{
 	private double prodajnaCijena;
 	
 	public ProdanoSS () {}
+	
+	
+	public ProdanoSS(OtpisanoSS ss) {
+		//public SSuUpotrebi(StalnaSredstva ss, Double stopa, boolean godisnja)
+		super();
+		
+	}
 
-	private Date getDatumProdaje() {
+	public Date getDatumProdaje() {
 		return datumProdaje;
 	}
 
-	private void setDatumProdaje(Date datumProdaje) {
+	public void setDatumProdaje(Date datumProdaje) {
 		this.datumProdaje = datumProdaje;
 	}
 
-	private double getProdajnaCijena() {
+	public double getProdajnaCijena() {
 		return prodajnaCijena;
 	}
 
-	private void setProdajnaCijena(double prodajnaCijena) {
+	/*//atribut prodajna cijena je read only.
+	public void setProdajnaCijena(double prodajnaCijena) {
 		this.prodajnaCijena = prodajnaCijena;
 	}
+	*/
 	
+	@Override
+	public void setGodisnjaAmort(boolean godisnjaAmort)
+	{
+		//ostaviti prazno!!
+	}
 	
+	@Override
+	public Double trenutnaVrijednost()
+	{
+		return 0.0;
+	}
 }

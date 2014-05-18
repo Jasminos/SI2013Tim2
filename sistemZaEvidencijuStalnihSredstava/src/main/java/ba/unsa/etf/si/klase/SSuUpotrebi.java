@@ -16,37 +16,60 @@ public class SSuUpotrebi extends StalnaSredstva{
 	private boolean godisnjaAmort;
 	
 	public SSuUpotrebi() {}
+	
+	public SSuUpotrebi(StalnaSredstva ss, Double stopa, boolean godisnja)
+	{
+		//public StalnaSredstva(String naziv, String lok, Double vrijednost, Date datum, TipStalnogSredstva tip)
+		super(ss.getNaziv(), ss.getLokacija(), ss.trenutnaVrijednost(), ss.getDatumNabavke(), ss.getTip());
+		
+		trenutnaVrijednost = ss.trenutnaVrijednost();
+		stopaAmortizacije = stopa;
+		godisnjaAmort = godisnja;
+	}
 
-	private double getTrenutnaVrijednost() {
+	public double getTrenutnaVrijednost() {
 		return trenutnaVrijednost;
 	}
 
-	private void setTrenutnaVrijednost(double trenutnaVrijednost) {
+	public void setTrenutnaVrijednost(double trenutnaVrijednost) {
 		this.trenutnaVrijednost = trenutnaVrijednost;
 	}
 
-	private double getStopaAmortizacije() {
+	public double getStopaAmortizacije() {
 		return stopaAmortizacije;
 	}
-
+/*
 	private void setStopaAmortizacije(double stopaAmortizacije) {
 		this.stopaAmortizacije = stopaAmortizacije;
 	}
-
-	private Date getDatumStavljanjaUUpotrebu() {
+*/
+	public Date getDatumStavljanjaUUpotrebu() {
 		return datumStavljanjaUUpotrebu;
 	}
 
-	private void setDatumStavljanjaUUpotrebu(Date datumStavljanjaUUpotrebu) {
+	public void setDatumStavljanjaUUpotrebu(Date datumStavljanjaUUpotrebu) {
 		this.datumStavljanjaUUpotrebu = datumStavljanjaUUpotrebu;
 	}
 
-	private boolean isGodisnjaAmort() {
+	public boolean isGodisnjaAmort() {
 		return godisnjaAmort;
 	}
 
-	private void setGodisnjaAmort(boolean godisnjaAmort) {
-		this.godisnjaAmort = godisnjaAmort;
+	//"throws Exception" dodano radi klasa koje je nasljedjuju.
+	public void setGodisnjaAmort(boolean godisnjaAmort) throws Exception {
+		if(this.godisnjaAmort == godisnjaAmort)
+			return;
+		if(this.godisnjaAmort == true)
+		{
+			this.godisnjaAmort = false;
+			stopaAmortizacije /= 12;
+		}
+		else
+		{
+			this.godisnjaAmort = true;
+			stopaAmortizacije *= 12;
+		}
+		
 	}
 	
 		

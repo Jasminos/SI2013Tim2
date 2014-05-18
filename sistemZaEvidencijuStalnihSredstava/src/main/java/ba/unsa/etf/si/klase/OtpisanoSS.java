@@ -11,7 +11,6 @@ public class OtpisanoSS extends SSuUpotrebi {
 	
 	private Date datumOtpisivanja;
 	
-	
 	public OtpisanoSS () {}
 
 	private Date getDatumOtpisivanja() {
@@ -22,7 +21,16 @@ public class OtpisanoSS extends SSuUpotrebi {
 		this.datumOtpisivanja = datumOtpisivanja;
 	}
 	
+	@Override
+	public Double trenutnaVrijednost()
+	{
+		return 0.0;
+	}
 	
-	
+	@Override
+	public void setGodisnjaAmort(boolean godisnjaAmort)
+	{
+		//ostaviti prazno!
+	}
 
 }
