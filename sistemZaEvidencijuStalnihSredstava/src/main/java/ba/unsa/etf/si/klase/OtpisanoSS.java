@@ -28,9 +28,9 @@ public class OtpisanoSS extends SSuUpotrebi {
 	}
 	
 	@Override
-	public void setGodisnjaAmort(boolean godisnjaAmort)
+	public void setGodisnjaAmort(boolean godisnjaAmort) throws Exception
 	{
-		//ostaviti prazno!
+		throw new Exception("Stalno sredstvo je otpisano!");
 	}
 
 }
