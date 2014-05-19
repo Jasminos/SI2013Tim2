@@ -2,7 +2,7 @@ package ba.unsa.etf.si.klase;
 
 	import java.util.Date;
 
-	public class StalnaSredstva implements java.io.Serializable {
+	public class StalnoSredstvo implements java.io.Serializable {
 
 		/**
 		 * 
@@ -17,9 +17,9 @@ package ba.unsa.etf.si.klase;
 		private TipStalnogSredstva tip;
 
 		
-		public StalnaSredstva() {}
+		public StalnoSredstvo() {}
 		
-		public StalnaSredstva(String naziv, String lok, Double vrijednost, Date datum, TipStalnogSredstva tip)
+		public StalnoSredstvo(String naziv, String lok, Double vrijednost, Date datum, TipStalnogSredstva tip)
 		{
 			this.naziv = naziv;
 			lokacija = lok;

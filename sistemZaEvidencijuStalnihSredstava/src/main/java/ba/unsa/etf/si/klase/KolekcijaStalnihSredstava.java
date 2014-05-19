@@ -5,13 +5,13 @@ import java.util.List;
 
 public class KolekcijaStalnihSredstava implements java.io.Serializable {
 
-	private List<StalnaSredstva> kolekcija;
+	private List<StalnoSredstvo> kolekcija;
 	
 	public KolekcijaStalnihSredstava(){}
 	
 	
 	//metode nisu implementovane:
-	public boolean StaviSSUUpotrebu(StalnaSredstva ss, Double stopa, boolean godisnjaAmort)
+	public boolean StaviSSUUpotrebu(StalnoSredstvo ss, Double stopa, boolean godisnjaAmort)
 	{
 		return false;
 	}

@@ -3,7 +3,7 @@ package ba.unsa.etf.si.klase;
 import java.util.Date;
 
 
-public class SSuUpotrebi extends StalnaSredstva{
+public class SSuUpotrebi extends StalnoSredstvo{
 
 	/**
 	 * 
@@ -17,7 +17,7 @@ public class SSuUpotrebi extends StalnaSredstva{
 	
 	public SSuUpotrebi() {}
 	
-	public SSuUpotrebi(StalnaSredstva ss, Double stopa, boolean godisnja)
+	public SSuUpotrebi(StalnoSredstvo ss, Double stopa, boolean godisnja)
 	{
 		//public StalnaSredstva(String naziv, String lok, Double vrijednost, Date datum, TipStalnogSredstva tip)
 		super(ss.getNaziv(), ss.getLokacija(), ss.trenutnaVrijednost(), ss.getDatumNabavke(), ss.getTip());
