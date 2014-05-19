@@ -10,10 +10,21 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+
+import ba.unsa.etf.si.klase.*;
+import ba.unsa.etf.si.util.HibernateUtil;
+
 import com.toedter.calendar.JDateChooser;
+
 import javax.swing.JButton;
+
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Date;
+import javax.swing.JRadioButton;
 
 public class DodavanjeNovogSS extends JFrame {
 
@@ -23,9 +34,10 @@ public class DodavanjeNovogSS extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField textVrijednost;
+	private JComboBox comboBox1;
+	private JDateChooser kontrolaDatum;
+	private JTextField textLokacija;
 
 	/**
 	 * Launch the application.
@@ -49,72 +61,70 @@ public class DodavanjeNovogSS extends JFrame {
 	public DodavanjeNovogSS() {
 		setTitle("Dodavanje stalnog sredstva");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 354, 285);
+		setBounds(100, 100, 354, 186);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Naziv stalnog sredstva:");
-		lblNewLabel.setBounds(46, 30, 131, 14);
+		lblNewLabel.setBounds(32, 14, 113, 14);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblTipSredstva = new JLabel("Tip sredstva:");
-		lblTipSredstva.setBounds(95, 55, 97, 14);
+		lblTipSredstva.setBounds(82, 39, 63, 14);
 		contentPane.add(lblTipSredstva);
 		
 		JLabel lblVrijednostStalnogSredstva = new JLabel("Vrijednost stalnog sredstva:");
-		lblVrijednostStalnogSredstva.setBounds(20, 80, 190, 14);
+		lblVrijednostStalnogSredstva.setBounds(10, 64, 135, 14);
 		contentPane.add(lblVrijednostStalnogSredstva);
 		
-		JLabel lblDatumNabavke = new JLabel("Datum nabavke:");
-		lblDatumNabavke.setBounds(75, 102, 102, 14);
-		contentPane.add(lblDatumNabavke);
-		
-		JLabel lblVrijemeNabavke = new JLabel("Vrijeme nabavke:");
-		lblVrijemeNabavke.setBounds(75, 127, 117, 14);
-		contentPane.add(lblVrijemeNabavke);
-		
 		JLabel lblLokacija = new JLabel("Lokacija:");
-		lblLokacija.setBounds(114, 149, 68, 14);
+		lblLokacija.setBounds(103, 89, 42, 14);
 		contentPane.add(lblLokacija);
 		
 		textField = new JTextField();
-		textField.setBounds(194, 30, 104, 20);
+		textField.setBounds(147, 11, 181, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(194, 55, 104, 20);
-		contentPane.add(comboBox);
+		JComboBox comboBox1 = new JComboBox();
+		comboBox1.setBounds(147, 36, 181, 20);
+		contentPane.add(comboBox1);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(194, 80, 104, 20);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		textVrijednost = new JTextField();
+		textVrijednost.setBounds(147, 61, 181, 20);
+		contentPane.add(textVrijednost);
+		textVrijednost.setColumns(10);
 		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(194, 102, 104, 20);
-		contentPane.add(dateChooser);
-		
-		textField_2 = new JTextField();
-		textField_2.setBounds(194, 127, 104, 20);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
-		
-		textField_3 = new JTextField();
-		textField_3.setBounds(194, 152, 104, 20);
-		contentPane.add(textField_3);
-		textField_3.setColumns(10);
+		textLokacija = new JTextField();
+		textLokacija.setBounds(147, 86, 181, 20);
+		contentPane.add(textLokacija);
+		textLokacija.setColumns(10);
 		
 		JButton btnDodaj = new JButton("Dodaj");
 		btnDodaj.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				 JOptionPane.showMessageDialog(null, "Nije implementirano! \nKlikom na ovo dugme bit �e dodano novo stalno sredstvo.");
+				Session session = HibernateUtil.getSessionFactory().openSession();
+				Transaction t = session.beginTransaction(); 
+				
+				  String nazivSS = textField.getText();
+				  
+				  //TipStalnogSredstva tip=(TipStalnogSredstva) comboBox1.getSelectedItem();
+				  Double vrijednost = Double.parseDouble(textVrijednost.getText());
+				  Date datumNabavke = new Date();
+						 
+				  String lokacija = textLokacija.getText();
+				  StalnoSredstvo s = new StalnoSredstvo(nazivSS, lokacija, vrijednost, datumNabavke, new TipStalnogSredstva("ispravi ovo"));
+				  
+				  session.save(s);
+				  System.out.println("Dodano stalno sredstvo"); 
+				  t.commit(); 
+				 
 			}
 		});
-		btnDodaj.setBounds(114, 200, 89, 23);
+		btnDodaj.setBounds(143, 117, 89, 23);
 		contentPane.add(btnDodaj);
 		
 		JButton button_1 = new JButton("Iza\u0111i");
@@ -123,7 +133,7 @@ public class DodavanjeNovogSS extends JFrame {
 				dispose();
 			}
 		});
-		button_1.setBounds(213, 200, 89, 23);
+		button_1.setBounds(239, 117, 89, 23);
 		contentPane.add(button_1);
 	}
 }
