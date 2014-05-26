@@ -118,7 +118,7 @@ public class Login extends JFrame {
 				if(user.equals("Administrator"))
 				{
 					Administrator a = (Administrator) session.get(Administrator.class, (long) 1);
-					if(pass.equals(a.getPassword()))
+					if(HibernateUtil.md5(pass).equals(a.getPassword()))
 					{
 						adminMenu am= new adminMenu(session);
 						am.setVisible(true);
