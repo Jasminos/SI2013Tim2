@@ -27,6 +27,7 @@ import ba.unsa.etf.si.util.HibernateUtil;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class Login extends JFrame {
 
@@ -40,8 +41,8 @@ public class Login extends JFrame {
 	
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextField textField_1;
 	private Session session;
+	private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
@@ -88,19 +89,18 @@ public class Login extends JFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(141, 69, 133, 20);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
-		
 		JButton btnPotvrdi = new JButton("Potvrdi");
 		btnPotvrdi.setBounds(186, 110, 89, 23);
 		contentPane.add(btnPotvrdi);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(141, 69, 133, 20);
+		contentPane.add(passwordField);
 		btnPotvrdi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				String user = textField.getText();
-				String pass = textField_1.getText();
+				String pass = passwordField.getText();
 			
 				/*if (user.equals("admin") && pass.equals("admin")){
 					adminMenu am= new adminMenu();
@@ -131,7 +131,8 @@ public class Login extends JFrame {
 					query.setParameter("username", user);
 					List<?> results = query.list();
 					Korisnik korisnik = (Korisnik) results.get(0);
-					if(pass.equals(korisnik.getPassword()))
+					
+					if(HibernateUtil.md5(pass).equals(korisnik.getPassword()))
 					{
 						PocetniEkranRacunovodja per= new PocetniEkranRacunovodja (session);
 						per.setVisible(true);
@@ -143,5 +144,4 @@ public class Login extends JFrame {
 		});
 		
 	}
-
 }

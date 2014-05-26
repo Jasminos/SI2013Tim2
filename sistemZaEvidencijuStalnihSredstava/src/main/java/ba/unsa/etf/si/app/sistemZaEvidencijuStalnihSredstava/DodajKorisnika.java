@@ -23,6 +23,7 @@ import java.util.Date;
 import ba.unsa.etf.si.klase.Korisnik;
 import ba.unsa.etf.si.korisnik.*;
 import ba.unsa.etf.si.util.HibernateUtil;
+import javax.swing.JPasswordField;
 
 public class DodajKorisnika extends JFrame {
 
@@ -36,7 +37,7 @@ public class DodajKorisnika extends JFrame {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
-	private JTextField textField_5;
+	private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
@@ -115,11 +116,6 @@ public class DodajKorisnika extends JFrame {
 		contentPane.add(textField_4);
 		textField_4.setColumns(10);
 		
-		textField_5 = new JTextField();
-		textField_5.setBounds(129, 153, 156, 20);
-		contentPane.add(textField_5);
-		textField_5.setColumns(10);
-		
 		
 		
 		JButton btnDodaj = new JButton("Dodaj");
@@ -133,10 +129,10 @@ public class DodajKorisnika extends JFrame {
 				  String jmbg=textField_2.getText();
 				  String tel=textField_3.getText();
 				  String username=textField_4.getText();
-				  String password=textField_5.getText();
+				  String password=passwordField.getText();
 				  //Date datum=(Date) dateChooser.getDate();
 				  
-				  Korisnik k=new Korisnik(6,ime,prezime,jmbg,tel,username,password,new Date());
+				  Korisnik k=new Korisnik(6,ime,prezime,jmbg,tel,username,HibernateUtil.md5(password),new Date());
 				  session.save(k);
 				  System.out.println("Dodan korisnik"); 
 				  t.commit(); 
@@ -156,5 +152,9 @@ public class DodajKorisnika extends JFrame {
 		});
 		button_1.setBounds(213, 194, 89, 23);
 		contentPane.add(button_1);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(129, 153, 156, 20);
+		contentPane.add(passwordField);
 	}
 }
