@@ -1,4 +1,8 @@
 package ba.unsa.etf.si.app.sistemZaEvidencijuStalnihSredstava;
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+
 
 
 import java.awt.EventQueue;
@@ -11,6 +15,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.DropMode;
+
+import java.util.List;
+
+
+
+
+import ba.unsa.etf.si.klase.Administrator;
+import ba.unsa.etf.si.klase.Korisnik;
+import ba.unsa.etf.si.util.HibernateUtil;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -27,6 +41,7 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
+	private Session session;
 
 	/**
 	 * Launch the application.
@@ -35,7 +50,8 @@ public class Login extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Login frame = new Login();
+					Session sesija = HibernateUtil.getSessionFactory().openSession();
+					Login frame = new Login(sesija);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,7 +63,8 @@ public class Login extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Login() {
+	public Login(Session sesija) {
+		this.session = sesija;
 		setTitle(" \u03BCDEVELOPERS Login");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 347, 197);
@@ -85,9 +102,10 @@ public class Login extends JFrame {
 				String user = textField.getText();
 				String pass = textField_1.getText();
 			
-				if (user.equals("admin") && pass.equals("admin")){
+				/*if (user.equals("admin") && pass.equals("admin")){
 					adminMenu am= new adminMenu();
 					am.setVisible(true);
+					dispose();
 					
 				}else if (user.equals("racunovodja") && pass.equals("racunovodja")){
 					
@@ -96,9 +114,31 @@ public class Login extends JFrame {
 				}else {
 					
 					JOptionPane.showMessageDialog(null, "Unesite korisni�ko ime i lozinku!");
+				}*/
+				if(user.equals("Administrator"))
+				{
+					Administrator a = (Administrator) session.get(Administrator.class, (long) 1);
+					if(pass.equals(a.getPassword()))
+					{
+						adminMenu am= new adminMenu(session);
+						am.setVisible(true);
+						dispose();
+					}
+				}
+				else 
+				{
+					Query query = session.createQuery("from Korisnik where USERNAME = :username ");
+					query.setParameter("username", user);
+					List<?> results = query.list();
+					Korisnik korisnik = (Korisnik) results.get(0);
+					if(pass.equals(korisnik.getPassword()))
+					{
+						PocetniEkranRacunovodja per= new PocetniEkranRacunovodja (session);
+						per.setVisible(true);
+						dispose();
+					}
 				}
 				
-				dispose();
 			}
 		});
 		

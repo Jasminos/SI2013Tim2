@@ -11,14 +11,14 @@ public class Administrator implements java.io.Serializable {
 	
 	
 	public Administrator() {
-		username="Administrator";
-		password = "Administrator";
+		username = "Administrator";
+		password = "admin";
 	}
 	
-	String getUsername() {
+	public String getUsername() {
 		return username;
 	}
-	void setIme(String username) {
+	public void setIme(String username) {
 		this.username = username;
 	}
 
@@ -29,7 +29,12 @@ public class Administrator implements java.io.Serializable {
 	private void setId(long id) {
 		this.id = id;
 	}
-
-
+	public String getPassword(){
+		return password;
+	}
+	public void setPassword(String value)
+	{
+		password = value;
+	}
 	
 }

@@ -41,46 +41,46 @@ public class Korisnik implements java.io.Serializable {
 		
 	}
 	
-	String getIme() {
+	public String getIme() {
 		return ime;
 	}
-	void setIme(String ime) {
+	public void setIme(String ime) {
 		this.ime = ime;
 	}
-	String getPrezime() {
+	public String getPrezime() {
 		return prezime;
 	}
-	void setPrezime(String prezime) {
+	public void setPrezime(String prezime) {
 		this.prezime = prezime;
 	}
-	String getJmbg() {
+	public String getJmbg() {
 		return jmbg;
 	}
-	void setJmbg(String jmbg) {
+	public void setJmbg(String jmbg) {
 		this.jmbg = jmbg;
 	}
-	String getBrTel() {
+	public String getBrTel() {
 		return brTel;
 	}
-	void setBrTel(String brTel) {
+	public void setBrTel(String brTel) {
 		this.brTel = brTel;
 	}
-	String getUsername() {
+	public String getUsername() {
 		return username;
 	}
-	void setUsername(String username) {
+	public void setUsername(String username) {
 		this.username = username;
 	}
-	String getPassword() {
+	public String getPassword() {
 		return password;
 	}
-	void setPassword(String password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
-	Date getDatumKreiranja() {
+	public Date getDatumKreiranja() {
 		return datumKreiranja;
 	}
-	void setDatumKreiranja(Date datumKreiranja) {
+	public void setDatumKreiranja(Date datumKreiranja) {
 		this.datumKreiranja = datumKreiranja;
 		
 	}

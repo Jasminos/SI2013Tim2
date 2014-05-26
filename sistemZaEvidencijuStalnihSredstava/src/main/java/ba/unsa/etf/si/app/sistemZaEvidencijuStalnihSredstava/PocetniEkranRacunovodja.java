@@ -7,9 +7,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+import ba.unsa.etf.si.util.HibernateUtil;
 public class PocetniEkranRacunovodja extends JFrame {
 
 	/**
@@ -17,7 +22,7 @@ public class PocetniEkranRacunovodja extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-
+	private Session session;
 	/**
 	 * Launch the application.
 	 */
@@ -25,7 +30,8 @@ public class PocetniEkranRacunovodja extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PocetniEkranRacunovodja frame = new PocetniEkranRacunovodja();
+					Session sesija = HibernateUtil.getSessionFactory().openSession();
+					PocetniEkranRacunovodja frame = new PocetniEkranRacunovodja(sesija);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,7 +43,8 @@ public class PocetniEkranRacunovodja extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PocetniEkranRacunovodja() {
+	public PocetniEkranRacunovodja(Session sesija) {
+		session = sesija;
 		setTitle("Menu za ra\u010Dunovo\u0111u");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 392, 348);

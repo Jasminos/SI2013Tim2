@@ -7,10 +7,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+
 import java.awt.Color;
+
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import javax.swing.JButton;
+
+import org.hibernate.Session;
+
+import ba.unsa.etf.si.util.HibernateUtil;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -103,7 +110,8 @@ public class LoginPodaci extends JFrame {
 		JButton btnOk = new JButton("OK");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Login l= new Login();
+				Session session = HibernateUtil.getSessionFactory().openSession();
+				Login l= new Login(session);
 				l.setVisible(true);
 			}
 		});

@@ -1,5 +1,8 @@
 package ba.unsa.etf.si.app.sistemZaEvidencijuStalnihSredstava;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
+import ba.unsa.etf.si.util.HibernateUtil;
 
 import java.awt.EventQueue;
 
@@ -7,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -17,7 +21,7 @@ public class adminMenu extends  JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-
+	private Session session;
 	/**
 	 * Launch the application.
 	 */
@@ -25,7 +29,8 @@ public class adminMenu extends  JFrame{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					adminMenu frame = new adminMenu();
+					Session sesija = HibernateUtil.getSessionFactory().openSession();
+					adminMenu frame = new adminMenu(sesija);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,7 +42,8 @@ public class adminMenu extends  JFrame{
 	/**
 	 * Create the frame.
 	 */
-	public adminMenu() {
+	public adminMenu(Session sesija) {
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Menu za administratora");
 		setBounds(100, 100, 276, 307);

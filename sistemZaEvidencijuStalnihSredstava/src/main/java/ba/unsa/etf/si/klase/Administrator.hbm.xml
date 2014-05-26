@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 26, 2014 2:08:09 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="ba.unsa.etf.si.klase.Administrator" table="ADMINISTRATOR">
+        <id name="id" type="long">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <property name="username" type="java.lang.String" access="field">
+            <column name="USERNAME" />
+        </property>
+        <property name="password" type="java.lang.String" access="field">
+            <column name="PASSWORD" />
+        </property>
+    </class>
+</hibernate-mapping>

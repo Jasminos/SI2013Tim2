@@ -60,7 +60,7 @@ public class DodajKorisnika extends JFrame {
 	 */
 	public DodajKorisnika() {
 		setTitle("Dodavanje korisnika");
-		setBounds(100, 100, 340, 303);
+		setBounds(100, 100, 341, 269);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -89,10 +89,6 @@ public class DodajKorisnika extends JFrame {
 		JLabel lblLozinka = new JLabel("Lozinka:");
 		lblLozinka.setBounds(60, 156, 64, 14);
 		contentPane.add(lblLozinka);
-		
-		JLabel lblDatumKreiranja = new JLabel("Datum kreiranja:");
-		lblDatumKreiranja.setBounds(23, 181, 119, 14);
-		contentPane.add(lblDatumKreiranja);
 		
 		textField = new JTextField();
 		textField.setBounds(129, 24, 156, 20);
@@ -124,10 +120,6 @@ public class DodajKorisnika extends JFrame {
 		contentPane.add(textField_5);
 		textField_5.setColumns(10);
 		
-		final JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(129, 179, 156, 20);
-		contentPane.add(dateChooser);
-		
 		
 		
 		JButton btnDodaj = new JButton("Dodaj");
@@ -140,11 +132,11 @@ public class DodajKorisnika extends JFrame {
 				  String prezime=textField_1.getText();
 				  String jmbg=textField_2.getText();
 				  String tel=textField_3.getText();
-				  String username=textField_3.getText();
-				  String password=textField_4.getText();
-				  Date datum=(Date) dateChooser.getDate();
+				  String username=textField_4.getText();
+				  String password=textField_5.getText();
+				  //Date datum=(Date) dateChooser.getDate();
 				  
-				  Korisnik k=new Korisnik(6,ime,prezime,jmbg,tel,username,password,datum);
+				  Korisnik k=new Korisnik(6,ime,prezime,jmbg,tel,username,password,new Date());
 				  session.save(k);
 				  System.out.println("Dodan korisnik"); 
 				  t.commit(); 
@@ -153,7 +145,7 @@ public class DodajKorisnika extends JFrame {
 			}
 			
 		});
-		btnDodaj.setBounds(114, 226, 89, 23);
+		btnDodaj.setBounds(114, 194, 89, 23);
 		contentPane.add(btnDodaj);
 		
 		JButton button_1 = new JButton("Iza\u0111i");
@@ -162,7 +154,7 @@ public class DodajKorisnika extends JFrame {
 				dispose();
 			}
 		});
-		button_1.setBounds(213, 226, 89, 23);
+		button_1.setBounds(213, 194, 89, 23);
 		contentPane.add(button_1);
 	}
 }
