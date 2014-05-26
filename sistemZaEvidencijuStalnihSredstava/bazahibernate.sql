@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.12
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 26, 2014 at 02:52 PM
--- Server version: 5.5.36
--- PHP Version: 5.4.27
+-- Generation Time: May 26, 2014 at 04:10 PM
+-- Server version: 5.6.16
+-- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `bazahibernate`
 --
+CREATE DATABASE IF NOT EXISTS `bazahibernate` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `bazahibernate`;
 
 -- --------------------------------------------------------
 
@@ -32,14 +34,14 @@ CREATE TABLE IF NOT EXISTS `administrator` (
   `USERNAME` varchar(255) DEFAULT NULL,
   `PASSWORD` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `administrator`
 --
 
 INSERT INTO `administrator` (`ID`, `USERNAME`, `PASSWORD`) VALUES
-(1, 'Administrator', 'admin');
+(1, 'Administrator', '21232f297a57a5a743894a0e4a801fc3');
 
 -- --------------------------------------------------------
 
@@ -58,17 +60,15 @@ CREATE TABLE IF NOT EXISTS `korisnik` (
   `PASSWORD` varchar(255) DEFAULT NULL,
   `DATUMKREIRANJA` datetime DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `korisnik`
 --
 
 INSERT INTO `korisnik` (`ID`, `IME`, `PREZIME`, `JMBG`, `BRTEL`, `USERNAME`, `PASSWORD`, `DATUMKREIRANJA`) VALUES
-(1, 'jasmin', 'ackaposkc', '1801992', '1516161', '1516161', 'hehea', '2014-05-26 00:00:00'),
-(2, 'Jasmin', 'Cebo', '1801992170022', '062170128', '062170128', 'Jasminos', '2014-05-26 00:00:00'),
-(3, 'Jasmin', 'Cebo', '1801992170022', '062170128', 'Jasminos', '1801992', '2014-05-26 00:00:00'),
-(4, 'Amina', 'Djonko', '1123587690068', '123456456', 'amina', 'amina', '2014-05-26 14:35:09');
+(6, 'Kenan', 'Ekinovic', '123432234', '123123123', 'hjuhefner', '67fe3cd004b5e5d3265d49f447005135', '2014-05-26 15:14:44'),
+(7, 'Dajan', 'Bracko', '123123123232', '123123123', 'dajo', 'eaa3e4926b712e1c31c2c9aad1d8e8e0', '2014-05-26 15:59:57');
 
 -- --------------------------------------------------------
 
@@ -81,7 +81,15 @@ CREATE TABLE IF NOT EXISTS `tipstalnogsredstva` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `NAZIV` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `tipstalnogsredstva`
+--
+
+INSERT INTO `tipstalnogsredstva` (`ID`, `NAZIV`) VALUES
+(1, 'namjestaj'),
+(2, 'Hardver');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
