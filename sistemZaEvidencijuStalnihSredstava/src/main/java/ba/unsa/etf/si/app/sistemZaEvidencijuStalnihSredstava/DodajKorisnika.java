@@ -3,6 +3,7 @@ package ba.unsa.etf.si.app.sistemZaEvidencijuStalnihSredstava;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
@@ -138,6 +139,9 @@ public class DodajKorisnika extends JFrame {
 				session.save(k);
 				System.out.println("Dodan korisnik");
 				t.commit();
+				
+				JOptionPane.showMessageDialog(null, "Korisnik dodan.");
+		        dispose();
 
 			}
 

@@ -89,6 +89,7 @@ public class DodavanjeNovogSS extends JFrame {
 		textField.setColumns(10);
 		
 		JComboBox comboBox1 = new JComboBox();
+		
 		comboBox1.setBounds(147, 36, 181, 20);
 		contentPane.add(comboBox1);
 		

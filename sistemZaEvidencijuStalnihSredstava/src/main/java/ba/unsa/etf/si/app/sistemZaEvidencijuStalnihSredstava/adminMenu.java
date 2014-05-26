@@ -46,7 +46,7 @@ public class adminMenu extends  JFrame{
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Menu za administratora");
-		setBounds(100, 100, 276, 307);
+		setBounds(100, 100, 277, 347);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -101,7 +101,17 @@ public class adminMenu extends  JFrame{
 				gi.setVisible(true);
 			}
 		});
-		btnGenerisanjeIzvjetaja.setBounds(37, 212, 185, 34);
+		btnGenerisanjeIzvjetaja.setBounds(38, 257, 185, 34);
 		contentPane.add(btnGenerisanjeIzvjetaja);
+		
+		JButton btnDodavanjeTipa = new JButton("Dodaj tip stalnog sredstva");
+		btnDodavanjeTipa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				DodavanjeTipaSS dt= new DodavanjeTipaSS ();
+				dt.setVisible(true);
+			}
+		});
+		btnDodavanjeTipa.setBounds(38, 212, 184, 34);
+		contentPane.add(btnDodavanjeTipa);
 	}
 }
