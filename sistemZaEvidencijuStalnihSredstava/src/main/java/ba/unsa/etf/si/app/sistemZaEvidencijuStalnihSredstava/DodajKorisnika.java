@@ -40,7 +40,7 @@ public class DodajKorisnika extends JFrame {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JPasswordField passwordField;
-
+	private Session session;
 	/**
 	 * Launch the application.
 	 */
@@ -48,8 +48,10 @@ public class DodajKorisnika extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					DodajKorisnika frame = new DodajKorisnika();
+					Session sesija = HibernateUtil.getSessionFactory().openSession();
+					DodajKorisnika frame = new DodajKorisnika(sesija);
 					frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -60,7 +62,8 @@ public class DodajKorisnika extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public DodajKorisnika() {
+	public DodajKorisnika(Session sesija) {
+		session = sesija;
 		setTitle("Dodavanje korisnika");
 		setBounds(100, 100, 341, 269);
 		contentPane = new JPanel();
@@ -120,10 +123,7 @@ public class DodajKorisnika extends JFrame {
 		JButton btnDodaj = new JButton("Dodaj");
 		btnDodaj.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Session session = HibernateUtil.getSessionFactory()
-						.openSession();
 				Transaction t = session.beginTransaction();
-
 				String ime = textField.getText();
 				String prezime = textField_1.getText();
 				String jmbg = textField_2.getText();
@@ -131,10 +131,8 @@ public class DodajKorisnika extends JFrame {
 				String username = textField_4.getText();
 				String password = passwordField.getText();
 				// Date datum=(Date) dateChooser.getDate();
-
 				Korisnik k = new Korisnik(6, ime, prezime, jmbg, tel, username,
 						HibernateUtil.md5(password), new Date());
-
 				// Administrator k = new Administrator();
 				session.save(k);
 				System.out.println("Dodan korisnik");

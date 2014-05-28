@@ -55,7 +55,7 @@ public class adminMenu extends  JFrame{
 		JButton btnDodavanjeKorisnika = new JButton("Dodavanje korisnika");
 		btnDodavanjeKorisnika.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				DodajKorisnika dk= new DodajKorisnika ();
+				DodajKorisnika dk= new DodajKorisnika (session);
 				dk.setVisible(true);
 			}
 		});
