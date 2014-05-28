@@ -24,6 +24,7 @@ public class DodavanjeTipaSS extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
+	private Session session;
 
 	/**
 	 * Launch the application.
@@ -32,7 +33,8 @@ public class DodavanjeTipaSS extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					DodavanjeTipaSS frame = new DodavanjeTipaSS();
+					Session sesija = HibernateUtil.getSessionFactory().openSession();
+					DodavanjeTipaSS frame = new DodavanjeTipaSS(sesija);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,7 +46,8 @@ public class DodavanjeTipaSS extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public DodavanjeTipaSS() {
+	public DodavanjeTipaSS(Session sesija) {
+		session = sesija;
 		setTitle("Dodavanje tipa stalnog sredstva");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 360, 130);

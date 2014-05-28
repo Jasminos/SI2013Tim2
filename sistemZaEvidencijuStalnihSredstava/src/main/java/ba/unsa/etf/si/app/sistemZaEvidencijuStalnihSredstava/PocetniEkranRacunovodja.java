@@ -96,7 +96,7 @@ public class PocetniEkranRacunovodja extends JFrame {
 		JButton btnNewButton_2 = new JButton("Izmjena stalnog sredstva");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				IzmjenaStalnogSredstva iss= new IzmjenaStalnogSredstva();
+				IzmjenaStalnogSredstva iss= new IzmjenaStalnogSredstva(session);
 				iss.setVisible(true);
 			}
 		});

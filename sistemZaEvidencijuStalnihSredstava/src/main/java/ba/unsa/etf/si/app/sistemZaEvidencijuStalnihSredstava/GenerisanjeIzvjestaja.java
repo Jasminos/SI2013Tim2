@@ -10,12 +10,17 @@ import javax.swing.border.EmptyBorder;
 
 
 import javax.swing.JLabel;
-
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JCheckBox;
 import javax.swing.ButtonGroup;
+
+import org.hibernate.Session;
+
+import ba.unsa.etf.si.util.HibernateUtil;
 
 public class GenerisanjeIzvjestaja extends JFrame {
 
@@ -25,6 +30,7 @@ public class GenerisanjeIzvjestaja extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private Session session;
 
 	/**
 	 * Launch the application.
@@ -33,7 +39,8 @@ public class GenerisanjeIzvjestaja extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GenerisanjeIzvjestaja frame = new GenerisanjeIzvjestaja();
+					Session sesija = HibernateUtil.getSessionFactory().openSession();
+					GenerisanjeIzvjestaja frame = new GenerisanjeIzvjestaja(sesija);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,7 +52,8 @@ public class GenerisanjeIzvjestaja extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GenerisanjeIzvjestaja() {
+	public GenerisanjeIzvjestaja(Session sesija) {
+		session = sesija;
 		setTitle("Generisanje izvje\u0161taja");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 328, 285);
