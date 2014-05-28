@@ -135,10 +135,10 @@ public class DodajKorisnika extends JFrame {
 						HibernateUtil.md5(password), new Date());
 				// Administrator k = new Administrator();
 				session.save(k);
-				System.out.println("Dodan korisnik");
+				//System.out.println("Dodan korisnik");
 				t.commit();
-				
-				JOptionPane.showMessageDialog(null, "Korisnik dodan.");
+				JOptionPane.showMessageDialog(null,"Korisnik uspjesno dodan." );
+				//JOptionPane.showMessageDialog(null, "Korisnik dodan.");
 		        dispose();
 
 			}

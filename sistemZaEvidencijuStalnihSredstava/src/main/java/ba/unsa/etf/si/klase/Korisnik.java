@@ -85,14 +85,15 @@ public class Korisnik implements java.io.Serializable {
 		
 	}
 
-	private long getId() {
+	public long getId() {
 		return id;
 	}
 
 	private void setId(long id) {
 		this.id = id;
 	}
-
-
+	@Override public String toString(){
+		return getUsername();
+	}
 	
 }
