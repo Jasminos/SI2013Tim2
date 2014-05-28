@@ -56,7 +56,7 @@ public class PocetniEkranRacunovodja extends JFrame {
 		JButton btnNewButton = new JButton("Dodavanje stalnog sredstva");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				DodavanjeNovogSS dns= new DodavanjeNovogSS ();
+				DodavanjeNovogSS dns= new DodavanjeNovogSS (session);
 				dns.setVisible(true);
 			}
 		});

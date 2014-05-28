@@ -38,7 +38,7 @@ public class DodavanjeNovogSS extends JFrame {
 	private JComboBox comboBox1;
 	private JDateChooser kontrolaDatum;
 	private JTextField textLokacija;
-
+	private Session session;
 	/**
 	 * Launch the application.
 	 */
@@ -46,7 +46,8 @@ public class DodavanjeNovogSS extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					DodavanjeNovogSS frame = new DodavanjeNovogSS();
+					Session sesija = HibernateUtil.getSessionFactory().openSession();
+					DodavanjeNovogSS frame = new DodavanjeNovogSS(sesija);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -58,7 +59,8 @@ public class DodavanjeNovogSS extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public DodavanjeNovogSS() {
+	public DodavanjeNovogSS(Session sesija) {
+		session = sesija;
 		setTitle("Dodavanje stalnog sredstva");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 354, 186);
@@ -107,7 +109,7 @@ public class DodavanjeNovogSS extends JFrame {
 		btnDodaj.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				Session session = HibernateUtil.getSessionFactory().openSession();
+				
 				Transaction t = session.beginTransaction(); 
 				
 				  String nazivSS = textField.getText();
