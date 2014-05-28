@@ -143,6 +143,7 @@ public class izmjenaKorisnickihPodataka extends JFrame {
 				pom.setBrTel(textField_2.getText());
 				pom.setJmbg(textField_3.getText());
 				pom.setUsername(textField_4.getText());
+				pom.setPassword(HibernateUtil.md5(textField_5.getText()));
 				session.update(pom);
 				session.getTransaction().commit();
 				JOptionPane.showMessageDialog(null,"Korisnik uspjesno izmijenjen");

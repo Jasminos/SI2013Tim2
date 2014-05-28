@@ -48,7 +48,7 @@ public class adminMenu extends JFrame {
 		session = sesija;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Menu za administratora");
-		setBounds(100, 100, 277, 347);
+		setBounds(100, 100, 279, 376);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -61,7 +61,7 @@ public class adminMenu extends JFrame {
 				dk.setVisible(true);
 			}
 		});
-		btnDodavanjeKorisnika.setBounds(38, 27, 184, 34);
+		btnDodavanjeKorisnika.setBounds(42, 17, 184, 34);
 		contentPane.add(btnDodavanjeKorisnika);
 
 		JButton btnBrisanjeKorisnika = new JButton("Brisanje korisnika");
@@ -71,7 +71,7 @@ public class adminMenu extends JFrame {
 				ok.setVisible(true);
 			}
 		});
-		btnBrisanjeKorisnika.setBounds(38, 72, 184, 34);
+		btnBrisanjeKorisnika.setBounds(42, 107, 184, 34);
 		contentPane.add(btnBrisanjeKorisnika);
 
 		JButton btnIzmjenaKorisnika = new JButton("Izmjena korisnika");
@@ -81,7 +81,7 @@ public class adminMenu extends JFrame {
 				ikp.setVisible(true);
 			}
 		});
-		btnIzmjenaKorisnika.setBounds(38, 117, 184, 34);
+		btnIzmjenaKorisnika.setBounds(42, 152, 184, 34);
 		contentPane.add(btnIzmjenaKorisnika);
 
 		JButton btnPregledKorisnika = new JButton("Pregled korisnika");
@@ -93,7 +93,7 @@ public class adminMenu extends JFrame {
 
 			}
 		});
-		btnPregledKorisnika.setBounds(38, 167, 184, 34);
+		btnPregledKorisnika.setBounds(42, 202, 184, 34);
 		contentPane.add(btnPregledKorisnika);
 
 		JButton btnGenerisanjeIzvjetaja = new JButton(
@@ -104,7 +104,7 @@ public class adminMenu extends JFrame {
 				gi.setVisible(true);
 			}
 		});
-		btnGenerisanjeIzvjetaja.setBounds(38, 257, 185, 34);
+		btnGenerisanjeIzvjetaja.setBounds(42, 292, 185, 34);
 		contentPane.add(btnGenerisanjeIzvjetaja);
 
 		JButton btnDodavanjeTipa = new JButton("Dodaj tip stalnog sredstva");
@@ -114,7 +114,17 @@ public class adminMenu extends JFrame {
 				dt.setVisible(true);
 			}
 		});
-		btnDodavanjeTipa.setBounds(38, 212, 184, 34);
+		btnDodavanjeTipa.setBounds(42, 247, 184, 34);
 		contentPane.add(btnDodavanjeTipa);
+		
+		JButton btnNewButton = new JButton("Izmjena admin passworda");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				IzmjenaPassAdmin izmjena= new IzmjenaPassAdmin(session);
+				izmjena.setVisible(true);
+			}
+		});
+		btnNewButton.setBounds(42, 62, 184, 34);
+		contentPane.add(btnNewButton);
 	}
 }
