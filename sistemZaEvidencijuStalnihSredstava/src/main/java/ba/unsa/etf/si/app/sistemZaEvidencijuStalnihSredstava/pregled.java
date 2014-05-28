@@ -16,12 +16,15 @@ import java.awt.Button;
 
 import javax.swing.JTextField;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
+import ba.unsa.etf.si.klase.Korisnik;
 import ba.unsa.etf.si.util.HibernateUtil;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 public class pregled extends JFrame {
 
@@ -54,6 +57,31 @@ public class pregled extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	void refreshList(String ness)
+	{
+		DefaultTableModel t = new DefaultTableModel(
+				new String[] {
+					"Ime", "Prezime", "JMBG", "Telefon", "Username"},0
+			);
+			Query query = session.createQuery("from Korisnik");
+			List<Korisnik> korisnici = (List<Korisnik>) query.list();
+			for (int i = 0; i < korisnici.size(); i++) {
+	            Korisnik kor = korisnici.get(i);
+
+	            String[] data = new String[5];
+
+	            data[0] = kor.getIme();
+	            data[1] = kor.getPrezime();
+	            data[2] = kor.getJmbg();
+	            data[3] = kor.getBrTel();
+	            data[4] = kor.getUsername();
+	            if(data[0].contains(ness) || data[1].contains(ness) || data[2].contains(ness) || data[3].contains(ness) || data[4].contains(ness))
+	            {
+	            	t.addRow(data);
+	            }
+	        }
+			table.setModel(t);
+	}
 	public pregled(Session sesija) {
 		session = sesija;
 		setTitle("Pregled korisnika");
@@ -65,45 +93,16 @@ public class pregled extends JFrame {
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 107, 511, 197);
+		scrollPane.setBounds(10, 59, 511, 245);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"Ime", "Prezime", "JMBG", "Telefon", "Username", "Password", "Datum", "Vrijeme"
-			}
-		));
-		table.getColumnModel().getColumn(4).setPreferredWidth(85);
-		table.getColumnModel().getColumn(5).setPreferredWidth(85);
+		refreshList("");
 		scrollPane.setViewportView(table);
-		
-		Label label = new Label("Sortiraj:");
-		label.setBounds(24, 62, 62, 22);
-		contentPane.add(label);
 		
 		Label label_1 = new Label("Pretra\u017Ei:");
 		label_1.setBounds(24, 26, 62, 22);
 		contentPane.add(label_1);
-		
-		Choice choice_1 = new Choice();
-		choice_1.setBounds(81, 64, 154, 20);
-		contentPane.add(choice_1);
 		
 		Button button = new Button("Iza\u0111i");
 		button.addActionListener(new ActionListener() {
@@ -115,6 +114,11 @@ public class pregled extends JFrame {
 		contentPane.add(button);
 		
 		textField = new JTextField();
+		textField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				refreshList(textField.getText());
+			}
+		});
 		textField.setBounds(85, 28, 150, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
