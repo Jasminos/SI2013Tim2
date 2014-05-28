@@ -31,8 +31,7 @@ public class adminMenu extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Session sesija = HibernateUtil.getSessionFactory()
-							.openSession();
+					Session sesija = HibernateUtil.getSessionFactory().openSession();
 					adminMenu frame = new adminMenu(sesija);
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -46,7 +45,7 @@ public class adminMenu extends JFrame {
 	 * Create the frame.
 	 */
 	public adminMenu(Session sesija) {
-
+		session = sesija;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Menu za administratora");
 		setBounds(100, 100, 277, 347);

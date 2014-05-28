@@ -9,16 +9,21 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import ba.unsa.etf.si.klase.Korisnik;
 import ba.unsa.etf.si.util.HibernateUtil;
 
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.JButton;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.List;
+
+import javax.swing.JComboBox;
 
 public class izmjenaKorisnickihPodataka extends JFrame {
 
@@ -33,8 +38,8 @@ public class izmjenaKorisnickihPodataka extends JFrame {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
-	private JTextField textField_6;
 	private Session session;
+	private JComboBox kombo;
 
 	/**
 	 * Launch the application.
@@ -58,97 +63,93 @@ public class izmjenaKorisnickihPodataka extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	public List<Korisnik> KorisniciSvi()
+	{
+		Query query = session.createQuery("from Korisnik");
+		List<Korisnik> results = (List<Korisnik>) query.list();
+		return results;
+	}
 	public izmjenaKorisnickihPodataka(Session sesija) {
 		session = sesija;
 		setTitle("Izmjena korisni\u010Dkih podataka");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 297, 340);
+		setBounds(100, 100, 297, 276);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JLabel lblPromijeniIme = new JLabel("Novo ime:");
-		lblPromijeniIme.setBounds(60, 32, 96, 14);
+		lblPromijeniIme.setBounds(60, 45, 96, 14);
 		contentPane.add(lblPromijeniIme);
 
 		JLabel lblPromijeniPrezime = new JLabel("Novo prezime:");
-		lblPromijeniPrezime.setBounds(41, 57, 96, 14);
+		lblPromijeniPrezime.setBounds(41, 70, 96, 14);
 		contentPane.add(lblPromijeniPrezime);
 
 		JLabel lblNewLabel = new JLabel("Novi broj telefona:");
-		lblNewLabel.setBounds(20, 85, 106, 14);
+		lblNewLabel.setBounds(20, 98, 106, 14);
 		contentPane.add(lblNewLabel);
 
 		JLabel lblNoviJmbg = new JLabel("Novi JMBG:");
-		lblNoviJmbg.setBounds(60, 112, 64, 14);
+		lblNoviJmbg.setBounds(60, 125, 64, 14);
 		contentPane.add(lblNoviJmbg);
 
 		JLabel lblNoviUsername = new JLabel("Novi username:");
-		lblNoviUsername.setBounds(41, 137, 96, 14);
+		lblNoviUsername.setBounds(41, 150, 96, 14);
 		contentPane.add(lblNoviUsername);
 
 		JLabel lblNovaLozinka = new JLabel("Nova lozinka: ");
-		lblNovaLozinka.setBounds(51, 162, 86, 14);
+		lblNovaLozinka.setBounds(51, 175, 86, 14);
 		contentPane.add(lblNovaLozinka);
 
-		JLabel lblDatumPromjene = new JLabel("Datum promjene:");
-		lblDatumPromjene.setBounds(30, 192, 126, 14);
-		contentPane.add(lblDatumPromjene);
-
-		JLabel lblVrijemePromjene = new JLabel("Vrijeme promjene:");
-		lblVrijemePromjene.setBounds(22, 217, 134, 14);
-		contentPane.add(lblVrijemePromjene);
-
 		textField = new JTextField();
-		textField.setBounds(137, 29, 86, 20);
+		textField.setBounds(137, 42, 86, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
-		textField_1.setBounds(137, 57, 86, 20);
+		textField_1.setBounds(137, 70, 86, 20);
 		contentPane.add(textField_1);
 
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
-		textField_2.setBounds(137, 82, 86, 20);
+		textField_2.setBounds(137, 95, 86, 20);
 		contentPane.add(textField_2);
 
 		textField_3 = new JTextField();
 		textField_3.setColumns(10);
-		textField_3.setBounds(137, 109, 86, 20);
+		textField_3.setBounds(137, 122, 86, 20);
 		contentPane.add(textField_3);
 
 		textField_4 = new JTextField();
 		textField_4.setColumns(10);
-		textField_4.setBounds(137, 134, 86, 20);
+		textField_4.setBounds(137, 147, 86, 20);
 		contentPane.add(textField_4);
 
 		textField_5 = new JTextField();
 		textField_5.setColumns(10);
-		textField_5.setBounds(137, 162, 86, 20);
+		textField_5.setBounds(137, 175, 86, 20);
 		contentPane.add(textField_5);
-
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(136, 187, 91, 20);
-		contentPane.add(dateChooser);
-
-		textField_6 = new JTextField();
-		textField_6.setBounds(137, 214, 86, 20);
-		contentPane.add(textField_6);
-		textField_6.setColumns(10);
 
 		JButton button = new JButton("Uredu");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane
-						.showMessageDialog(
-								null,
-								"Nije implementirano! \nKlikom na ovo dugme novi korisni�ki podaci �e biti spa�eni.");
+				session.beginTransaction();
+				Korisnik pom = ((Korisnik)kombo.getSelectedItem());
+				pom.setIme(textField.getText());
+				pom.setPrezime(textField_1.getText());
+				pom.setBrTel(textField_2.getText());
+				pom.setJmbg(textField_3.getText());
+				pom.setUsername(textField_4.getText());
+				session.update(pom);
+				session.getTransaction().commit();
+				JOptionPane.showMessageDialog(null,"Korisnik uspjesno izmijenjen");
+				dispose();
 			}
 		});
-		button.setBounds(71, 264, 89, 23);
+		button.setBounds(83, 203, 89, 23);
 		contentPane.add(button);
 
 		JButton button_1 = new JButton("Iza\u0111i");
@@ -157,7 +158,31 @@ public class izmjenaKorisnickihPodataka extends JFrame {
 				dispose();
 			}
 		});
-		button_1.setBounds(170, 264, 89, 23);
+		button_1.setBounds(182, 203, 89, 23);
 		contentPane.add(button_1);
+		
+		JComboBox comboBox = new JComboBox(KorisniciSvi().toArray());
+		comboBox.setBounds(137, 17, 86, 20);
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textField.setText(((Korisnik) kombo.getSelectedItem()).getIme());
+				textField_1.setText(((Korisnik) kombo.getSelectedItem()).getPrezime());
+				textField_2.setText(((Korisnik) kombo.getSelectedItem()).getBrTel());
+				textField_3.setText(((Korisnik) kombo.getSelectedItem()).getJmbg());
+				textField_4.setText(((Korisnik) kombo.getSelectedItem()).getUsername());
+			}
+		});
+		contentPane.add(comboBox);
+		kombo = comboBox;
+		
+		JLabel lblKorisnik = new JLabel("Korisnik:");
+		lblKorisnik.setBounds(70, 23, 86, 14);
+		contentPane.add(lblKorisnik);
+
+		textField.setText(((Korisnik) kombo.getSelectedItem()).getIme());
+		textField_1.setText(((Korisnik) kombo.getSelectedItem()).getPrezime());
+		textField_2.setText(((Korisnik) kombo.getSelectedItem()).getBrTel());
+		textField_3.setText(((Korisnik) kombo.getSelectedItem()).getJmbg());
+		textField_4.setText(((Korisnik) kombo.getSelectedItem()).getUsername());
 	}
 }
