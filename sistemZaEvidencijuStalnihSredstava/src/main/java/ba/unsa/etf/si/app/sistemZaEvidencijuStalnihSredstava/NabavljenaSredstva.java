@@ -16,9 +16,15 @@ import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import javax.swing.JSpinner;
+
+import org.hibernate.Session;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+
+import ba.unsa.etf.si.util.HibernateUtil;
+
 import com.toedter.calendar.JDateChooser;
 
 public class NabavljenaSredstva extends JFrame {
@@ -29,6 +35,7 @@ public class NabavljenaSredstva extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
+	private Session session;
 
 	/**
 	 * Launch the application.
@@ -37,7 +44,8 @@ public class NabavljenaSredstva extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					NabavljenaSredstva frame = new NabavljenaSredstva();
+					Session sesija = HibernateUtil.getSessionFactory().openSession();
+					NabavljenaSredstva frame = new NabavljenaSredstva(sesija);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,7 +57,8 @@ public class NabavljenaSredstva extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public NabavljenaSredstva() {
+	public NabavljenaSredstva(Session sesija) {
+		session = sesija;
 		setTitle("Nabavljena stalna sredstva");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 522, 339);

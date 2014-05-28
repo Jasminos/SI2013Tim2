@@ -100,19 +100,19 @@ public class GenerisanjeIzvjestaja extends JFrame {
 				
 				if (chckbxNewCheckBox.isSelected()){
 					
-					NabavljenaSredstva ns= new NabavljenaSredstva();
+					NabavljenaSredstva ns= new NabavljenaSredstva(session);
 					ns.setVisible(true);
 					
 				}
 				
 				else if (chckbxStalnaSredstvaStavljena.isSelected()){
 					
-					StalnaSredstvaUUpotrebi1 ssuu= new StalnaSredstvaUUpotrebi1 ();
+					StalnaSredstvaUUpotrebi1 ssuu= new StalnaSredstvaUUpotrebi1 (session);
 					ssuu.setVisible(true);
 				}
 				else if (chckbxOtpisanaprodanaStalnaSredstva.isSelected()){
 					
-					OtpisanaiProdanaSredstva ops= new OtpisanaiProdanaSredstva();
+					OtpisanaiProdanaSredstva ops= new OtpisanaiProdanaSredstva(session);
 					ops.setVisible(true);
 					}
 				

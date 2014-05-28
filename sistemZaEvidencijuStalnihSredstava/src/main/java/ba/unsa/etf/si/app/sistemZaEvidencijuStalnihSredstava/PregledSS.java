@@ -14,6 +14,11 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import org.hibernate.Session;
+
+import ba.unsa.etf.si.util.HibernateUtil;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -26,6 +31,7 @@ public class PregledSS extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTable table;
+	private Session session;
 
 	/**
 	 * Launch the application.
@@ -34,7 +40,8 @@ public class PregledSS extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PregledSS frame = new PregledSS();
+					Session sesija = HibernateUtil.getSessionFactory().openSession();
+					PregledSS frame = new PregledSS(sesija);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,7 +53,8 @@ public class PregledSS extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PregledSS() {
+	public PregledSS(Session sesija) {
+		session = sesija;
 		setTitle("Pregled stalnh sredstava");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 597, 388);

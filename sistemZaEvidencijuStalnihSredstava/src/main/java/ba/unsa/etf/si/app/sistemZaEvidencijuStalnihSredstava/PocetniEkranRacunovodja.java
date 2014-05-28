@@ -66,7 +66,7 @@ public class PocetniEkranRacunovodja extends JFrame {
 		JButton btnNewButton_1 = new JButton("Stavljanje stalnog sredstva u upotrebu");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				StavljanjeSredstvaUUpotrebu ssuup= new StavljanjeSredstvaUUpotrebu();
+				StavljanjeSredstvaUUpotrebu ssuup= new StavljanjeSredstvaUUpotrebu(session);
 				ssuup.setVisible(true);
 			}
 		});
@@ -76,7 +76,7 @@ public class PocetniEkranRacunovodja extends JFrame {
 		JButton btnPregledStalnihSredstava = new JButton("Pregled stalnih sredstava");
 		btnPregledStalnihSredstava.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PregledSS pss= new PregledSS();
+				PregledSS pss= new PregledSS(session);
 				pss.setVisible(true);
 			}
 		});
@@ -86,7 +86,7 @@ public class PocetniEkranRacunovodja extends JFrame {
 		JButton btnTabelarniPrikazAmortizacije = new JButton("Tabelarni prikaz amortizacije stalnog sredstva");
 		btnTabelarniPrikazAmortizacije.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TabelarniPrikazAmortizacije tpa= new TabelarniPrikazAmortizacije ();
+				TabelarniPrikazAmortizacije tpa= new TabelarniPrikazAmortizacije (session);
 				tpa.setVisible(true);
 			}
 		});
@@ -106,7 +106,7 @@ public class PocetniEkranRacunovodja extends JFrame {
 		JButton btnOtpisprodajaStalnogSredsta = new JButton("Otpis/prodaja stalnog sredsta");
 		btnOtpisprodajaStalnogSredsta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				OtpisProdajaSS opss= new OtpisProdajaSS();
+				OtpisProdajaSS opss= new OtpisProdajaSS(session);
 				opss.setVisible(true);
 			}
 		});

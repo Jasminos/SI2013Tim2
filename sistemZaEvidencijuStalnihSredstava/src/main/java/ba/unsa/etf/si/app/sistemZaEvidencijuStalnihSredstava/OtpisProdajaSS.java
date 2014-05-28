@@ -11,10 +11,16 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.ButtonGroup;
+
+import org.hibernate.Session;
+
+import ba.unsa.etf.si.util.HibernateUtil;
 
 public class OtpisProdajaSS extends JFrame {
 
@@ -25,6 +31,7 @@ public class OtpisProdajaSS extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private Session session;
 
 	/**
 	 * Launch the application.
@@ -33,7 +40,8 @@ public class OtpisProdajaSS extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					OtpisProdajaSS frame = new OtpisProdajaSS();
+					Session sesija = HibernateUtil.getSessionFactory().openSession();
+					OtpisProdajaSS frame = new OtpisProdajaSS(sesija);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,7 +53,8 @@ public class OtpisProdajaSS extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public OtpisProdajaSS() {
+	public OtpisProdajaSS(Session sesija) {
+		session = sesija;
 		setTitle("Otpisivanje/prodaja stalnog sredstva");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 407, 235);

@@ -11,6 +11,10 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
+import org.hibernate.Session;
+
+import ba.unsa.etf.si.util.HibernateUtil;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -21,6 +25,7 @@ public class ObrisiKorisnika extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private Session session;
 
 	/**
 	 * Launch the application.
@@ -29,7 +34,8 @@ public class ObrisiKorisnika extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ObrisiKorisnika frame = new ObrisiKorisnika();
+					Session sesija = HibernateUtil.getSessionFactory().openSession();
+					ObrisiKorisnika frame = new ObrisiKorisnika(sesija);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,7 +47,8 @@ public class ObrisiKorisnika extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ObrisiKorisnika() {
+	public ObrisiKorisnika(Session sesija) {
+		session = sesija;
 		setTitle("Brisanje korisnika");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 302, 242);

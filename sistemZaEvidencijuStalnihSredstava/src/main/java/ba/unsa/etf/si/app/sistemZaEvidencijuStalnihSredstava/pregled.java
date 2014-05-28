@@ -6,15 +6,20 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
 import javax.swing.JScrollPane;
+
 import java.awt.Choice;
 import java.awt.Label;
 import java.awt.Button;
+
 import javax.swing.JTextField;
+
+import org.hibernate.Session;
+
+import ba.unsa.etf.si.util.HibernateUtil;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -27,6 +32,7 @@ public class pregled extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private JTextField textField;
+	private Session session;
 
 	/**
 	 * Launch the application.
@@ -35,7 +41,8 @@ public class pregled extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					pregled frame = new pregled();
+					Session sesija = HibernateUtil.getSessionFactory().openSession();
+					pregled frame = new pregled(sesija);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,7 +54,8 @@ public class pregled extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public pregled() {
+	public pregled(Session sesija) {
+		session = sesija;
 		setTitle("Pregled korisnika");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 544, 397);

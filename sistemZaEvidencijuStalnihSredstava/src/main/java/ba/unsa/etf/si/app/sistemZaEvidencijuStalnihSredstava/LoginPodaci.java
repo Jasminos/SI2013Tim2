@@ -28,6 +28,7 @@ public class LoginPodaci extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private Session session;
 
 	/**
 	 * Launch the application.
@@ -36,7 +37,8 @@ public class LoginPodaci extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LoginPodaci frame = new LoginPodaci();
+					Session sesija = HibernateUtil.getSessionFactory().openSession();
+					LoginPodaci frame = new LoginPodaci(sesija);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,7 +50,8 @@ public class LoginPodaci extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public LoginPodaci() {
+	public LoginPodaci(Session sesija) {
+		session = sesija;
 		setTitle("Login podaci");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 305, 342);

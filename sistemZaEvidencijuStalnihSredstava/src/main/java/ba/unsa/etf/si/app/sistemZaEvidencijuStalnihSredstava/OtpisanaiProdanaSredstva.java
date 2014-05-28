@@ -9,6 +9,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import javax.swing.JLabel;
+
+import ba.unsa.etf.si.util.HibernateUtil;
+
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.JOptionPane;
@@ -16,6 +19,9 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+
+import org.hibernate.Session;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -28,6 +34,7 @@ public class OtpisanaiProdanaSredstva extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
+	private Session session;
 
 	/**
 	 * Launch the application.
@@ -36,7 +43,8 @@ public class OtpisanaiProdanaSredstva extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					OtpisanaiProdanaSredstva frame = new OtpisanaiProdanaSredstva();
+					Session sesija = HibernateUtil.getSessionFactory().openSession();
+					OtpisanaiProdanaSredstva frame = new OtpisanaiProdanaSredstva(sesija);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,7 +56,8 @@ public class OtpisanaiProdanaSredstva extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public OtpisanaiProdanaSredstva() {
+	public OtpisanaiProdanaSredstva(Session sesija) {
+		session = sesija;
 		setTitle("Otpisana/prodana stalna sredstva");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 543, 467);

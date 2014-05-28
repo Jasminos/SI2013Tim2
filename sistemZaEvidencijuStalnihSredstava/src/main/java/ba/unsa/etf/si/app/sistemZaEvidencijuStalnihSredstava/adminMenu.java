@@ -68,7 +68,7 @@ public class adminMenu extends JFrame {
 		JButton btnBrisanjeKorisnika = new JButton("Brisanje korisnika");
 		btnBrisanjeKorisnika.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ObrisiKorisnika ok = new ObrisiKorisnika();
+				ObrisiKorisnika ok = new ObrisiKorisnika(session);
 				ok.setVisible(true);
 			}
 		});
@@ -89,7 +89,7 @@ public class adminMenu extends JFrame {
 		btnPregledKorisnika.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				pregled p = new pregled();
+				pregled p = new pregled(session);
 				p.setVisible(true);
 
 			}

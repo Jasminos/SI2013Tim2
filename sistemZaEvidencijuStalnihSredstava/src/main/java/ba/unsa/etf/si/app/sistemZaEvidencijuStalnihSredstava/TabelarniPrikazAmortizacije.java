@@ -12,6 +12,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
+
+import org.hibernate.Session;
+
+import ba.unsa.etf.si.util.HibernateUtil;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -28,6 +33,7 @@ public class TabelarniPrikazAmortizacije extends JFrame {
 	private JScrollPane scrollPane;
 	private JTable table;
 	private JButton btnIzai;
+	private Session session;
 
 	/**
 	 * Launch the application.
@@ -36,7 +42,8 @@ public class TabelarniPrikazAmortizacije extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TabelarniPrikazAmortizacije frame = new TabelarniPrikazAmortizacije();
+					Session sesija = HibernateUtil.getSessionFactory().openSession();
+					TabelarniPrikazAmortizacije frame = new TabelarniPrikazAmortizacije(sesija);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,7 +55,8 @@ public class TabelarniPrikazAmortizacije extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TabelarniPrikazAmortizacije() {
+	public TabelarniPrikazAmortizacije(Session sesija) {
+		session = sesija;
 		setTitle("Tabelarni prikaz amortizacije");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 432, 387);

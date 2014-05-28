@@ -9,15 +9,23 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+
+import ba.unsa.etf.si.util.HibernateUtil;
+
 import com.toedter.calendar.JDateChooser;
+
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.ButtonGroup;
+
+import org.hibernate.Session;
 
 public class StavljanjeSredstvaUUpotrebu extends JFrame {
 
@@ -28,6 +36,7 @@ public class StavljanjeSredstvaUUpotrebu extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private Session session;
 
 	/**
 	 * Launch the application.
@@ -36,7 +45,8 @@ public class StavljanjeSredstvaUUpotrebu extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					StavljanjeSredstvaUUpotrebu frame = new StavljanjeSredstvaUUpotrebu();
+					Session sesija = HibernateUtil.getSessionFactory().openSession();
+					StavljanjeSredstvaUUpotrebu frame = new StavljanjeSredstvaUUpotrebu(sesija);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,7 +58,8 @@ public class StavljanjeSredstvaUUpotrebu extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public StavljanjeSredstvaUUpotrebu() {
+	public StavljanjeSredstvaUUpotrebu(Session sesija) {
+		session = sesija;
 		setTitle("Stavljanje stalnog sredstva u upotrebu");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 404, 305);
