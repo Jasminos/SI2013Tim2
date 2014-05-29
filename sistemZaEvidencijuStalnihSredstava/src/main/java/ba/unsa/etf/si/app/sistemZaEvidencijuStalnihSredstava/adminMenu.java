@@ -48,7 +48,7 @@ public class adminMenu extends JFrame {
 		session = sesija;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Menu za administratora");
-		setBounds(100, 100, 279, 376);
+		setBounds(100, 100, 279, 418);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -104,7 +104,7 @@ public class adminMenu extends JFrame {
 				gi.setVisible(true);
 			}
 		});
-		btnGenerisanjeIzvjetaja.setBounds(42, 292, 185, 34);
+		btnGenerisanjeIzvjetaja.setBounds(42, 334, 185, 34);
 		contentPane.add(btnGenerisanjeIzvjetaja);
 
 		JButton btnDodavanjeTipa = new JButton("Dodaj tip stalnog sredstva");
@@ -126,5 +126,15 @@ public class adminMenu extends JFrame {
 		});
 		btnNewButton.setBounds(42, 62, 184, 34);
 		contentPane.add(btnNewButton);
+		
+		JButton btnObrisiTipStalnog = new JButton("Obriši tip stalnog sredstva");
+		btnObrisiTipStalnog.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				BrisanjeTipaStalnogSredstva obrisiTip = new BrisanjeTipaStalnogSredstva(session);
+				obrisiTip.setVisible(true);
+			}
+		});
+		btnObrisiTipStalnog.setBounds(42, 292, 184, 34);
+		contentPane.add(btnObrisiTipStalnog);
 	}
 }

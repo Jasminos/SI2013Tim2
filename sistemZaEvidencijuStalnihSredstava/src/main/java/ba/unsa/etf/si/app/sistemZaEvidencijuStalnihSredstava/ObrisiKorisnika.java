@@ -106,8 +106,6 @@ public class ObrisiKorisnika extends JFrame {
 				 t.commit();
 				 JOptionPane.showMessageDialog(null,"Korisnik Obrisan");
 				 dispose();
-				 //JOptionPane.showMessageDialog(null, "Nije implementirano! \nKlikom na ovo dugme korisnik �e biti izbrisan.");
-				 
 			}
 		});
 		btnObrii.setBounds(53, 156, 89, 23);
