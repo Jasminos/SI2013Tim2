@@ -18,12 +18,15 @@ import com.toedter.calendar.JDateChooser;
 
 import javax.swing.JButton;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Date;
+import java.util.List;
+
 import javax.swing.JRadioButton;
 
 public class DodavanjeNovogSS extends JFrame {
@@ -39,6 +42,7 @@ public class DodavanjeNovogSS extends JFrame {
 	private JDateChooser kontrolaDatum;
 	private JTextField textLokacija;
 	private Session session;
+	private JComboBox kombo;
 	/**
 	 * Launch the application.
 	 */
@@ -59,6 +63,11 @@ public class DodavanjeNovogSS extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	public List<TipStalnogSredstva> SviTipovi(){
+		Query query = session.createQuery("from TipStalnogSredstva");
+		List<TipStalnogSredstva> results = (List<TipStalnogSredstva>) query.list();
+		return results;
+	}
 	public DodavanjeNovogSS(Session sesija) {
 		session = sesija;
 		setTitle("Dodavanje stalnog sredstva");
@@ -90,8 +99,12 @@ public class DodavanjeNovogSS extends JFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-		JComboBox comboBox1 = new JComboBox();
-		
+		JComboBox comboBox1 = new JComboBox(SviTipovi().toArray());		
+		comboBox1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 		comboBox1.setBounds(147, 36, 181, 20);
 		contentPane.add(comboBox1);
 		
@@ -105,13 +118,11 @@ public class DodavanjeNovogSS extends JFrame {
 		contentPane.add(textLokacija);
 		textLokacija.setColumns(10);
 		
+		kombo = comboBox1;
 		JButton btnDodaj = new JButton("Dodaj");
 		btnDodaj.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
-				Transaction t = session.beginTransaction(); 
-				
+			public void actionPerformed(ActionEvent e) {		
+				  session.getTransaction().begin();				
 				  String nazivSS = textField.getText();
 				  
 				  //TipStalnogSredstva tip=(TipStalnogSredstva) comboBox1.getSelectedItem();
@@ -119,12 +130,12 @@ public class DodavanjeNovogSS extends JFrame {
 				  Date datumNabavke = new Date();
 						 
 				  String lokacija = textLokacija.getText();
-				  StalnoSredstvo s = new StalnoSredstvo(nazivSS, lokacija, vrijednost, datumNabavke, new TipStalnogSredstva("ispravi ovo"));
+				  StalnoSredstvo s = new StalnoSredstvo(nazivSS, lokacija, vrijednost, datumNabavke,(TipStalnogSredstva)kombo.getSelectedItem());
 				  
 				  session.save(s);
-				  System.out.println("Dodano stalno sredstvo"); 
-				  t.commit(); 
-				 
+				  session.getTransaction().commit(); 
+				  JOptionPane.showMessageDialog(null,"Stalno sredstvo dodano.");
+				  dispose();
 			}
 		});
 		btnDodaj.setBounds(143, 117, 89, 23);

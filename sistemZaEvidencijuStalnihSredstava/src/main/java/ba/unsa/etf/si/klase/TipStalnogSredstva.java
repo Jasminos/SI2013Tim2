@@ -28,5 +28,8 @@ public class TipStalnogSredstva implements java.io.Serializable {
 	private void setNaziv(String naziv) {
 		this.naziv = naziv;
 	}
+	@Override public String toString(){
+		return getNaziv();
+	}
 
 }
