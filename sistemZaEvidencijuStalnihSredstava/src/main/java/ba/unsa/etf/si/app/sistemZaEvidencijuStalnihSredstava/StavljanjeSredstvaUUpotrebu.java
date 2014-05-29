@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 
+import ba.unsa.etf.si.klase.StalnoSredstvo;
 import ba.unsa.etf.si.util.HibernateUtil;
 
 import com.toedter.calendar.JDateChooser;
@@ -22,9 +23,12 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Date;
+import java.util.List;
 
 import javax.swing.ButtonGroup;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 public class StavljanjeSredstvaUUpotrebu extends JFrame {
@@ -37,6 +41,9 @@ public class StavljanjeSredstvaUUpotrebu extends JFrame {
 	private JTextField textField;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private Session session;
+	private JComboBox kombo;
+	private JRadioButton radio1;
+	private JRadioButton radio2;
 
 	/**
 	 * Launch the application.
@@ -58,6 +65,11 @@ public class StavljanjeSredstvaUUpotrebu extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	public List<StalnoSredstvo> SvaSredstva(){
+		Query query = session.createQuery("from StalnoSredstvo");
+		List<StalnoSredstvo> results = (List<StalnoSredstvo>) query.list();
+		return results;
+	}
 	public StavljanjeSredstvaUUpotrebu(Session sesija) {
 		session = sesija;
 		setTitle("Stavljanje stalnog sredstva u upotrebu");
@@ -72,9 +84,10 @@ public class StavljanjeSredstvaUUpotrebu extends JFrame {
 		lblIzaberiteStalnoSredstvo.setBounds(75, 26, 148, 14);
 		contentPane.add(lblIzaberiteStalnoSredstvo);
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox comboBox = new JComboBox(SvaSredstva().toArray());
 		comboBox.setBounds(243, 26, 109, 20);
 		contentPane.add(comboBox);
+		kombo = comboBox;
 		
 		JLabel lblDatumStavljanjaSredstva = new JLabel("Datum stavljanja sredstva u upotrebu:");
 		lblDatumStavljanjaSredstva.setBounds(11, 61, 222, 14);
@@ -108,11 +121,25 @@ public class StavljanjeSredstvaUUpotrebu extends JFrame {
 		buttonGroup.add(rdbtnNaKrajuGodine);
 		rdbtnNaKrajuGodine.setBounds(157, 68, 138, 23);
 		panel.add(rdbtnNaKrajuGodine);
+		radio1 = rdbtnNaKrajuMjeseca;
+		radio2 = rdbtnNaKrajuGodine;
 		
 		JButton btnStaviUUpotrebu = new JButton("Stavi u upotrebu");
 		btnStaviUUpotrebu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "Nije implementirano! \nKlikom na ovo dugme sredstvo �e biti stavljeno u upotrebu.");
+				session.getTransaction().begin();	
+				StalnoSredstvo ss = (StalnoSredstvo)kombo.getSelectedItem();
+				Date datumStavljanja = new Date();
+				Double stopa = Double.parseDouble(textField.getText());
+				boolean amortGod;
+			    if(radio2.isSelected())
+				 amortGod = true;
+			    else amortGod = false;
+			    ss.staviUUpotrebu(stopa, datumStavljanja, amortGod);
+			    session.update(ss);
+			    session.getTransaction().commit();
+				JOptionPane.showMessageDialog(null, "Sredstvo stavljeno u upotrebu.");
+				dispose();
 			}
 		});
 		btnStaviUUpotrebu.setBounds(138, 233, 131, 23);

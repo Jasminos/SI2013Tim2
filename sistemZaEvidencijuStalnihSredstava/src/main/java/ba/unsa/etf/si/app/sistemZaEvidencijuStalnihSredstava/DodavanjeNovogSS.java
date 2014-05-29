@@ -125,7 +125,6 @@ public class DodavanjeNovogSS extends JFrame {
 				  session.getTransaction().begin();				
 				  String nazivSS = textField.getText();
 				  
-				  //TipStalnogSredstva tip=(TipStalnogSredstva) comboBox1.getSelectedItem();
 				  Double vrijednost = Double.parseDouble(textVrijednost.getText());
 				  Date datumNabavke = new Date();
 						 

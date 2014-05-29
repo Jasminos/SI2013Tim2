@@ -52,8 +52,8 @@ package ba.unsa.etf.si.klase;
 			prodajnaCijena = 0;
 		}	
 		
-		public boolean staviUUpotrebu(double trenutna, double stopa, Date stavljanje, boolean amortizacija){
-			trenutnaVrijednost = trenutna;
+		public boolean staviUUpotrebu(double stopa, Date stavljanje, boolean amortizacija){
+			trenutnaVrijednost = this.nabavnaVrijednost;
 			stopaAmortizacije = stopa;
 			datumStavljanjaUUpotrebu = stavljanje;
 			godisnjaAmort = amortizacija;
@@ -211,5 +211,8 @@ package ba.unsa.etf.si.klase;
 
 		public void setProdajnaCijena(double prodajnaCijena) {
 			this.prodajnaCijena = prodajnaCijena;
+		}
+		@Override public String toString(){
+			return getNaziv();
 		}
 	}
