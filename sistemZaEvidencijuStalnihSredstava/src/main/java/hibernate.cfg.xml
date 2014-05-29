@@ -11,5 +11,6 @@
   <mapping resource="ba/unsa/etf/si/klase/Korisnik.hbm.xml"/>
   <mapping resource="ba/unsa/etf/si/klase/TipStalnogSredstva.hbm.xml"/>
   <mapping resource="ba/unsa/etf/si/klase/Administrator.hbm.xml"/>
+  <mapping resource="ba/unsa/etf/si/klase/StalnoSredstvo.hbm.xml"/>
  </session-factory>
 </hibernate-configuration>

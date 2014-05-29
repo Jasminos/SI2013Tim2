@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 29, 2014 1:46:08 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="ba.unsa.etf.si.klase.StalnoSredstvo" table="STALNOSREDSTVO">
+        <id name="id" type="long">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <property name="naziv" type="java.lang.String">
+            <column name="NAZIV" />
+        </property>
+        <property name="lokacija" type="java.lang.String">
+            <column name="LOKACIJA" />
+        </property>
+        <property name="nabavnaVrijednost" type="java.lang.Double">
+            <column name="NABAVNAVRIJEDNOST" />
+        </property>
+        <property name="datumNabavke" type="java.util.Date">
+            <column name="DATUMNABAVKE" />
+        </property>
+        <many-to-one name="tip" class="ba.unsa.etf.si.klase.TipStalnogSredstva" fetch="join">
+            <column name="TIP" />
+        </many-to-one>
+        <property name="uUpotrebi" type="boolean" access="field">
+            <column name="UUPOTREBI" />
+        </property>
+        <property name="trenutnaVrijednost" type="double">
+            <column name="TRENUTNAVRIJEDNOST" />
+        </property>
+        <property name="stopaAmortizacije" type="double">
+            <column name="STOPAAMORTIZACIJE" />
+        </property>
+        <property name="datumStavljanjaUUpotrebu" type="java.util.Date">
+            <column name="DATUMSTAVLJANJAUUPOTREBU" />
+        </property>
+        <property name="godisnjaAmort" type="boolean">
+            <column name="GODISNJAAMORT" />
+        </property>
+        <property name="otpisano" type="boolean">
+            <column name="OTPISANO" />
+        </property>
+        <property name="datumOtpisivanja" type="java.util.Date">
+            <column name="DATUMOTPISIVANJA" />
+        </property>
+        <property name="prodano" type="boolean">
+            <column name="PRODANO" />
+        </property>
+        <property name="datumProdaje" type="java.util.Date">
+            <column name="DATUMPRODAJE" />
+        </property>
+        <property name="prodajnaCijena" type="double">
+            <column name="PRODAJNACIJENA" />
+        </property>
+    </class>
+</hibernate-mapping>

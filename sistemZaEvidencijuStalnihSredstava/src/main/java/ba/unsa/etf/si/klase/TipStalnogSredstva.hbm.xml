@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated May 16, 2014 4:01:39 PM by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated May 29, 2014 1:46:08 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="ba.unsa.etf.si.klase.TipStalnogSredstva" table="TIPSTALNOGSREDSTVA">
         <id name="id" type="long">
