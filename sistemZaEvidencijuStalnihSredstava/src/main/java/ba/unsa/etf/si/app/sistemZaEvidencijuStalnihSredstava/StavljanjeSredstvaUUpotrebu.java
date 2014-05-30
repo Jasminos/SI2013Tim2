@@ -66,7 +66,7 @@ public class StavljanjeSredstvaUUpotrebu extends JFrame {
 	 * Create the frame.
 	 */
 	public List<StalnoSredstvo> SvaSredstva(){
-		Query query = session.createQuery("from StalnoSredstvo");
+		Query query = session.createQuery("from StalnoSredstvo where UUPOTREBI = false");
 		List<StalnoSredstvo> results = (List<StalnoSredstvo>) query.list();
 		return results;
 	}

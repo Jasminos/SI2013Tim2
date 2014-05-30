@@ -82,27 +82,26 @@ public class PregledSS extends JFrame {
 				podaci[5] = "Da";
 				podaci[6] = datumString(s.getDatumStavljanjaUUpotrebu());
 				podaci[7] = String.valueOf(s.getStopaAmortizacije());
-				if(s.isProdano()){
-					podaci[8] = "Da";
-					podaci[9] = datumString(s.getDatumProdaje());
-					podaci[10] = String.valueOf(s.getProdajnaCijena());
-				}
-				else{
-					podaci[8] = "Ne";
-					podaci[9] = "";
-					podaci[10] = "";
-				}
-				if(s.isOtpisano()){
-					podaci[11] = "Da";
-					podaci[12]= datumString(s.getDatumOtpisivanja());
-				}
-			}
-			else {
+			}else{
 				podaci[5] = "Ne";
 				podaci[6] = "";
+				podaci[7] = "";
+			}
+			if(s.isProdano()){
+				podaci[8] = "Da";
+				podaci[9] = datumString(s.getDatumProdaje());
+				podaci[10] = String.valueOf(s.getProdajnaCijena());
+			}
+			else{
 				podaci[8] = "Ne";
 				podaci[9] = "";
 				podaci[10] = "";
+			}
+			if(s.isOtpisano()){
+				podaci[11] = "Da";
+				podaci[12]= datumString(s.getDatumOtpisivanja());
+			}
+			else {
 				podaci[11] = "Ne";
 				podaci[12]= "";
 			}

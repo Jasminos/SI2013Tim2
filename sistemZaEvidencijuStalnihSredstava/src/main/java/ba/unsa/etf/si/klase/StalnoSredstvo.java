@@ -61,7 +61,7 @@ package ba.unsa.etf.si.klase;
 			return true;
 		}
 		public boolean otpisi(Date datum){
-			if(uUpotrebi){
+			if(uUpotrebi && !prodano && !otpisano){
 				otpisano = true;
 				uUpotrebi = false;
 				datumOtpisivanja = datum;
@@ -70,12 +70,16 @@ package ba.unsa.etf.si.klase;
 			return false;			
 		}
 		public boolean prodaj(Date dateProdaje, double cijena){
-			if(uUpotrebi){
+			if(!prodano){
+				otpisi(dateProdaje);
 				prodano = true;
 				datumProdaje = dateProdaje;
 				prodajnaCijena = cijena;
-			}
-			return true;
+				uUpotrebi = false;
+				otpisano = true;
+				return true;
+			}			
+			else return false;
 		}		
 		public String getNaziv() {
 			return naziv;

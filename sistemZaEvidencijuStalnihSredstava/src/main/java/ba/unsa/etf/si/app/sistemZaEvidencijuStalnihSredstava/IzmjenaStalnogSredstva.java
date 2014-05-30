@@ -74,7 +74,7 @@ public class IzmjenaStalnogSredstva extends JFrame {
 		return results;
 	}
 	public List<StalnoSredstvo> SvaSredstva(){
-		Query query = session.createQuery("from StalnoSredstvo");
+		Query query = session.createQuery("from StalnoSredstvo where UUPOTREBI = false");
 		List<StalnoSredstvo> results = (List<StalnoSredstvo>) query.list();
 		return results;
 	}
@@ -122,7 +122,7 @@ public class IzmjenaStalnogSredstva extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 					StalnoSredstvo ss = (StalnoSredstvo)komboSredstva.getSelectedItem();
 					TipStalnogSredstva tip = (TipStalnogSredstva)komboTipovi.getSelectedItem();
-					if(ss.isuUpotrebi()==false){
+					
 						session.getTransaction().begin();
 						ss.setTip(tip);
 						ss.setNaziv(textNaziv.getText());
@@ -132,9 +132,6 @@ public class IzmjenaStalnogSredstva extends JFrame {
 						JOptionPane.showMessageDialog(null, "Sredstvo uspješno izmijenjeno.");
 						dispose();
 					}
-					else
-						JOptionPane.showMessageDialog(null, "Izabrali ste sredstvo u upotrebi.");
-				}
 		});
 		btnUredu.setBounds(153, 165, 89, 23);
 		contentPane.add(btnUredu);

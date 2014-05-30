@@ -64,8 +64,8 @@ public class OtpisProdajaSS extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public List<StalnoSredstvo> SvaSredstva(){
-		Query query = session.createQuery("from StalnoSredstvo");
+	public List<StalnoSredstvo> SvaSredstvaNeProdano(){
+		Query query = session.createQuery("from StalnoSredstvo where PRODANO = false");
 		List<StalnoSredstvo> results = (List<StalnoSredstvo>) query.list();
 		return results;
 	}
@@ -108,23 +108,23 @@ public class OtpisProdajaSS extends JFrame {
 				Double cijena = Double.parseDouble(textField.getText());
 				Date datum = new Date();
 				if(radio1.isSelected()){
-					if(ss.otpisi(datum) && ss.isOtpisano()==false && ss.isProdano()==false){
+					if(ss.otpisi(datum)){
 						session.update(ss);
 					    session.getTransaction().commit();
-						JOptionPane.showMessageDialog(null, "Sredstvo uspjesno otpisano.");
+						JOptionPane.showMessageDialog(null, "Sredstvo uspješno otpisano.");
 						dispose();
 					}
-					else JOptionPane.showMessageDialog(null, "Izaberite sredstvo koje je u upotrebi, nije prodano i nije otpisano.");
+					else JOptionPane.showMessageDialog(null, "Greška! Pokušajte ponovno.");
 				}
 				
 				if(radio2.isSelected()){
-					if(ss.prodaj(datum,cijena) && ss.isOtpisano()==false && ss.isProdano()==false){
+					if(ss.prodaj(datum,cijena)){
 						session.update(ss);
 					    session.getTransaction().commit();
-						JOptionPane.showMessageDialog(null, "Sredstvo uspjesno prodano.");
+						JOptionPane.showMessageDialog(null, "Sredstvo uspjesno prodano i otpisano.");
 						dispose();
 					}
-					else JOptionPane.showMessageDialog(null, "Izaberite sredstvo koje je u upotrebi, nije prodano i nije otpisano..");
+					else JOptionPane.showMessageDialog(null, "Greska! Pokušajte ponovno.");
 				}
 			}
 		});
@@ -145,7 +145,7 @@ public class OtpisProdajaSS extends JFrame {
 		lblPanjaOvomAkcijom.setBounds(24, 134, 360, 14);
 		contentPane.add(lblPanjaOvomAkcijom);
 		
-		JComboBox comboBox = new JComboBox(SvaSredstva().toArray());
+		JComboBox comboBox = new JComboBox(SvaSredstvaNeProdano().toArray());
 		comboBox.setBounds(209, 30, 141, 20);
 		contentPane.add(comboBox);
 		kombo = comboBox;
