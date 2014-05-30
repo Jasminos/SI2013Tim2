@@ -12,15 +12,23 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
+import ba.unsa.etf.si.klase.StalnoSredstvo;
+import ba.unsa.etf.si.klase.TipStalnogSredstva;
+
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Date;
+import java.util.List;
 
 import javax.swing.ButtonGroup;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import ba.unsa.etf.si.util.HibernateUtil;
+
+import javax.swing.JComboBox;
 
 public class OtpisProdajaSS extends JFrame {
 
@@ -32,6 +40,9 @@ public class OtpisProdajaSS extends JFrame {
 	private JTextField textField;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private Session session;
+	private JComboBox kombo;
+	private JRadioButton radio1;
+	private JRadioButton radio2;
 
 	/**
 	 * Launch the application.
@@ -53,6 +64,11 @@ public class OtpisProdajaSS extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	public List<StalnoSredstvo> SvaSredstva(){
+		Query query = session.createQuery("from StalnoSredstvo");
+		List<StalnoSredstvo> results = (List<StalnoSredstvo>) query.list();
+		return results;
+	}
 	public OtpisProdajaSS(Session sesija) {
 		session = sesija;
 		setTitle("Otpisivanje/prodaja stalnog sredstva");
@@ -65,30 +81,54 @@ public class OtpisProdajaSS extends JFrame {
 		
 		JRadioButton rdbtnOtpisivanjeStalnogSredstva = new JRadioButton("Otpisivanje stalnog sredstva");
 		buttonGroup.add(rdbtnOtpisivanjeStalnogSredstva);
-		rdbtnOtpisivanjeStalnogSredstva.setBounds(22, 29, 193, 23);
+		rdbtnOtpisivanjeStalnogSredstva.setBounds(14, 104, 193, 23);
 		contentPane.add(rdbtnOtpisivanjeStalnogSredstva);
+		radio1 = rdbtnOtpisivanjeStalnogSredstva;
 		
 		JRadioButton rdbtnProdajaStalnogSredstva = new JRadioButton("Prodaja stalnog sredstva");
 		buttonGroup.add(rdbtnProdajaStalnogSredstva);
-		rdbtnProdajaStalnogSredstva.setBounds(25, 69, 182, 23);
+		rdbtnProdajaStalnogSredstva.setBounds(209, 104, 182, 23);
 		contentPane.add(rdbtnProdajaStalnogSredstva);
+		radio2 = rdbtnProdajaStalnogSredstva;
 		
 		textField = new JTextField();
-		textField.setBounds(211, 70, 86, 20);
+		textField.setBounds(209, 70, 116, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblKm = new JLabel("KM");
-		lblKm.setBounds(299, 73, 46, 14);
+		lblKm.setBounds(335, 73, 46, 14);
 		contentPane.add(lblKm);
 		
 		JButton btnUredu = new JButton("Uredu");
 		btnUredu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "Nije implementirano! \nKlikom na ovo dugme sredstvo �e biti otpisano ili prodano.");
+				session.getTransaction().begin();	
+				StalnoSredstvo ss = (StalnoSredstvo)kombo.getSelectedItem();
+				Double cijena = Double.parseDouble(textField.getText());
+				Date datum = new Date();
+				if(radio1.isSelected()){
+					if(ss.otpisi(datum) && ss.isOtpisano()==false && ss.isProdano()==false){
+						session.update(ss);
+					    session.getTransaction().commit();
+						JOptionPane.showMessageDialog(null, "Sredstvo uspjesno otpisano.");
+						dispose();
+					}
+					else JOptionPane.showMessageDialog(null, "Izaberite sredstvo koje je u upotrebi, nije prodano i nije otpisano.");
+				}
+				
+				if(radio2.isSelected()){
+					if(ss.prodaj(datum,cijena) && ss.isOtpisano()==false && ss.isProdano()==false){
+						session.update(ss);
+					    session.getTransaction().commit();
+						JOptionPane.showMessageDialog(null, "Sredstvo uspjesno prodano.");
+						dispose();
+					}
+					else JOptionPane.showMessageDialog(null, "Izaberite sredstvo koje je u upotrebi, nije prodano i nije otpisano..");
+				}
 			}
 		});
-		btnUredu.setBounds(155, 159, 89, 23);
+		btnUredu.setBounds(193, 159, 89, 23);
 		contentPane.add(btnUredu);
 		
 		JButton btnZai = new JButton("Iza\u0111i");
@@ -97,13 +137,25 @@ public class OtpisProdajaSS extends JFrame {
 				dispose();
 			}
 		});
-		btnZai.setBounds(254, 159, 89, 23);
+		btnZai.setBounds(292, 159, 89, 23);
 		contentPane.add(btnZai);
 		
 		JLabel lblPanjaOvomAkcijom = new JLabel("Pa\u017Enja! Ovom akcijom se stalno sredstvo stavlja van upotrebe.");
 		lblPanjaOvomAkcijom.setForeground(Color.RED);
-		lblPanjaOvomAkcijom.setBounds(21, 118, 360, 14);
+		lblPanjaOvomAkcijom.setBounds(24, 134, 360, 14);
 		contentPane.add(lblPanjaOvomAkcijom);
+		
+		JComboBox comboBox = new JComboBox(SvaSredstva().toArray());
+		comboBox.setBounds(209, 30, 141, 20);
+		contentPane.add(comboBox);
+		kombo = comboBox;
+		
+		JLabel lblNewLabel = new JLabel("Izaberite stalno sredstvo:");
+		lblNewLabel.setBounds(60, 33, 171, 14);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblCijenaProdaje = new JLabel("Cijena prodaje:");
+		lblCijenaProdaje.setBounds(118, 73, 107, 14);
+		contentPane.add(lblCijenaProdaje);
 	}
-
 }
