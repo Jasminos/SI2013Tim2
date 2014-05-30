@@ -100,7 +100,7 @@ package ba.unsa.etf.si.klase;
 			this.lokacija = lokacija;
 		}
 		
-		Double getNabavnaVrijednost() {
+		public Double getNabavnaVrijednost() {
 			return nabavnaVrijednost;
 		}
 

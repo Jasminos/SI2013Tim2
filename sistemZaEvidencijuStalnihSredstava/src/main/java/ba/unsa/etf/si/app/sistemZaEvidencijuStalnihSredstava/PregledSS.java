@@ -15,12 +15,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
+import ba.unsa.etf.si.klase.StalnoSredstvo;
 import ba.unsa.etf.si.util.HibernateUtil;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 public class PregledSS extends JFrame {
 
@@ -32,6 +38,7 @@ public class PregledSS extends JFrame {
 	private JTextField textField;
 	private JTable table;
 	private Session session;
+	private JLabel lblPretrai;
 
 	/**
 	 * Launch the application.
@@ -53,67 +60,95 @@ public class PregledSS extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	private void RefreshList(String tekst){
+		DefaultTableModel t = new DefaultTableModel(
+				new String[]{
+					"Naziv","Lokacija","Nabavna vrijednost","Datum nabavke","Tip","U upotrebi",
+					"Datum stavljanja u upotrebu","Stopa","Prodano","Datum prodaje","Cijena prodaje",
+					"Otpisano","datum otpisivanja"	
+				}, 0
+				);
+		List<StalnoSredstvo> sredstva = SvaSredstva();
+		for(int i=0; i<sredstva.size();i++){
+			StalnoSredstvo s = sredstva.get(i);
+			String[] podaci = new String[13];
+			podaci[0] = s.getNaziv();
+			podaci[1] = s.getLokacija();
+			podaci[2] = String.valueOf(s.getNabavnaVrijednost());
+			podaci[3] = datumString(s.getDatumNabavke());
+			podaci[4] = s.getTip().toString();
+			if(s.isuUpotrebi())
+			{
+				podaci[5] = "Da";
+				podaci[6] = datumString(s.getDatumStavljanjaUUpotrebu());
+				podaci[7] = String.valueOf(s.getStopaAmortizacije());
+				if(s.isProdano()){
+					podaci[8] = "Da";
+					podaci[9] = datumString(s.getDatumProdaje());
+					podaci[10] = String.valueOf(s.getProdajnaCijena());
+				}
+				else{
+					podaci[8] = "Ne";
+					podaci[9] = "";
+					podaci[10] = "";
+				}
+				if(s.isOtpisano()){
+					podaci[11] = "Da";
+					podaci[12]= datumString(s.getDatumOtpisivanja());
+				}
+			}
+			else {
+				podaci[5] = "Ne";
+				podaci[6] = "";
+				podaci[8] = "Ne";
+				podaci[9] = "";
+				podaci[10] = "";
+				podaci[11] = "Ne";
+				podaci[12]= "";
+			}
+			if(podaci[0].contains(tekst)||
+					podaci[1].contains(tekst))
+				t.addRow(podaci);
+		}
+		table.setModel(t);
+	}
+	private List<StalnoSredstvo> SvaSredstva(){
+		Query query = session.createQuery("from StalnoSredstvo");
+		List<StalnoSredstvo> result = (List<StalnoSredstvo>)query.list();
+		return result;
+	}
+	private String datumString (Date date){
+		DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+		return df.format(date);
+	}
 	public PregledSS(Session sesija) {
 		session = sesija;
 		setTitle("Pregled stalnh sredstava");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 597, 388);
+		setBounds(100, 100, 862, 313);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblIzaberiteParametarPretrage = new JLabel("Izaberite parametar pretrage:");
-		lblIzaberiteParametarPretrage.setBounds(21, 24, 186, 14);
-		contentPane.add(lblIzaberiteParametarPretrage);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(204, 21, 100, 20);
-		contentPane.add(comboBox);
-		
 		textField = new JTextField();
-		textField.setBounds(31, 56, 144, 20);
+		textField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				RefreshList(textField.getText());
+			}
+		});
+		textField.setBounds(78, 11, 144, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-		JButton btnPretraite = new JButton("Pretra\u017Eite");
-		btnPretraite.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-				JOptionPane.showMessageDialog(null, "Nije implementirano!");
-			}
-		});
-		btnPretraite.setBounds(204, 55, 100, 23);
-		contentPane.add(btnPretraite);
-		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 101, 561, 187);
+		scrollPane.setBounds(10, 42, 834, 187);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-			},
-			new String[] {
-				"Naziv", "Tip", "Datum nabavke", "Datum stavljanja u upotrebu", "Datum isteka vrijednosti"
-			}
-		));
-		table.getColumnModel().getColumn(2).setPreferredWidth(110);
-		table.getColumnModel().getColumn(3).setPreferredWidth(191);
-		table.getColumnModel().getColumn(4).setPreferredWidth(166);
+		RefreshList("");
+		new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		scrollPane.setViewportView(table);
 		
 		JButton btnIzai = new JButton("Iza\u0111i");
@@ -122,7 +157,11 @@ public class PregledSS extends JFrame {
 				dispose();
 			}
 		});
-		btnIzai.setBounds(453, 306, 89, 23);
+		btnIzai.setBounds(755, 240, 89, 23);
 		contentPane.add(btnIzai);
+		
+		lblPretrai = new JLabel("Pretraži:");
+		lblPretrai.setBounds(23, 14, 65, 14);
+		contentPane.add(lblPretrai);
 	}
 }
