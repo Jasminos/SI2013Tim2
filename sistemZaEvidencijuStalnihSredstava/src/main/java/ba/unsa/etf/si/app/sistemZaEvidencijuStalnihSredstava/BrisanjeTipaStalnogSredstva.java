@@ -48,10 +48,23 @@ public class BrisanjeTipaStalnogSredstva extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public List<TipStalnogSredstva> SviTipovi(){
-		Query query = session.createQuery("from TipStalnogSredstva");
-		List<TipStalnogSredstva> results = (List<TipStalnogSredstva>) query.list();
-		return results;
+	public void refresh()
+	{
+		try 
+		{
+			kombo.removeAllItems();
+			List<TipStalnogSredstva> k = TipStalnogSredstva.SviTipovi(session);
+			for(TipStalnogSredstva s : k)
+			{
+				kombo.addItem(s);
+			}
+		} 
+		catch (Exception e1) 
+		{
+			JOptionPane.showMessageDialog(this, "Nema Tipova pa se nemogu ni obrisat");
+			dispose();
+			
+		}
 	}
 	public BrisanjeTipaStalnogSredstva(Session sesija) {
 		session = sesija;
@@ -62,7 +75,23 @@ public class BrisanjeTipaStalnogSredstva extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JComboBox comboBox = new JComboBox(SviTipovi().toArray());
+		JComboBox comboBox= new JComboBox();
+		try 
+		{
+			
+			List<TipStalnogSredstva> k = TipStalnogSredstva.SviTipovi(session);
+			for(TipStalnogSredstva s : k)
+			{
+				comboBox.addItem(s);
+			}
+		} 
+		catch (Exception e1) 
+		{
+			JOptionPane.showMessageDialog(this, "Nema Tipova pa se nemogu ni obrisat");
+			dispose();
+			
+		}
+		
 		comboBox.setBounds(85, 53, 157, 20);
 		contentPane.add(comboBox);
 		kombo = comboBox;
@@ -74,11 +103,15 @@ public class BrisanjeTipaStalnogSredstva extends JFrame {
 		JButton btnObrii = new JButton("Obriši");
 		btnObrii.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				session.getTransaction().begin();
-				session.delete((TipStalnogSredstva)kombo.getSelectedItem());
-				session.getTransaction().commit();
+				TipStalnogSredstva tip= (TipStalnogSredstva)kombo.getSelectedItem();
+				try {
+					tip.obrisi(session);
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, "Greska pri brisanju tipa.");
+					return;
+				}
 				JOptionPane.showMessageDialog(null, "Tip sredstva obrisan.");
-				dispose();
+				refresh();
 			}
 		});
 		btnObrii.setBounds(69, 93, 84, 23);

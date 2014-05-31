@@ -63,22 +63,21 @@ public class DodavanjeTipaSS extends JFrame {
 		JButton btnUredu = new JButton("Uredu");
 		btnUredu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				Session session = HibernateUtil.getSessionFactory()
-						.openSession();
-				Transaction t = session.beginTransaction();
-
 				String naziv = textField.getText();
-				
-
+				if(naziv.length()<3)
+				{
+					JOptionPane.showMessageDialog(null, "Tip mora imati bar 3 slova");
+					return;
+				}
 				TipStalnogSredstva k = new TipStalnogSredstva(naziv);
-
-				session.save(k);
-				System.out.println("Dodan TipSS");
-				t.commit();
-				
+				try {
+					k.spasi(session);
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, "Greska u dodavanju tipa u bazu");
+					return;
+				}
 		        JOptionPane.showMessageDialog(null, "Tip dodan.");
-		        dispose();
+		        textField.setText("");
 			}
 		});
 		btnUredu.setBounds(146, 52, 89, 23);
