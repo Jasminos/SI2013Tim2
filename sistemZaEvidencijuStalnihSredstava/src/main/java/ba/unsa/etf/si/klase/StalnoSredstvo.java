@@ -2,6 +2,8 @@ package ba.unsa.etf.si.klase;
 
 	import java.util.Date;
 
+import org.hibernate.Session;
+
 	public class StalnoSredstvo implements java.io.Serializable {
 		/**
 		 * 
@@ -218,5 +220,47 @@ package ba.unsa.etf.si.klase;
 		}
 		@Override public String toString(){
 			return getNaziv();
+		}
+		public boolean spasi(Session session) throws Exception
+		{
+			try{
+				session.getTransaction().begin();
+				session.save(this);
+				session.getTransaction().commit();
+			}
+			catch(Throwable t)
+			{
+				session.getTransaction().rollback();
+				throw new Exception("Spasavanje Sredstva nije uspjelo");
+			}
+			return true;
+		}
+		public boolean obrisi(Session session) throws Exception
+		{
+			try{
+				session.getTransaction().begin();
+				session.delete(this);
+				session.getTransaction().commit();
+			}
+			catch(Throwable t)
+			{
+				session.getTransaction().rollback();
+				throw new Exception("Brisanje Sredstva nije uspjelo");
+			}
+			return true;
+		}
+		public boolean izmjeni(Session session) throws Exception
+		{
+			try{
+				session.getTransaction().begin();
+				session.update(this);
+				session.getTransaction().commit();
+			}
+			catch(Throwable t)
+			{
+				session.getTransaction().rollback();
+				throw new Exception("Spasavanje Sredstva nije uspjelo");
+			}
+			return true;
 		}
 	}

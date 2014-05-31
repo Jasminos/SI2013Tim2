@@ -121,8 +121,7 @@ public class DodavanjeNovogSS extends JFrame {
 		kombo = comboBox1;
 		JButton btnDodaj = new JButton("Dodaj");
 		btnDodaj.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {		
-				  session.getTransaction().begin();				
+			public void actionPerformed(ActionEvent e) {						
 				  String nazivSS = textField.getText();
 				  
 				  Double vrijednost = Double.parseDouble(textVrijednost.getText());
@@ -130,9 +129,12 @@ public class DodavanjeNovogSS extends JFrame {
 						 
 				  String lokacija = textLokacija.getText();
 				  StalnoSredstvo s = new StalnoSredstvo(nazivSS, lokacija, vrijednost, datumNabavke,(TipStalnogSredstva)kombo.getSelectedItem());
-				  
-				  session.save(s);
-				  session.getTransaction().commit(); 
+				  try {
+					s.spasi(session);
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null,"Stalno sredstvo nije dodano greska.");
+					e1.printStackTrace();
+				} 
 				  JOptionPane.showMessageDialog(null,"Stalno sredstvo dodano.");
 				  dispose();
 			}
