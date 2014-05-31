@@ -136,18 +136,22 @@ public class izmjenaKorisnickihPodataka extends JFrame {
 		JButton button = new JButton("Uredu");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				session.beginTransaction();
 				Korisnik pom = ((Korisnik)kombo.getSelectedItem());
 				pom.setIme(textField.getText());
 				pom.setPrezime(textField_1.getText());
 				pom.setBrTel(textField_2.getText());
 				pom.setJmbg(textField_3.getText());
 				pom.setUsername(textField_4.getText());
-				pom.setPassword(HibernateUtil.md5(textField_5.getText()));
-				session.update(pom);
-				session.getTransaction().commit();
+				if(textField.getText().length()!=0)
+					pom.setPassword(HibernateUtil.md5(textField_5.getText()));
+				try {
+					pom.izmjeni(session);
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null,"Greska");
+					return;
+				}
 				JOptionPane.showMessageDialog(null,"Korisnik uspjesno izmijenjen");
-				dispose();
+				//refresh();
 			}
 		});
 		button.setBounds(83, 203, 89, 23);
@@ -166,11 +170,14 @@ public class izmjenaKorisnickihPodataka extends JFrame {
 		comboBox.setBounds(137, 17, 86, 20);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textField.setText(((Korisnik) kombo.getSelectedItem()).getIme());
-				textField_1.setText(((Korisnik) kombo.getSelectedItem()).getPrezime());
-				textField_2.setText(((Korisnik) kombo.getSelectedItem()).getBrTel());
-				textField_3.setText(((Korisnik) kombo.getSelectedItem()).getJmbg());
-				textField_4.setText(((Korisnik) kombo.getSelectedItem()).getUsername());
+				if(kombo.getItemCount()!=0)
+				{
+					textField.setText(((Korisnik) kombo.getSelectedItem()).getIme());
+					textField_1.setText(((Korisnik) kombo.getSelectedItem()).getPrezime());
+					textField_2.setText(((Korisnik) kombo.getSelectedItem()).getBrTel());
+					textField_3.setText(((Korisnik) kombo.getSelectedItem()).getJmbg());
+					textField_4.setText(((Korisnik) kombo.getSelectedItem()).getUsername());
+				}
 			}
 		});
 		contentPane.add(comboBox);

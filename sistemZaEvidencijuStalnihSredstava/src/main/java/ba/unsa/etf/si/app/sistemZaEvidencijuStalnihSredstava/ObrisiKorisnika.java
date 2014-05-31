@@ -16,11 +16,13 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import ba.unsa.etf.si.klase.Korisnik;
+import ba.unsa.etf.si.klase.TipStalnogSredstva;
 import ba.unsa.etf.si.util.HibernateUtil;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.List;
+
 import javax.swing.JTextField;
 
 public class ObrisiKorisnika extends JFrame {
@@ -55,11 +57,22 @@ public class ObrisiKorisnika extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public List<Korisnik> KorisniciSvi()
+	public void refresh()
 	{
-		Query query = session.createQuery("from Korisnik");
-		List<Korisnik> results = (List<Korisnik>) query.list();
-		return results;
+		try 
+		{
+			kombo.removeAllItems();
+			List<Korisnik> k = Korisnik.SviKorisnici(session);
+			for(Korisnik s : k)
+			{
+				kombo.addItem(s);
+			}
+		} 
+		catch (Exception e1) 
+		{
+			JOptionPane.showMessageDialog(this, e1.getMessage());
+			dispose();
+		}
 	}
 	public ObrisiKorisnika(Session sesija) {
 		session = sesija;
@@ -83,11 +96,28 @@ public class ObrisiKorisnika extends JFrame {
 		lblJmbg.setBounds(47, 99, 52, 14);
 		contentPane.add(lblJmbg);
 		
-		JComboBox comboBox = new JComboBox(KorisniciSvi().toArray());
+		JComboBox comboBox = new JComboBox();
+		try 
+		{
+			
+			List<Korisnik> k = Korisnik.SviKorisnici(session);
+			for(Korisnik s : k)
+			{
+				comboBox.addItem(s);
+			}
+		} 
+		catch (Exception e1) 
+		{
+			JOptionPane.showMessageDialog(this, e1.getMessage());
+			dispose();
+			
+		}
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textField_1.setText(((Korisnik) kombo.getSelectedItem()).getPrezime());
-				textField.setText(((Korisnik) kombo.getSelectedItem()).getIme());
+				if(kombo.getItemCount()!=0){
+					textField_1.setText(((Korisnik) kombo.getSelectedItem()).getPrezime());
+					textField.setText(((Korisnik) kombo.getSelectedItem()).getIme());
+				}
 			}
 		});
 		kombo = comboBox;
@@ -99,13 +129,14 @@ public class ObrisiKorisnika extends JFrame {
 		btnObrii.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				 Korisnik pom = (Korisnik) kombo.getSelectedItem();
-				 Transaction t = session.beginTransaction();
-				 Query q = session.createQuery("delete Korisnik where ID = :id");
-				 q.setParameter("id", pom.getId());
-				 q.executeUpdate();
-				 t.commit();
+				 try {
+					pom.obrisi(session);
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null,e1.getMessage());
+					return;
+				}
 				 JOptionPane.showMessageDialog(null,"Korisnik Obrisan");
-				 dispose();
+				 refresh();
 			}
 		});
 		btnObrii.setBounds(53, 156, 89, 23);

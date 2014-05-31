@@ -1,6 +1,10 @@
 package ba.unsa.etf.si.klase;
 
 import java.util.Date;
+import java.util.List;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 
 
@@ -95,5 +99,60 @@ public class Korisnik implements java.io.Serializable {
 	@Override public String toString(){
 		return getUsername();
 	}
-	
+	public static List<Korisnik> SviKorisnici(Session session) throws Exception{
+		List<Korisnik> results;
+		try
+		{
+			Query query = session.createQuery("from Korisnik");
+			results = (List<Korisnik>) query.list();
+		}
+		catch(Throwable t)
+		{
+			throw new Exception("Problem sa povlacenjem Korisnika");
+		}
+		if(results.isEmpty()) throw new Exception("Nema Korisnika");
+		return results;
+	}
+	public boolean spasi(Session session) throws Exception
+	{
+		try{
+			session.getTransaction().begin();
+			session.save(this);
+			session.getTransaction().commit();
+		}
+		catch(Throwable t)
+		{
+			session.getTransaction().rollback();
+			throw new Exception("Spasavanje Korisnika nije uspjelo");
+		}
+		return true;
+	}
+	public boolean obrisi(Session session) throws Exception
+	{
+		try{
+			session.getTransaction().begin();
+			session.delete(this);
+			session.getTransaction().commit();
+		}
+		catch(Throwable t)
+		{
+			session.getTransaction().rollback();
+			throw new Exception("Brisanje korisnika nije uspjelo");
+		}
+		return true;
+	}
+	public boolean izmjeni(Session session) throws Exception
+	{
+		try{
+			session.getTransaction().begin();
+			session.update(this);
+			session.getTransaction().commit();
+		}
+		catch(Throwable t)
+		{
+			session.getTransaction().rollback();
+			throw new Exception("Spasavanje Korisnika nije uspjelo");
+		}
+		return true;
+	}
 }

@@ -59,9 +59,19 @@ public class DodajKorisnika extends JFrame {
 		});
 	}
 
+	public void refresh()
+	{
+		textField.setText("");
+		textField_1.setText("");
+		textField_2.setText("");
+		textField_3.setText("");
+		textField_4.setText("");
+		passwordField.setText("");
+	}
 	/**
 	 * Create the frame.
 	 */
+	
 	public DodajKorisnika(Session sesija) {
 		session = sesija;
 		setTitle("Dodavanje korisnika");
@@ -123,7 +133,6 @@ public class DodajKorisnika extends JFrame {
 		JButton btnDodaj = new JButton("Dodaj");
 		btnDodaj.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Transaction t = session.beginTransaction();
 				String ime = textField.getText();
 				String prezime = textField_1.getText();
 				String jmbg = textField_2.getText();
@@ -134,12 +143,16 @@ public class DodajKorisnika extends JFrame {
 				Korisnik k = new Korisnik(6, ime, prezime, jmbg, tel, username,
 						HibernateUtil.md5(password), new Date());
 				// Administrator k = new Administrator();
-				session.save(k);
 				//System.out.println("Dodan korisnik");
-				t.commit();
+				try {
+					k.spasi(session);
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null,"Greska u komunikaciji" );
+					return;
+				}
 				JOptionPane.showMessageDialog(null,"Korisnik uspjesno dodan." );
 				//JOptionPane.showMessageDialog(null, "Korisnik dodan.");
-		        dispose();
+				refresh();
 
 			}
 
