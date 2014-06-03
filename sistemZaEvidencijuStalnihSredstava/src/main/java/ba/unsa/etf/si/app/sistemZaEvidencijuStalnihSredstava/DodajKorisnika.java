@@ -13,6 +13,7 @@ import com.toedter.calendar.JDateChooser;
 
 import javax.swing.JButton;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -73,6 +74,7 @@ public class DodajKorisnika extends JFrame {
 	 */
 	
 	public DodajKorisnika(Session sesija) {
+		setResizable(false);
 		session = sesija;
 		setTitle("Dodavanje korisnika");
 		setBounds(100, 100, 341, 269);
@@ -139,6 +141,46 @@ public class DodajKorisnika extends JFrame {
 				String tel = textField_3.getText();
 				String username = textField_4.getText();
 				String password = passwordField.getText();
+				
+				if(username.isEmpty() || password.isEmpty())
+				{
+					JOptionPane.showMessageDialog(null, "Unesite ispravan username i password.");
+					return;
+				}
+				if(ime.isEmpty() || prezime.isEmpty())
+				{
+					JOptionPane.showMessageDialog(null, "Unesite ime i prezime korisnika");
+					return;
+				}
+				if(jmbg.length() != 13)
+				{
+					JOptionPane.showMessageDialog(null, "JMBG mora imati 13 cifara");
+					return;
+				}
+				for(int i=0; i<jmbg.length(); i++)
+				{
+					int ascii = (int) jmbg.charAt(i);
+					if(ascii < 48 || ascii > 57)
+					{
+						JOptionPane.showMessageDialog(null, "Unesite ispravan JMBG");
+						return;
+					}
+				}
+				if(tel.length() != 9)
+				{
+					JOptionPane.showMessageDialog(null, "Broj telefona mora imati 9 cifara");
+					return;
+				}
+				for(int i=0; i<tel.length(); i++)
+				{
+					int ascii = (int) tel.charAt(i);
+					if(ascii < 48 || ascii > 57)
+					{
+						JOptionPane.showMessageDialog(null, "Unesite ispravan broj telefona");
+						return;
+					}
+				}
+				
 				// Date datum=(Date) dateChooser.getDate();
 				Korisnik k = new Korisnik(6, ime, prezime, jmbg, tel, username,
 						HibernateUtil.md5(password), new Date());

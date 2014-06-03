@@ -53,6 +53,7 @@ public class GenerisanjeIzvjestaja extends JFrame {
 	 * Create the frame.
 	 */
 	public GenerisanjeIzvjestaja(Session sesija) {
+		setResizable(false);
 		session = sesija;
 		setTitle("Generisanje izvje\u0161taja");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

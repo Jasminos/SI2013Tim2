@@ -47,6 +47,7 @@ public class DodavanjeTipaSS extends JFrame {
 	 * Create the frame.
 	 */
 	public DodavanjeTipaSS(Session sesija) {
+		setResizable(false);
 		session = sesija;
 		setTitle("Dodavanje tipa stalnog sredstva");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

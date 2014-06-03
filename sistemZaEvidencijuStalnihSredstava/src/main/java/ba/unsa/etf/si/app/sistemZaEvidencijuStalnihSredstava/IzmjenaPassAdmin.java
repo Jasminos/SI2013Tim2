@@ -47,6 +47,7 @@ public class IzmjenaPassAdmin extends JFrame {
 	 * Create the frame.
 	 */
 	public IzmjenaPassAdmin(Session sesija) {
+		setResizable(false);
 		session = sesija;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 225, 125);

@@ -83,6 +83,7 @@ public class pregled extends JFrame {
 			table.setModel(t);
 	}
 	public pregled(Session sesija) {
+		setResizable(false);
 		session = sesija;
 		setTitle("Pregled korisnika");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

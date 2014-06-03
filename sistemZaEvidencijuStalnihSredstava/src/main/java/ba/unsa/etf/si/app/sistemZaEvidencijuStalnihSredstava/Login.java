@@ -65,6 +65,7 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login(Session sesija) {
+		setResizable(false);
 		this.session = sesija;
 		setTitle(" \u03BCDEVELOPERS Login");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -125,7 +126,7 @@ public class Login extends JFrame {
 						dispose();
 					}
 				}
-				else 
+				else if(!user.isEmpty() && !pass.isEmpty())
 				{
 					Query query = session.createQuery("from Korisnik where USERNAME = :username ");
 					query.setParameter("username", user);
@@ -138,6 +139,14 @@ public class Login extends JFrame {
 						per.setVisible(true);
 						dispose();
 					}
+					else
+					{
+						JOptionPane.showMessageDialog(null, "Pogrešan login.");
+					}
+				}
+				else 
+				{
+					JOptionPane.showMessageDialog(null, "Pogrešan login.");
 				}
 				
 			}

@@ -44,6 +44,7 @@ public class PocetniEkranRacunovodja extends JFrame {
 	 * Create the frame.
 	 */
 	public PocetniEkranRacunovodja(Session sesija) {
+		setResizable(false);
 		session = sesija;
 		setTitle("Menu za ra\u010Dunovo\u0111u");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

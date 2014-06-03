@@ -57,6 +57,7 @@ public class OtpisanaiProdanaSredstva extends JFrame {
 	 * Create the frame.
 	 */
 	public OtpisanaiProdanaSredstva(Session sesija) {
+		setResizable(false);
 		session = sesija;
 		setTitle("Otpisana/prodana stalna sredstva");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
