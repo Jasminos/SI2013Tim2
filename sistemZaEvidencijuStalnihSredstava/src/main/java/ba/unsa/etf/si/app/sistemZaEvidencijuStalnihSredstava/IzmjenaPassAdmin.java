@@ -68,13 +68,18 @@ public class IzmjenaPassAdmin extends JFrame {
 		JButton btnNewButton = new JButton("Izmijeni");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				session.getTransaction().begin();
-				Administrator admin = (Administrator)session.get(Administrator.class, (long)1);
-				admin.setPassword(HibernateUtil.md5(textField.getText()));
-				session.update(admin);
-				session.getTransaction().commit();
-				JOptionPane.showMessageDialog(null,"Password uspjesno izmijenjen." );
-				dispose();
+				if(!textField.getText().isEmpty())
+				{
+					session.getTransaction().begin();
+					Administrator admin = (Administrator)session.get(Administrator.class, (long)1);
+					admin.setPassword(HibernateUtil.md5(textField.getText()));
+					session.update(admin);
+					session.getTransaction().commit();
+					JOptionPane.showMessageDialog(null,"Password uspjesno izmijenjen." );
+					dispose();
+				}
+				else
+					JOptionPane.showMessageDialog(null, "Unesite novu lozinku administratora.");
 			}
 		});
 		btnNewButton.setBounds(109, 55, 89, 23);
