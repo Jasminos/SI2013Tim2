@@ -58,6 +58,7 @@ public class NabavljenaSredstva extends JFrame {
 	 * Create the frame.
 	 */
 	public NabavljenaSredstva(Session sesija) {
+		setResizable(false);
 		session = sesija;
 		setTitle("Nabavljena stalna sredstva");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

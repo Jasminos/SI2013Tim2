@@ -121,6 +121,7 @@ public class PregledSS extends JFrame {
 		return df.format(date);
 	}
 	public PregledSS(Session sesija) {
+		setResizable(false);
 		session = sesija;
 		setTitle("Pregled stalnh sredstava");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -140,13 +141,13 @@ public class PregledSS extends JFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);;
 		scrollPane.setBounds(10, 42, 834, 187);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
 		RefreshList("");
-		new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		scrollPane.setViewportView(table);
 		

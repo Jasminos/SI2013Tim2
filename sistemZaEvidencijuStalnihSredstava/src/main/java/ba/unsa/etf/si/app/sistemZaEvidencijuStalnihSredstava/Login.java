@@ -65,6 +65,7 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login(Session sesija) {
+		setResizable(false);
 		this.session = sesija;
 		setTitle(" \u03BCDEVELOPERS Login");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

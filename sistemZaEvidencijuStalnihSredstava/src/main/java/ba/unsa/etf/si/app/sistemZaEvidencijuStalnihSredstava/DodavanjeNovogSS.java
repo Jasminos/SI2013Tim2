@@ -69,6 +69,7 @@ public class DodavanjeNovogSS extends JFrame {
 		return results;
 	}
 	public DodavanjeNovogSS(Session sesija) {
+		setResizable(false);
 		session = sesija;
 		setTitle("Dodavanje stalnog sredstva");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

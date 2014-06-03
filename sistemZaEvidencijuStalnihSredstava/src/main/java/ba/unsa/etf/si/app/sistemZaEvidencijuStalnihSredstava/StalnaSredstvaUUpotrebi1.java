@@ -57,6 +57,7 @@ public class StalnaSredstvaUUpotrebi1 extends JFrame {
 	 * Create the frame.
 	 */
 	public StalnaSredstvaUUpotrebi1(Session sesija) {
+		setResizable(false);
 		session = sesija;
 		setTitle("Stalna sredstva stavljena u upotrebu");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

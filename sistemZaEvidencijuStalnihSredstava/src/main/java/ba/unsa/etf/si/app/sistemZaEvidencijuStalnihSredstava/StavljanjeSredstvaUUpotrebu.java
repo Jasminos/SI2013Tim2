@@ -71,6 +71,7 @@ public class StavljanjeSredstvaUUpotrebu extends JFrame {
 		return results;
 	}
 	public StavljanjeSredstvaUUpotrebu(Session sesija) {
+		setResizable(false);
 		session = sesija;
 		setTitle("Stavljanje stalnog sredstva u upotrebu");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

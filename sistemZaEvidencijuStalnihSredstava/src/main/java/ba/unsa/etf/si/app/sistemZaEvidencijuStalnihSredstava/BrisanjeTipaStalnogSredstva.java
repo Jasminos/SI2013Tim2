@@ -67,6 +67,7 @@ public class BrisanjeTipaStalnogSredstva extends JFrame {
 		}
 	}
 	public BrisanjeTipaStalnogSredstva(Session sesija) {
+		setResizable(false);
 		session = sesija;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 268, 166);

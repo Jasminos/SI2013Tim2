@@ -70,6 +70,7 @@ public class izmjenaKorisnickihPodataka extends JFrame {
 		return results;
 	}
 	public izmjenaKorisnickihPodataka(Session sesija) {
+		setResizable(false);
 		session = sesija;
 		setTitle("Izmjena korisni\u010Dkih podataka");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

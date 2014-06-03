@@ -75,6 +75,7 @@ public class ObrisiKorisnika extends JFrame {
 		}
 	}
 	public ObrisiKorisnika(Session sesija) {
+		setResizable(false);
 		session = sesija;
 		setTitle("Brisanje korisnika");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

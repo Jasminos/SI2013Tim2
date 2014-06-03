@@ -45,6 +45,7 @@ public class adminMenu extends JFrame {
 	 * Create the frame.
 	 */
 	public adminMenu(Session sesija) {
+		setResizable(false);
 		session = sesija;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Menu za administratora");

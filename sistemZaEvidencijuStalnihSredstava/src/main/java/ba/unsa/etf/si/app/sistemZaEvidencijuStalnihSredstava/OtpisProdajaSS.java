@@ -70,6 +70,7 @@ public class OtpisProdajaSS extends JFrame {
 		return results;
 	}
 	public OtpisProdajaSS(Session sesija) {
+		setResizable(false);
 		session = sesija;
 		setTitle("Otpisivanje/prodaja stalnog sredstva");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

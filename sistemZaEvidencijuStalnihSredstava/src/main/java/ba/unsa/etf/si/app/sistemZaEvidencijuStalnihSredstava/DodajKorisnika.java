@@ -73,6 +73,7 @@ public class DodajKorisnika extends JFrame {
 	 */
 	
 	public DodajKorisnika(Session sesija) {
+		setResizable(false);
 		session = sesija;
 		setTitle("Dodavanje korisnika");
 		setBounds(100, 100, 341, 269);

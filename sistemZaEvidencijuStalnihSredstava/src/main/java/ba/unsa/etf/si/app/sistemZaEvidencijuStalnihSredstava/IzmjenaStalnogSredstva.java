@@ -83,6 +83,7 @@ public class IzmjenaStalnogSredstva extends JFrame {
 		textLokacija.setText(((StalnoSredstvo)komboSredstva.getSelectedItem()).getLokacija());
 	}
 	public IzmjenaStalnogSredstva(Session sesija) {
+		setResizable(false);
 		session = sesija;
 		setTitle("Izmjena stalnog sredstva");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

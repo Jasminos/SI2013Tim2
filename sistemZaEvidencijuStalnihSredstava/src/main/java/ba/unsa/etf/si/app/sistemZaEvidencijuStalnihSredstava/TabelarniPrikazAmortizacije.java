@@ -56,6 +56,7 @@ public class TabelarniPrikazAmortizacije extends JFrame {
 	 * Create the frame.
 	 */
 	public TabelarniPrikazAmortizacije(Session sesija) {
+		setResizable(false);
 		session = sesija;
 		setTitle("Tabelarni prikaz amortizacije");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
