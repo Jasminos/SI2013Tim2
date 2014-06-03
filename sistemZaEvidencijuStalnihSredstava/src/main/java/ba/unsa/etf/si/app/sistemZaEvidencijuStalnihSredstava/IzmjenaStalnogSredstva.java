@@ -79,8 +79,13 @@ public class IzmjenaStalnogSredstva extends JFrame {
 		return results;
 	}
 	private void popuni(){
-		textNaziv.setText(((StalnoSredstvo)komboSredstva.getSelectedItem()).getNaziv());
-		textLokacija.setText(((StalnoSredstvo)komboSredstva.getSelectedItem()).getLokacija());
+		if (komboSredstva.getSelectedItem()!=null) {
+			textNaziv
+					.setText(((StalnoSredstvo) komboSredstva.getSelectedItem())
+							.getNaziv());
+			textLokacija.setText(((StalnoSredstvo) komboSredstva
+					.getSelectedItem()).getLokacija());
+		}
 	}
 	public IzmjenaStalnogSredstva(Session sesija) {
 		setResizable(false);
