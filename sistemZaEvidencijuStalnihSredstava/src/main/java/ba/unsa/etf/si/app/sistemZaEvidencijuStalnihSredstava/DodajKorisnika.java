@@ -20,9 +20,11 @@ import org.hibernate.Transaction;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Date;
+import java.util.List;
 
 import ba.unsa.etf.si.klase.Administrator;
 import ba.unsa.etf.si.klase.Korisnik;
+import ba.unsa.etf.si.klase.TipStalnogSredstva;
 import ba.unsa.etf.si.korisnik.*;
 import ba.unsa.etf.si.util.HibernateUtil;
 
@@ -179,6 +181,26 @@ public class DodajKorisnika extends JFrame {
 						JOptionPane.showMessageDialog(null, "Unesite ispravan broj telefona");
 						return;
 					}
+				}
+				
+				/*provjera postojanja username-a u bazi*/
+				
+				Query query = session.createQuery("from Korisnik");
+				List<Korisnik> rezultat = (List<Korisnik>) query.list();
+				for(int i=0; i<rezultat.size(); i++)
+				{
+					String priv = rezultat.get(i).getUsername();
+					if(priv.equals(username))
+					{
+						JOptionPane.showMessageDialog(null, "Korisnik sa istim username-om već postoji.");
+						return;
+					}
+				}
+				
+				if(username.equals("Administrator"))
+				{
+					JOptionPane.showMessageDialog(null, "Korisnik ne smije imati username 'Administrator'!");
+					return;
 				}
 				
 				// Date datum=(Date) dateChooser.getDate();
