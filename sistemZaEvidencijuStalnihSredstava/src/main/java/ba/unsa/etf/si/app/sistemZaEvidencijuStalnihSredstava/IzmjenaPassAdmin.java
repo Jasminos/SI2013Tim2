@@ -19,12 +19,13 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class IzmjenaPassAdmin extends JFrame {
 
 	private JPanel contentPane;
 	private Session session;
-	private JTextField textField;
+	private JPasswordField textField;
 
 	/**
 	 * Launch the application.
@@ -60,11 +61,6 @@ public class IzmjenaPassAdmin extends JFrame {
 		lblNewLabel.setBounds(10, 27, 86, 14);
 		contentPane.add(lblNewLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(99, 24, 99, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
-		
 		JButton btnNewButton = new JButton("Izmijeni");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -84,6 +80,9 @@ public class IzmjenaPassAdmin extends JFrame {
 		});
 		btnNewButton.setBounds(109, 55, 89, 23);
 		contentPane.add(btnNewButton);
+		
+		textField = new JPasswordField();
+		textField.setBounds(106, 24, 95, 20);
+		contentPane.add(textField);
 	}
-
 }
