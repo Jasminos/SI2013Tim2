@@ -61,7 +61,7 @@ public class StalnaSredstvaUUpotrebi1 extends JFrame {
 		session = sesija;
 		setTitle("Stalna sredstva stavljena u upotrebu");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 565, 562);
+		setBounds(100, 100, 643, 541);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -70,7 +70,7 @@ public class StalnaSredstvaUUpotrebi1 extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setToolTipText("Datum nabavke");
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Datum nabavke", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(10, 22, 241, 101);
+		panel.setBounds(10, 22, 318, 101);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -83,16 +83,16 @@ public class StalnaSredstvaUUpotrebi1 extends JFrame {
 		panel.add(lblDonjaGranica);
 		
 		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(134, 28, 91, 20);
+		dateChooser.setBounds(134, 28, 153, 20);
 		panel.add(dateChooser);
 		
 		JDateChooser dateChooser_1 = new JDateChooser();
-		dateChooser_1.setBounds(134, 59, 91, 20);
+		dateChooser_1.setBounds(134, 59, 153, 20);
 		panel.add(dateChooser_1);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Vrijednost stalnog sredstva", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_3.setBounds(274, 14, 257, 244);
+		panel_3.setBounds(361, 22, 257, 244);
 		contentPane.add(panel_3);
 		panel_3.setLayout(null);
 		
@@ -142,7 +142,7 @@ public class StalnaSredstvaUUpotrebi1 extends JFrame {
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Datum stavljanja sredstva u upotrebu", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_4.setBounds(10, 134, 241, 101);
+		panel_4.setBounds(10, 134, 318, 101);
 		contentPane.add(panel_4);
 		panel_4.setLayout(null);
 		
@@ -155,16 +155,16 @@ public class StalnaSredstvaUUpotrebi1 extends JFrame {
 		panel_4.add(label_5);
 		
 		JDateChooser dateChooser_2 = new JDateChooser();
-		dateChooser_2.setBounds(127, 58, 91, 20);
+		dateChooser_2.setBounds(127, 58, 160, 20);
 		panel_4.add(dateChooser_2);
 		
 		JDateChooser dateChooser_3 = new JDateChooser();
-		dateChooser_3.setBounds(127, 27, 91, 20);
+		dateChooser_3.setBounds(127, 27, 160, 20);
 		panel_4.add(dateChooser_3);
 		
 		JPanel panel_5 = new JPanel();
 		panel_5.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Stopa amortizacije sredstva", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_5.setBounds(10, 246, 241, 101);
+		panel_5.setBounds(371, 277, 241, 101);
 		contentPane.add(panel_5);
 		panel_5.setLayout(null);
 		
@@ -186,7 +186,7 @@ public class StalnaSredstvaUUpotrebi1 extends JFrame {
 		
 		JPanel panel_6 = new JPanel();
 		panel_6.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Datum otpisivanja sredstva", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_6.setBounds(278, 269, 248, 95);
+		panel_6.setBounds(10, 249, 318, 95);
 		contentPane.add(panel_6);
 		panel_6.setLayout(null);
 		
@@ -199,11 +199,11 @@ public class StalnaSredstvaUUpotrebi1 extends JFrame {
 		panel_6.add(label_9);
 		
 		JDateChooser dateChooser_4 = new JDateChooser();
-		dateChooser_4.setBounds(127, 27, 91, 20);
+		dateChooser_4.setBounds(127, 27, 163, 20);
 		panel_6.add(dateChooser_4);
 		
 		JDateChooser dateChooser_5 = new JDateChooser();
-		dateChooser_5.setBounds(127, 58, 91, 20);
+		dateChooser_5.setBounds(127, 58, 163, 20);
 		panel_6.add(dateChooser_5);
 		
 		JPanel panel_7 = new JPanel();
@@ -244,7 +244,7 @@ public class StalnaSredstvaUUpotrebi1 extends JFrame {
 					}
 			}
 		});
-		button.setBounds(334, 490, 89, 23);
+		button.setBounds(397, 440, 89, 23);
 		contentPane.add(button);
 		
 		JButton button_1 = new JButton("Iza\u0111i");
@@ -253,7 +253,7 @@ public class StalnaSredstvaUUpotrebi1 extends JFrame {
 				dispose();
 			}
 		});
-		button_1.setBounds(433, 490, 89, 23);
+		button_1.setBounds(496, 440, 89, 23);
 		contentPane.add(button_1);
 	}
 }

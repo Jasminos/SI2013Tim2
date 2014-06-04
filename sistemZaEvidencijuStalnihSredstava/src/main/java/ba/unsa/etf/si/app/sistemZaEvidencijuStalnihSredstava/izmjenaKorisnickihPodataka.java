@@ -24,6 +24,7 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 
 import javax.swing.JComboBox;
+import javax.swing.JPasswordField;
 
 public class izmjenaKorisnickihPodataka extends JFrame {
 
@@ -37,9 +38,9 @@ public class izmjenaKorisnickihPodataka extends JFrame {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
-	private JTextField textField_5;
 	private Session session;
 	private JComboBox kombo;
+	private JPasswordField textField_5;
 
 	/**
 	 * Launch the application.
@@ -74,26 +75,26 @@ public class izmjenaKorisnickihPodataka extends JFrame {
 		session = sesija;
 		setTitle("Izmjena korisni\u010Dkih podataka");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 297, 276);
+		setBounds(100, 100, 364, 276);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JLabel lblPromijeniIme = new JLabel("Novo ime:");
-		lblPromijeniIme.setBounds(60, 45, 96, 14);
+		lblPromijeniIme.setBounds(60, 42, 96, 14);
 		contentPane.add(lblPromijeniIme);
 
 		JLabel lblPromijeniPrezime = new JLabel("Novo prezime:");
-		lblPromijeniPrezime.setBounds(41, 70, 96, 14);
+		lblPromijeniPrezime.setBounds(41, 70, 115, 14);
 		contentPane.add(lblPromijeniPrezime);
 
 		JLabel lblNewLabel = new JLabel("Novi broj telefona:");
-		lblNewLabel.setBounds(20, 98, 106, 14);
+		lblNewLabel.setBounds(21, 95, 135, 14);
 		contentPane.add(lblNewLabel);
 
 		JLabel lblNoviJmbg = new JLabel("Novi JMBG:");
-		lblNoviJmbg.setBounds(60, 125, 64, 14);
+		lblNoviJmbg.setBounds(60, 125, 77, 14);
 		contentPane.add(lblNoviJmbg);
 
 		JLabel lblNoviUsername = new JLabel("Novi username:");
@@ -105,57 +106,87 @@ public class izmjenaKorisnickihPodataka extends JFrame {
 		contentPane.add(lblNovaLozinka);
 
 		textField = new JTextField();
-		textField.setBounds(137, 42, 86, 20);
+		textField.setBounds(158, 39, 149, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
-		textField_1.setBounds(137, 70, 86, 20);
+		textField_1.setBounds(158, 67, 149, 20);
 		contentPane.add(textField_1);
 
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
-		textField_2.setBounds(137, 95, 86, 20);
+		textField_2.setBounds(158, 92, 149, 20);
 		contentPane.add(textField_2);
 
 		textField_3 = new JTextField();
 		textField_3.setColumns(10);
-		textField_3.setBounds(137, 122, 86, 20);
+		textField_3.setBounds(158, 119, 149, 20);
 		contentPane.add(textField_3);
 
 		textField_4 = new JTextField();
 		textField_4.setColumns(10);
-		textField_4.setBounds(137, 147, 86, 20);
+		textField_4.setBounds(158, 144, 149, 20);
 		contentPane.add(textField_4);
-
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(137, 175, 86, 20);
-		contentPane.add(textField_5);
 
 		JButton button = new JButton("Uredu");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Korisnik pom = ((Korisnik)kombo.getSelectedItem());
+				
+				if(textField.getText().isEmpty() || textField_1.getText().isEmpty() 
+						|| textField_2.getText().isEmpty() || textField_3.getText().isEmpty() || textField_4.getText().isEmpty())
+				{		
+					JOptionPane.showMessageDialog(null, "Nisu dozvoljena prazna polja.");
+					return;
+				}
+				
+				String tel = textField_2.getText();
+				
+				if(tel.length() != 9)
+				{
+					JOptionPane.showMessageDialog(null, "Broj telefona mora imati 9 cifara");
+					return;
+				}
+				for(int i=0; i<tel.length(); i++)
+				{
+					int ascii = (int) tel.charAt(i);
+					if(ascii < 48 || ascii > 57)
+					{
+						JOptionPane.showMessageDialog(null, "Unesite ispravan broj telefona");
+						return;
+					}
+				}
+								
+				String jmbg = textField_3.getText();
+				
+				if(jmbg.length() != 13)
+				{
+					JOptionPane.showMessageDialog(null, "JMBG mora imati 13 cifara");
+					return;
+				}
+				for(int i=0; i<jmbg.length(); i++)
+				{
+					int ascii = (int) jmbg.charAt(i);
+					if(ascii < 48 || ascii > 57)
+					{
+						JOptionPane.showMessageDialog(null, "Unesite ispravan JMBG");
+						return;
+					}
+				}
+				
 				pom.setIme(textField.getText());
 				pom.setPrezime(textField_1.getText());
 				pom.setBrTel(textField_2.getText());
 				pom.setJmbg(textField_3.getText());
 				pom.setUsername(textField_4.getText());
-				if(textField.getText().length()!=0)
-					pom.setPassword(HibernateUtil.md5(textField_5.getText()));
-				try {
-					pom.izmjeni(session);
-				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null,"Greska");
-					return;
-				}
+				
 				JOptionPane.showMessageDialog(null,"Korisnik uspjesno izmijenjen");
 				//refresh();
 			}
 		});
-		button.setBounds(83, 203, 89, 23);
+		button.setBounds(154, 200, 89, 23);
 		contentPane.add(button);
 
 		JButton button_1 = new JButton("Iza\u0111i");
@@ -164,11 +195,11 @@ public class izmjenaKorisnickihPodataka extends JFrame {
 				dispose();
 			}
 		});
-		button_1.setBounds(182, 203, 89, 23);
+		button_1.setBounds(253, 200, 89, 23);
 		contentPane.add(button_1);
 		
 		JComboBox comboBox = new JComboBox(KorisniciSvi().toArray());
-		comboBox.setBounds(137, 17, 86, 20);
+		comboBox.setBounds(158, 14, 149, 20);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(kombo.getItemCount()!=0)
@@ -185,7 +216,7 @@ public class izmjenaKorisnickihPodataka extends JFrame {
 		kombo = comboBox;
 		
 		JLabel lblKorisnik = new JLabel("Korisnik:");
-		lblKorisnik.setBounds(70, 23, 86, 14);
+		lblKorisnik.setBounds(70, 20, 86, 14);
 		contentPane.add(lblKorisnik);
 
 		textField.setText(((Korisnik) kombo.getSelectedItem()).getIme());
@@ -193,5 +224,9 @@ public class izmjenaKorisnickihPodataka extends JFrame {
 		textField_2.setText(((Korisnik) kombo.getSelectedItem()).getBrTel());
 		textField_3.setText(((Korisnik) kombo.getSelectedItem()).getJmbg());
 		textField_4.setText(((Korisnik) kombo.getSelectedItem()).getUsername());
+		
+		textField_5 = new JPasswordField();
+		textField_5.setBounds(158, 169, 149, 20);
+		contentPane.add(textField_5);
 	}
 }

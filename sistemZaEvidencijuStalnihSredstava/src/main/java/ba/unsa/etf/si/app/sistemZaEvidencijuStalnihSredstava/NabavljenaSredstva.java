@@ -62,7 +62,7 @@ public class NabavljenaSredstva extends JFrame {
 		session = sesija;
 		setTitle("Nabavljena stalna sredstva");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 522, 339);
+		setBounds(100, 100, 587, 277);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -85,7 +85,7 @@ public class NabavljenaSredstva extends JFrame {
 				
 			}
 		});
-		btnUredu.setBounds(308, 252, 89, 23);
+		btnUredu.setBounds(374, 209, 89, 23);
 		contentPane.add(btnUredu);
 		
 		JButton btnIzai = new JButton("Iza\u0111i");
@@ -94,36 +94,36 @@ public class NabavljenaSredstva extends JFrame {
 				dispose();
 			}
 		});
-		btnIzai.setBounds(407, 252, 89, 23);
+		btnIzai.setBounds(473, 209, 89, 23);
 		contentPane.add(btnIzai);
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setToolTipText("Datum nabavke");
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Datum nabavke", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(10, 21, 241, 101);
+		panel.setBounds(10, 21, 301, 101);
 		contentPane.add(panel);
 		
 		JLabel label = new JLabel("Gornja granica: ");
-		label.setBounds(27, 34, 97, 14);
+		label.setBounds(27, 28, 97, 14);
 		panel.add(label);
 		
 		JLabel label_1 = new JLabel("Donja granica: ");
-		label_1.setBounds(27, 65, 97, 14);
+		label_1.setBounds(27, 59, 97, 14);
 		panel.add(label_1);
 		
 		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(134, 28, 91, 20);
+		dateChooser.setBounds(134, 22, 132, 20);
 		panel.add(dateChooser);
 		
 		JDateChooser dateChooser_1 = new JDateChooser();
-		dateChooser_1.setBounds(134, 59, 91, 20);
+		dateChooser_1.setBounds(134, 59, 132, 20);
 		panel.add(dateChooser_1);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Vrijednost nabavljenog sredstva", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(10, 133, 246, 99);
+		panel_1.setBounds(10, 133, 301, 99);
 		contentPane.add(panel_1);
 		
 		JLabel label_2 = new JLabel("Gornja granica: ");
@@ -135,34 +135,34 @@ public class NabavljenaSredstva extends JFrame {
 		panel_1.add(label_3);
 		
 		JSpinner spinner = new JSpinner();
-		spinner.setBounds(151, 32, 60, 20);
+		spinner.setBounds(151, 29, 82, 20);
 		panel_1.add(spinner);
 		
 		JSpinner spinner_1 = new JSpinner();
-		spinner_1.setBounds(151, 57, 60, 20);
+		spinner_1.setBounds(151, 54, 82, 20);
 		panel_1.add(spinner_1);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setLayout(null);
 		panel_2.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Dodatno", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_2.setBounds(261, 21, 241, 101);
+		panel_2.setBounds(321, 21, 241, 101);
 		contentPane.add(panel_2);
 		
 		JLabel label_4 = new JLabel("Lokacija:");
-		label_4.setBounds(26, 35, 68, 14);
+		label_4.setBounds(36, 29, 68, 14);
 		panel_2.add(label_4);
 		
 		textField = new JTextField();
 		textField.setColumns(10);
-		textField.setBounds(114, 29, 91, 20);
+		textField.setBounds(114, 26, 117, 20);
 		panel_2.add(textField);
 		
 		JLabel label_5 = new JLabel("Grupa:");
-		label_5.setBounds(36, 63, 47, 14);
+		label_5.setBounds(36, 60, 47, 14);
 		panel_2.add(label_5);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(114, 60, 91, 20);
+		comboBox.setBounds(114, 57, 117, 20);
 		panel_2.add(comboBox);
 	}
 }

@@ -75,7 +75,7 @@ public class StavljanjeSredstvaUUpotrebu extends JFrame {
 		session = sesija;
 		setTitle("Stavljanje stalnog sredstva u upotrebu");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 404, 305);
+		setBounds(100, 100, 418, 305);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -86,7 +86,7 @@ public class StavljanjeSredstvaUUpotrebu extends JFrame {
 		contentPane.add(lblIzaberiteStalnoSredstvo);
 		
 		JComboBox comboBox = new JComboBox(SvaSredstva().toArray());
-		comboBox.setBounds(243, 26, 109, 20);
+		comboBox.setBounds(233, 23, 154, 20);
 		contentPane.add(comboBox);
 		kombo = comboBox;
 		
@@ -95,12 +95,12 @@ public class StavljanjeSredstvaUUpotrebu extends JFrame {
 		contentPane.add(lblDatumStavljanjaSredstva);
 		
 		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(243, 58, 109, 20);
+		dateChooser.setBounds(233, 55, 154, 20);
 		contentPane.add(dateChooser);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Amortizacija", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(37, 98, 301, 112);
+		panel.setBounds(75, 99, 301, 112);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -143,7 +143,7 @@ public class StavljanjeSredstvaUUpotrebu extends JFrame {
 				dispose();
 			}
 		});
-		btnStaviUUpotrebu.setBounds(138, 233, 131, 23);
+		btnStaviUUpotrebu.setBounds(174, 231, 131, 23);
 		contentPane.add(btnStaviUUpotrebu);
 		
 		JButton btnIzai = new JButton("Iza\u0111i");
@@ -152,7 +152,7 @@ public class StavljanjeSredstvaUUpotrebu extends JFrame {
 				dispose();
 			}
 		});
-		btnIzai.setBounds(277, 233, 89, 23);
+		btnIzai.setBounds(313, 231, 89, 23);
 		contentPane.add(btnIzai);
 	}
 }
