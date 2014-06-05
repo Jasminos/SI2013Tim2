@@ -191,7 +191,7 @@ public class izmjenaKorisnickihPodataka extends JFrame {
 					int ascii = (int) ime.charAt(i);
 					if((ascii < 65  && ascii!=32 && ascii!=45) || (ascii > 90 && ascii < 97) || ascii>122)
 					{ 
-						JOptionPane.showMessageDialog(null, "Ime može sadržavati samo velika, mala slova i razmak");
+						JOptionPane.showMessageDialog(null, "Ime može sadržavati samo velika, mala slova (engleskog alfabeta) i razmak");
 						return;
 					}   
 				}
@@ -209,7 +209,7 @@ public class izmjenaKorisnickihPodataka extends JFrame {
 					int ascii = (int) prezime.charAt(i);
 					if((ascii < 65  && ascii!=32 && ascii!=45) || (ascii > 90 && ascii < 97) || ascii>122)
 					{ 
-						JOptionPane.showMessageDialog(null, "Prezime može sadržavati samo velika, mala slova, razmak i -");
+						JOptionPane.showMessageDialog(null, "Prezime može sadržavati samo velika, mala slova (engleskog alfabeta), razmak i -");
 						return;
 					}   
 				}
@@ -225,7 +225,7 @@ public class izmjenaKorisnickihPodataka extends JFrame {
 					int ascii = (int) username.charAt(i);
 					if((ascii < 65 && ascii > 57) || ascii<48 || (ascii > 90 && ascii < 97) || ascii>122)
 					{
-						JOptionPane.showMessageDialog(null, "Username može sadržavati samo slova i cifre");
+						JOptionPane.showMessageDialog(null, "Username može sadržavati samo slova (engleskog alfabeta) i cifre");
 						return;
 					}   
 				}
