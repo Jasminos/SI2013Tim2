@@ -64,11 +64,23 @@ public class DodavanjeTipaSS extends JFrame {
 		JButton btnUredu = new JButton("Uredu");
 		btnUredu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				
 				String naziv = textField.getText();
+							
 				if(naziv.length()<3)
 				{
 					JOptionPane.showMessageDialog(null, "Tip mora imati bar 3 slova");
 					return;
+				}
+				for(int i=1; i<naziv.length(); i++)
+				{
+					int ascii = (int) naziv.charAt(i);
+					if((ascii < 65  && ascii!=32 && ascii!=45) || (ascii > 90 && ascii < 97) || ascii>122)
+					{ 
+						JOptionPane.showMessageDialog(null, "Naziv tipa može sadržavati samo velika, mala slova (engleskog alfabeta) i razmak");
+						return;
+					}   
 				}
 				TipStalnogSredstva k = new TipStalnogSredstva(naziv);
 				try {
