@@ -73,30 +73,30 @@ public class DodavanjeNovogSS extends JFrame {
 		session = sesija;
 		setTitle("Dodavanje stalnog sredstva");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 354, 186);
+		setBounds(100, 100, 398, 189);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Naziv stalnog sredstva:");
-		lblNewLabel.setBounds(32, 14, 113, 14);
+		lblNewLabel.setBounds(32, 14, 152, 14);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblTipSredstva = new JLabel("Tip sredstva:");
-		lblTipSredstva.setBounds(82, 39, 63, 14);
+		lblTipSredstva.setBounds(82, 39, 102, 14);
 		contentPane.add(lblTipSredstva);
 		
 		JLabel lblVrijednostStalnogSredstva = new JLabel("Vrijednost stalnog sredstva:");
-		lblVrijednostStalnogSredstva.setBounds(10, 64, 135, 14);
+		lblVrijednostStalnogSredstva.setBounds(10, 64, 174, 14);
 		contentPane.add(lblVrijednostStalnogSredstva);
 		
 		JLabel lblLokacija = new JLabel("Lokacija:");
-		lblLokacija.setBounds(103, 89, 42, 14);
+		lblLokacija.setBounds(103, 89, 81, 14);
 		contentPane.add(lblLokacija);
 		
 		textField = new JTextField();
-		textField.setBounds(147, 11, 181, 20);
+		textField.setBounds(184, 11, 181, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
@@ -106,16 +106,16 @@ public class DodavanjeNovogSS extends JFrame {
 				
 			}
 		});
-		comboBox1.setBounds(147, 36, 181, 20);
+		comboBox1.setBounds(184, 36, 181, 20);
 		contentPane.add(comboBox1);
 		
 		textVrijednost = new JTextField();
-		textVrijednost.setBounds(147, 61, 181, 20);
+		textVrijednost.setBounds(184, 61, 181, 20);
 		contentPane.add(textVrijednost);
 		textVrijednost.setColumns(10);
 		
 		textLokacija = new JTextField();
-		textLokacija.setBounds(147, 86, 181, 20);
+		textLokacija.setBounds(184, 86, 181, 20);
 		contentPane.add(textLokacija);
 		textLokacija.setColumns(10);
 		
@@ -140,7 +140,7 @@ public class DodavanjeNovogSS extends JFrame {
 				  dispose();
 			}
 		});
-		btnDodaj.setBounds(143, 117, 89, 23);
+		btnDodaj.setBounds(180, 114, 89, 23);
 		contentPane.add(btnDodaj);
 		
 		JButton button_1 = new JButton("Iza\u0111i");
@@ -149,7 +149,7 @@ public class DodavanjeNovogSS extends JFrame {
 				dispose();
 			}
 		});
-		button_1.setBounds(239, 117, 89, 23);
+		button_1.setBounds(276, 114, 89, 23);
 		contentPane.add(button_1);
 	}
 }
