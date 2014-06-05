@@ -116,14 +116,25 @@ public class Login extends JFrame {
 					
 					JOptionPane.showMessageDialog(null, "Unesite korisni�ko ime i lozinku!");
 				}*/
+				
 				if(user.equals("Administrator"))
 				{
+					if(pass.isEmpty())
+					{
+						JOptionPane.showMessageDialog(null, "Unesite password");
+						return;
+					}
+					
 					Administrator a = (Administrator) session.get(Administrator.class, (long) 1);
 					if(HibernateUtil.md5(pass).equals(a.getPassword()))
 					{
 						adminMenu am= new adminMenu(session);
 						am.setVisible(true);
 						dispose();
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(null, "Unijeli ste pogrešnu šifru.");
 					}
 				}
 				else if(!user.isEmpty() && !pass.isEmpty())
