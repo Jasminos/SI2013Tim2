@@ -98,6 +98,7 @@ public class pregled extends JFrame {
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
+		table.disable();
 		refreshList("");
 		scrollPane.setViewportView(table);
 		
