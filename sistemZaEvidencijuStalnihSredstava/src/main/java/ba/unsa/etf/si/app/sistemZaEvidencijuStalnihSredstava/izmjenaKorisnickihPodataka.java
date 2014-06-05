@@ -239,8 +239,16 @@ public class izmjenaKorisnickihPodataka extends JFrame {
 				pom.setUsername(textField_4.getText());
 				*/
 				
+				
+				if(pom.getIme().equals(ime) && pom.getPrezime().equals(prezime) && pom.getBrTel().equals(tel) && pom.getJmbg().equals(jmbg) && pom.getUsername().equals(username) && textField_5.getText().isEmpty())
+				{
+					JOptionPane.showMessageDialog(null, "Svi uneseni podaci su isti kao i podaci prije promjene.\nNišta nije promijenjeno.");
+					return;
+				}
+				
 				session.getTransaction().begin();
 				Korisnik k = (Korisnik)session.get(Korisnik.class, pom.getId());
+				
 				k.setIme(ime);
 				k.setPrezime(prezime);
 				k.setBrTel(tel);
