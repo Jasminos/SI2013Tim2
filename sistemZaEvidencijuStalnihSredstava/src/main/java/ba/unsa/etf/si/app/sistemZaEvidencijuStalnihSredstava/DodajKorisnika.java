@@ -144,9 +144,16 @@ public class DodajKorisnika extends JFrame {
 				String username = textField_4.getText();
 				String password = passwordField.getText();
 				
+								
+				if( username.length() == 1 || ime.length() == 1 || prezime.length() == 1)
+				{
+					JOptionPane.showMessageDialog(null, "Nisu dozvoljene vrijednosti od jednog simbola");
+					return;
+				}
+				
 				if(username.isEmpty() || password.isEmpty())
 				{
-					JOptionPane.showMessageDialog(null, "Unesite ispravan username i password.");
+					JOptionPane.showMessageDialog(null, "Unesite username i password.");
 					return;
 				}
 				if(ime.isEmpty() || prezime.isEmpty())
@@ -181,6 +188,52 @@ public class DodajKorisnika extends JFrame {
 						JOptionPane.showMessageDialog(null, "Unesite ispravan broj telefona");
 						return;
 					}
+				}
+				
+				//validiranje username, imena i prezimena:
+				
+				for(int i=1; i<username.length(); i++)
+				{
+					int ascii = (int) username.charAt(i);
+					if((ascii < 65 && ascii > 57) || ascii<48 || (ascii > 90 && ascii < 97) || ascii>122)
+					{
+						JOptionPane.showMessageDialog(null, "Username može sadržavati samo slova i cifre");
+						return;
+					}   
+				}
+				
+				int c = (int)ime.charAt(0);
+				if(c<65 || c>90)
+				{
+					JOptionPane.showMessageDialog(null, "Ime mora početi velikim slovom");
+					return;
+				}
+				
+				for(int i=1; i<ime.length(); i++)
+				{
+					int ascii = (int) ime.charAt(i);
+					if((ascii < 65  && ascii!=32 && ascii!=45) || (ascii > 90 && ascii < 97) || ascii>122)
+					{ 
+						JOptionPane.showMessageDialog(null, "Ime može sadržavati samo velika, mala slova i razmak");
+						return;
+					}   
+				}
+				
+				c = (int)prezime.charAt(0);
+				if(c<65 || c>90)
+				{
+					JOptionPane.showMessageDialog(null, "Prezime mora početi velikim slovom");
+					return;
+				}
+				
+				for(int i=1; i<prezime.length(); i++)
+				{
+					int ascii = (int) prezime.charAt(i);
+					if((ascii < 65  && ascii!=32 && ascii!=45) || (ascii > 90 && ascii < 97) || ascii>122)
+					{ 
+						JOptionPane.showMessageDialog(null, "Prezime može sadržavati samo velika, mala slova, razmak i -");
+						return;
+					}   
 				}
 				
 				/*provjera postojanja username-a u bazi*/
