@@ -94,7 +94,7 @@ public class IzmjenaPassAdmin extends JFrame {
 					dispose();
 				}
 				else
-					JOptionPane.showMessageDialog(null, "Unesite novu lozinku administratora.");
+					JOptionPane.showMessageDialog(null, "Unesite sva potrebna polja.");
 			}
 		});
 		btnNewButton.setBounds(139, 116, 89, 23);
