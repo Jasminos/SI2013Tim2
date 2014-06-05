@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import ba.unsa.etf.si.klase.Administrator;
 import ba.unsa.etf.si.klase.Korisnik;
 import ba.unsa.etf.si.util.HibernateUtil;
 
@@ -176,11 +177,80 @@ public class izmjenaKorisnickihPodataka extends JFrame {
 					}
 				}
 				
+				String ime = textField.getText();
+				
+				int c = (int)ime.charAt(0);
+				if(c<65 || c>90)
+				{
+					JOptionPane.showMessageDialog(null, "Ime mora početi velikim slovom");
+					return;
+				}
+				
+				for(int i=1; i<ime.length(); i++)
+				{
+					int ascii = (int) ime.charAt(i);
+					if((ascii < 65  && ascii!=32 && ascii!=45) || (ascii > 90 && ascii < 97) || ascii>122)
+					{ 
+						JOptionPane.showMessageDialog(null, "Ime može sadržavati samo velika, mala slova i razmak");
+						return;
+					}   
+				}
+				
+				String prezime = textField_1.getText();
+				c = (int)prezime.charAt(0);
+				if(c<65 || c>90)
+				{
+					JOptionPane.showMessageDialog(null, "Prezime mora početi velikim slovom");
+					return;
+				}
+				
+				for(int i=1; i<prezime.length(); i++)
+				{
+					int ascii = (int) prezime.charAt(i);
+					if((ascii < 65  && ascii!=32 && ascii!=45) || (ascii > 90 && ascii < 97) || ascii>122)
+					{ 
+						JOptionPane.showMessageDialog(null, "Prezime može sadržavati samo velika, mala slova, razmak i -");
+						return;
+					}   
+				}
+				
+				String username = textField_4.getText();
+				if(username.isEmpty())
+				{
+					JOptionPane.showMessageDialog(null, "Unesite username.");
+					return;
+				}
+				for(int i=1; i<username.length(); i++)
+				{
+					int ascii = (int) username.charAt(i);
+					if((ascii < 65 && ascii > 57) || ascii<48 || (ascii > 90 && ascii < 97) || ascii>122)
+					{
+						JOptionPane.showMessageDialog(null, "Username može sadržavati samo slova i cifre");
+						return;
+					}   
+				}
+				
+				/*
+				//stari kod
 				pom.setIme(textField.getText());
 				pom.setPrezime(textField_1.getText());
 				pom.setBrTel(textField_2.getText());
 				pom.setJmbg(textField_3.getText());
 				pom.setUsername(textField_4.getText());
+				*/
+				
+				session.getTransaction().begin();
+				Korisnik k = (Korisnik)session.get(Korisnik.class, pom.getId());
+				k.setIme(ime);
+				k.setPrezime(prezime);
+				k.setBrTel(tel);
+				k.setJmbg(jmbg);
+				k.setUsername(username);
+				
+				if(!textField_5.getText().isEmpty())
+					k.setPassword(HibernateUtil.md5(textField_5.getText()));
+				session.update(k);
+				session.getTransaction().commit();
 				
 				JOptionPane.showMessageDialog(null,"Korisnik uspjesno izmijenjen");
 				//refresh();
