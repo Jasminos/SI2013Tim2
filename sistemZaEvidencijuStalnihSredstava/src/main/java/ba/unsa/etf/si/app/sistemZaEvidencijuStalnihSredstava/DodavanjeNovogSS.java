@@ -10,6 +10,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.text.DateFormat;
 
 import ba.unsa.etf.si.klase.*;
 import ba.unsa.etf.si.util.HibernateUtil;
@@ -28,6 +31,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.JRadioButton;
+import java.awt.event.ContainerAdapter;
+import java.awt.event.ContainerEvent;
 
 public class DodavanjeNovogSS extends JFrame {
 
@@ -68,35 +73,42 @@ public class DodavanjeNovogSS extends JFrame {
 		List<TipStalnogSredstva> results = (List<TipStalnogSredstva>) query.list();
 		return results;
 	}
+	
+	
+	public void TrenutniDatum (){
+
+		
+	}
+	
 	public DodavanjeNovogSS(Session sesija) {
 		setResizable(false);
 		session = sesija;
 		setTitle("Dodavanje stalnog sredstva");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 398, 189);
+		setBounds(100, 100, 418, 290);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Naziv stalnog sredstva:");
-		lblNewLabel.setBounds(32, 14, 152, 14);
+		lblNewLabel.setBounds(48, 36, 152, 14);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblTipSredstva = new JLabel("Tip sredstva:");
-		lblTipSredstva.setBounds(82, 39, 102, 14);
+		lblTipSredstva.setBounds(98, 61, 102, 14);
 		contentPane.add(lblTipSredstva);
 		
 		JLabel lblVrijednostStalnogSredstva = new JLabel("Vrijednost stalnog sredstva:");
-		lblVrijednostStalnogSredstva.setBounds(10, 64, 174, 14);
+		lblVrijednostStalnogSredstva.setBounds(26, 139, 174, 14);
 		contentPane.add(lblVrijednostStalnogSredstva);
 		
 		JLabel lblLokacija = new JLabel("Lokacija:");
-		lblLokacija.setBounds(103, 89, 81, 14);
+		lblLokacija.setBounds(119, 164, 81, 14);
 		contentPane.add(lblLokacija);
 		
 		textField = new JTextField();
-		textField.setBounds(184, 11, 181, 20);
+		textField.setBounds(200, 33, 181, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
@@ -106,16 +118,16 @@ public class DodavanjeNovogSS extends JFrame {
 				
 			}
 		});
-		comboBox1.setBounds(184, 36, 181, 20);
+		comboBox1.setBounds(200, 58, 181, 20);
 		contentPane.add(comboBox1);
 		
 		textVrijednost = new JTextField();
-		textVrijednost.setBounds(184, 61, 181, 20);
+		textVrijednost.setBounds(200, 136, 181, 20);
 		contentPane.add(textVrijednost);
 		textVrijednost.setColumns(10);
 		
 		textLokacija = new JTextField();
-		textLokacija.setBounds(184, 86, 181, 20);
+		textLokacija.setBounds(200, 161, 181, 20);
 		contentPane.add(textLokacija);
 		textLokacija.setColumns(10);
 		
@@ -140,7 +152,7 @@ public class DodavanjeNovogSS extends JFrame {
 				  dispose();
 			}
 		});
-		btnDodaj.setBounds(180, 114, 89, 23);
+		btnDodaj.setBounds(188, 213, 89, 23);
 		contentPane.add(btnDodaj);
 		
 		JButton button_1 = new JButton("Iza\u0111i");
@@ -149,7 +161,40 @@ public class DodavanjeNovogSS extends JFrame {
 				dispose();
 			}
 		});
-		button_1.setBounds(276, 114, 89, 23);
+		button_1.setBounds(291, 213, 89, 23);
 		contentPane.add(button_1);
+		
+		JLabel lblDatumNabavke = new JLabel("Datum nabavke:");
+		lblDatumNabavke.setBounds(80, 89, 109, 14);
+		contentPane.add(lblDatumNabavke);
+		
+		Calendar cal = new GregorianCalendar();	
+		int mjesec=cal.get(Calendar.MONTH);
+		int dan=cal.get(Calendar.DAY_OF_MONTH);
+		int godina=cal.get(Calendar.YEAR);
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setText(dan+"."+(mjesec+1)+"."+godina);
+		lblNewLabel_1.setBounds(200, 89, 86, 14);
+		contentPane.add(lblNewLabel_1);
+		
+		JLabel lblVrijemeNabavke = new JLabel("Vrijeme nabavke:");
+		lblVrijemeNabavke.setBounds(74, 114, 126, 14);
+		contentPane.add(lblVrijemeNabavke);
+		
+	
+		Calendar cal1 = new GregorianCalendar();	
+		int minute=cal1.get(Calendar.MINUTE);
+		int sati=cal1.get(Calendar.HOUR);
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		lblNewLabel_2.setText(sati+":"+minute);
+		lblNewLabel_2.setBounds(200, 114, 85, 14);
+		contentPane.add(lblNewLabel_2);
+		
+			
+			
+			
+			
+	
+		
 	}
 }
