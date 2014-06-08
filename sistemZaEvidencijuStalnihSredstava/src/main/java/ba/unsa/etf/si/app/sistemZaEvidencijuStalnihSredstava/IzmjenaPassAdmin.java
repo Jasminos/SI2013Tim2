@@ -80,8 +80,9 @@ public class IzmjenaPassAdmin extends JFrame {
 					Administrator admin = (Administrator)session.get(Administrator.class, (long)1);
 					
 					String stari = admin.getPassword();
+					String novi = passwordStari.getText();
 					
-					if(!passwordStari.getText().equals(stari))
+					if(!(HibernateUtil.md5(novi).equals(stari)))
 					{
 						JOptionPane.showMessageDialog(null, "Pogrešan stari password ste unijeli!");
 						return;

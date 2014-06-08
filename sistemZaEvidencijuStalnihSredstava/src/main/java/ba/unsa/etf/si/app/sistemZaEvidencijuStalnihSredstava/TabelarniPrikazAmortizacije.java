@@ -226,6 +226,7 @@ public class TabelarniPrikazAmortizacije extends JFrame {
 		});
 		
 		table = new JTable();
+		table.setEnabled(false);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null},

@@ -116,7 +116,7 @@ public class Login extends JFrame {
 					
 					JOptionPane.showMessageDialog(null, "Unesite korisni�ko ime i lozinku!");
 				}*/
-				
+				try{
 				if(user.equals("Administrator"))
 				{
 					if(pass.isEmpty())
@@ -155,7 +155,8 @@ public class Login extends JFrame {
 						JOptionPane.showMessageDialog(null, "Pogrešan login.");
 					}
 				}
-				else 
+				}
+				catch(Exception c) 
 				{
 					JOptionPane.showMessageDialog(null, "Pogrešan login.");
 				}

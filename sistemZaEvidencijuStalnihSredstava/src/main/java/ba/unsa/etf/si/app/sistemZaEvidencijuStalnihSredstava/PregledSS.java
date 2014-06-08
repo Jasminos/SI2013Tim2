@@ -146,6 +146,7 @@ public class PregledSS extends JFrame {
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
+		table.setEnabled(false);
 		RefreshList("");
 		
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);

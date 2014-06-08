@@ -64,8 +64,8 @@ public class OtpisProdajaSS extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public List<StalnoSredstvo> SvaSredstvaNeProdano(){
-		Query query = session.createQuery("from StalnoSredstvo where PRODANO = false");
+	public List<StalnoSredstvo> SvaSredstvaUUpotrebi(){
+		Query query = session.createQuery("from StalnoSredstvo where PRODANO = false and OTPISANO = false and UUPOTREBI = true and OTPISANO = false");
 		List<StalnoSredstvo> results = (List<StalnoSredstvo>) query.list();
 		return results;
 	}
@@ -146,7 +146,7 @@ public class OtpisProdajaSS extends JFrame {
 		lblPanjaOvomAkcijom.setBounds(24, 134, 360, 14);
 		contentPane.add(lblPanjaOvomAkcijom);
 		
-		JComboBox comboBox = new JComboBox(SvaSredstvaNeProdano().toArray());
+		JComboBox comboBox = new JComboBox(SvaSredstvaUUpotrebi().toArray());
 		comboBox.setBounds(209, 30, 141, 20);
 		contentPane.add(comboBox);
 		kombo = comboBox;
