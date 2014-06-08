@@ -24,6 +24,7 @@ import java.util.List;
 
 import ba.unsa.etf.si.klase.Administrator;
 import ba.unsa.etf.si.klase.Korisnik;
+import ba.unsa.etf.si.klase.StalnoSredstvo;
 import ba.unsa.etf.si.klase.TipStalnogSredstva;
 import ba.unsa.etf.si.korisnik.*;
 import ba.unsa.etf.si.util.HibernateUtil;
@@ -161,6 +162,7 @@ public class DodajKorisnika extends JFrame {
 					JOptionPane.showMessageDialog(null, "Unesite ime i prezime korisnika");
 					return;
 				}
+				
 				if(jmbg.length() != 13)
 				{
 					JOptionPane.showMessageDialog(null, "JMBG mora imati 13 cifara");
@@ -235,25 +237,35 @@ public class DodajKorisnika extends JFrame {
 						return;
 					}   
 				}
-				
-				/*provjera postojanja username-a u bazi*/
-				
-				Query query = session.createQuery("from Korisnik");
-				List<Korisnik> rezultat = (List<Korisnik>) query.list();
-				for(int i=0; i<rezultat.size(); i++)
-				{
-					String priv = rezultat.get(i).getUsername();
-					if(priv.equals(username))
-					{
-						JOptionPane.showMessageDialog(null, "Korisnik sa istim username-om već postoji.");
-						return;
-					}
-				}
-				
+												
 				if(username.equals("Administrator"))
 				{
 					JOptionPane.showMessageDialog(null, "Korisnik ne smije imati username 'Administrator'!");
 					return;
+				}
+				
+				/*provjera postojanja duplikata u bazi*/
+				
+				Query query = session.createQuery("from Korisnik");
+				List<Korisnik> duplikat = (List<Korisnik>)query.list();
+				
+				for(int i=0; i<duplikat.size(); i++)
+				{
+					if(duplikat.get(i).getBrTel().equals(tel))
+					{
+						JOptionPane.showMessageDialog(null, "Broj telefona već postoji!");
+						return;
+					}
+					if(duplikat.get(i).getJmbg().equals(jmbg))
+					{
+						JOptionPane.showMessageDialog(null, "JMBG već postoji!");
+						return;
+					}
+					if(duplikat.get(i).getUsername().equals(username))
+					{
+						JOptionPane.showMessageDialog(null, "Korisnik sa istim username-om već postoji.");
+						return;
+					}
 				}
 				
 				// Date datum=(Date) dateChooser.getDate();
