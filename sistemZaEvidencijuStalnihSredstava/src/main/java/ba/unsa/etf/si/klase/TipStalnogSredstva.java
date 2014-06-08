@@ -15,7 +15,7 @@ public class TipStalnogSredstva implements java.io.Serializable {
 	private long id;
 	private String naziv;
 	
-	public TipStalnogSredstva () {}
+	public  TipStalnogSredstva () {}
 	public TipStalnogSredstva (String n)
 	{
 		naziv = n;		
