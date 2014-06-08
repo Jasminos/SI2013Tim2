@@ -22,7 +22,7 @@ public class StalnoSredstvoTest extends TestCase {
 		assertTrue(tmp.prodaj( tmp.getDatumProdaje(), 100.5));
 	}
 
-	/*public void testSpasi() {
+	public void testSpasi() {
 		fail("Not yet implemented");
 	}
 
@@ -32,6 +32,6 @@ public class StalnoSredstvoTest extends TestCase {
 
 	public void testIzmjeni() {
 		fail("Not yet implemented");
-	}*/
+	}
 
 }
