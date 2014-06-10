@@ -9,8 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-
-
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -37,14 +35,17 @@ import ba.unsa.etf.si.util.HibernateUtil;
 
 import com.itextpdf.text.Font;
 import com.toedter.calendar.JDateChooser;
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+
 import javax.swing.SpinnerNumberModel;
 
 public class NabavljenaSredstva extends JFrame {
@@ -123,13 +124,39 @@ public class NabavljenaSredstva extends JFrame {
 			    try { 
 			        Document document = new Document(); 
 			        PdfWriter.getInstance(document, new FileOutputStream(FILE)); 
-			        document.open(); 
+			        document.open();
+			        Image To_be_Added = Image.getInstance("images.jpg");
+			        To_be_Added.setAlignment(Image.RIGHT | Image.TEXTWRAP);
+		            document.add(To_be_Added);
+		            
 			        
-			        //addMetaData(document); 
-			        document.addTitle("Izvjestaj o nabavljenim stalnim sredstvima"); 
+			        //addMetaData(document);
+
+			        document.addTitle("Izvještaj o nabavljenim stalnim sredstvima"); 
 			        	        
 			        Paragraph preface = new Paragraph(); 
 			        preface.add(new Paragraph(" ")); 
+			        Paragraph nesto1=new Paragraph("Trgovina d.o.o");
+			        nesto1.setAlignment(Element.ALIGN_LEFT);
+			        nesto1.setFont(smallBold);
+			        document.add(nesto1);
+			      
+			       
+			        Paragraph nesto2=new Paragraph("Sarajevo");
+			        nesto2.setAlignment(Element.ALIGN_LEFT);
+			        nesto2.setFont(smallBold);
+			        document.add(nesto2);
+			       
+			        Paragraph nesto3=new Paragraph("Tel/fax: 033/123-456");
+			        nesto3.setAlignment(Element.ALIGN_LEFT);
+			        nesto3.setFont(smallBold);
+			        document.add(nesto3);
+			        
+
+		            document.add( Chunk.NEWLINE );
+		            document.add( Chunk.NEWLINE );
+		            document.add( Chunk.NEWLINE );
+			       
 			        Date d = new Date();
 			        preface.add(new Paragraph(" "));
 			        String s = Integer.toString(d.getDay())+"." + Integer.toString(d.getMonth())+".20"+Integer.toString(d.getYear()-100) + ".";
@@ -137,7 +164,7 @@ public class NabavljenaSredstva extends JFrame {
 			        preface.add(new Paragraph(" "));
 			        preface.add(new Paragraph(" "));
 			        document.add(preface);
-			        Paragraph nesto=new Paragraph("Izvjestaj o nabavljenim stalnim sredstvima");
+			        Paragraph nesto=new Paragraph("Izvještaj o nabavljenim stalnim sredstvima");
 			        nesto.setAlignment(Element.ALIGN_CENTER);
 			        document.add(nesto);
 			        preface = new Paragraph();
@@ -146,10 +173,11 @@ public class NabavljenaSredstva extends JFrame {
 					List<StalnoSredstvo> pravi = new ArrayList<StalnoSredstvo> ();
 					for(StalnoSredstvo k : result)
 					{
-						if(!k.isOtpisano() && !k.isuUpotrebi() &&(dateChooser.getDate().equals(dateChooser_1.getDate())|| (k.getDatumNabavke().before(dateChooser_1.getDate())&& k.getDatumNabavke().after(dateChooser.getDate()))) && (textField.getText().equals("")||textField.getText().equals(k.getLokacija())) && ((spinner.getValue().equals(0) && spinner_1.getValue().equals(0))|| ((Integer)spinner.getValue()<k.getNabavnaVrijednost()&& (Integer)spinner_1.getValue()>k.getNabavnaVrijednost()))  )
+						
+						if(!k.isOtpisano() && !k.isuUpotrebi() &&(dateChooser.getDate().equals(dateChooser_1.getDate())|| (k.getDatumNabavke().before(dateChooser.getDate())&& k.getDatumNabavke().after(dateChooser_1.getDate()))) && (textField.getText().equals("")||textField.getText().equals(k.getLokacija())) && ((spinner.getValue().equals(0) && spinner_1.getValue().equals(0))|| ((Integer)spinner.getValue()<k.getNabavnaVrijednost()&& (Integer)spinner_1.getValue()>k.getNabavnaVrijednost()))  )
 						{
 							pravi.add(k);
-						}
+						}else {}
 					}
 					 preface.add(new Paragraph(" "));
 				     preface.add(new Paragraph(" "));
