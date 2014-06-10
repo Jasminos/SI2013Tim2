@@ -65,6 +65,8 @@ public class StalnaSredstvaUUpotrebi1 extends JFrame {
 	private JSpinner spinner_1;
 	private JSpinner spinner_2;
 	private JSpinner spinner_3;
+	private JSpinner spinner_4;
+	private JSpinner spinner_5;
 	private JComboBox comboBox;
 
 	private String getPath() {
@@ -174,7 +176,25 @@ public class StalnaSredstvaUUpotrebi1 extends JFrame {
 					List<StalnoSredstvo> result = (List<StalnoSredstvo>) query
 							.list();
 					List<StalnoSredstvo> pravi = new ArrayList<StalnoSredstvo>();
-					for (StalnoSredstvo k : result) {
+					for (StalnoSredstvo k : result) 
+					{
+						boolean okZaIspisati = true;
+						/*if(k.getDatumNabavke().after(dateChooser.getDate())||k.getDatumNabavke().before(dateChooser_1.getDate()))
+							okZaIspisati = false;
+						if(k.getDatumStavljanjaUUpotrebu().after(dateChooser_3.getDate())||k.getDatumStavljanjaUUpotrebu().before(dateChooser_2.getDate()))
+							okZaIspisati = false;
+						if(k.getNabavnaVrijednost() > (Integer)spinner.getValue() || k.getNabavnaVrijednost() < (Integer)spinner_1.getValue())
+							okZaIspisati = false;
+						if(k.getTrenutnaVrijednost() > (Integer)spinner_2.getValue() || k.getTrenutnaVrijednost() < (Integer)spinner_3.getValue())
+							okZaIspisati = false;
+						if(k.getStopaAmortizacije() > (Integer)spinner_4.getValue() || k.getStopaAmortizacije() < (Integer)spinner_5.getValue())
+							okZaIspisati = false;
+						if(!k.getLokacija().equals(textField.getText()))
+						{
+							if(textField.getText()!="")
+								okZaIspisati = false;
+						}*/
+						if(okZaIspisati)
 						pravi.add(k);						
 						preface.add(new Paragraph(" "));
 					    preface.add(new Paragraph(" "));
