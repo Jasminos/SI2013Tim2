@@ -5,33 +5,26 @@ import java.util.Date;
 import junit.framework.TestCase;
 
 public class StalnoSredstvoTest extends TestCase {
-	TipStalnogSredstva t = new TipStalnogSredstva();
-	StalnoSredstvo tmp = new StalnoSredstvo("Stolica", "sarajevo", 10.5, new Date(), t);
 	
 	public void testStaviUUpotrebu() {
-		
+		TipStalnogSredstva t = new TipStalnogSredstva("ble");
+		StalnoSredstvo tmp = new StalnoSredstvo("Stolica", "sarajevo", 10.5, new Date(), t);
 		assertTrue(tmp.staviUUpotrebu(10.3, new Date(), true));
 	}
 
 	public void testOtpisi() {
-		assertFalse(tmp.otpisi(new Date()));
+
+		TipStalnogSredstva t = new TipStalnogSredstva("ble");
+		StalnoSredstvo tmp = new StalnoSredstvo("Stolica", "sarajevo", 10.5, new Date(), t);
+		tmp.staviUUpotrebu(10.3, new Date(), true);
+		assertTrue(tmp.otpisi(new Date()));
 	}
 
 	public void testProdaj() {
-		tmp.getDatumProdaje();
-		assertTrue(tmp.prodaj( tmp.getDatumProdaje(), 100.5));
-	}
 
-	public void testSpasi() {
-		fail("Not yet implemented");
+		TipStalnogSredstva t = new TipStalnogSredstva("ble");
+		StalnoSredstvo tmp = new StalnoSredstvo("Stolica", "sarajevo", 10.5, new Date(), t);
+		tmp.staviUUpotrebu(10.3, new Date(), true);
+		assertTrue(tmp.prodaj( new Date(), 100.5));
 	}
-
-	public void testObrisi() {
-		fail("Not yet implemented");
-	}
-
-	public void testIzmjeni() {
-		fail("Not yet implemented");
-	}
-
 }
