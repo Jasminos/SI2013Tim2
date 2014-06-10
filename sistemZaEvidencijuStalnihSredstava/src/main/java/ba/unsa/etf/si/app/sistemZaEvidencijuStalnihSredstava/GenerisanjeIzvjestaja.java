@@ -4,6 +4,7 @@ package ba.unsa.etf.si.app.sistemZaEvidencijuStalnihSredstava;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -116,6 +117,8 @@ public class GenerisanjeIzvjestaja extends JFrame {
 					OtpisanaiProdanaSredstva ops= new OtpisanaiProdanaSredstva(session);
 					ops.setVisible(true);
 					}
+				else
+					JOptionPane.showMessageDialog(null,"Izaberite vrstu izvještaja.");
 				
 			}
 		});
