@@ -1,6 +1,7 @@
 package ba.unsa.etf.si.app.sistemZaEvidencijuStalnihSredstava;
 
 
+import java.awt.Desktop;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -8,11 +9,23 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
+import ba.unsa.etf.si.klase.StalnoSredstvo;
 import ba.unsa.etf.si.util.HibernateUtil;
 
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.border.TitledBorder;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.JSpinner;
@@ -20,11 +33,18 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 public class StalnaSredstvaUUpotrebi1 extends JFrame {
 
@@ -35,7 +55,38 @@ public class StalnaSredstvaUUpotrebi1 extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private Session session;
+	private JDateChooser dateChooser;
+	private JDateChooser dateChooser_1;
+	private JDateChooser dateChooser_2;
+	private JDateChooser dateChooser_3;
+	private JDateChooser dateChooser_4;
+	private JDateChooser dateChooser_5;
+	private JSpinner spinner;
+	private JSpinner spinner_1;
+	private JSpinner spinner_2;
+	private JSpinner spinner_3;
+	private JSpinner spinner_4;
+	private JSpinner spinner_5;
+	private JComboBox comboBox;
 
+	private String getPath() {
+		JFileChooser chooser;
+		String path = "";
+		
+	    chooser = new JFileChooser(); 
+	    chooser.setCurrentDirectory(new java.io.File("."));
+	    chooser.setDialogTitle("Izbor putanje");
+	    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+	    
+	    chooser.setAcceptAllFileFilterUsed(false);
+	        
+	    if (chooser.showOpenDialog(chooser) == JFileChooser.APPROVE_OPTION) { 	      
+	    	path = chooser.getSelectedFile().toString();
+	      }
+    
+		return path;
+	
+	}
 	/**
 	 * Launch the application.
 	 */
@@ -67,6 +118,154 @@ public class StalnaSredstvaUUpotrebi1 extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JButton button = new JButton("Uredu");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Random rand = new Random();
+				int x = rand.nextInt(1000);
+				
+				final String FILE = getPath() + File.separator + "SredstvaUUpotrebi_" + x +".pdf"; 
+			    final Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD); 
+			    final Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
+			    
+			    try{
+			    	Document document = new Document(); 
+			        PdfWriter.getInstance(document, new FileOutputStream(FILE)); 
+			        document.open();
+			        Image To_be_Added = Image.getInstance("images.jpg");
+			        To_be_Added.setAlignment(Image.RIGHT | Image.TEXTWRAP);
+		            document.add(To_be_Added);
+
+					// addMetaData(document);
+					document.addTitle("Izvjestaj o stalnim sredstvima u upotrebi");
+					Paragraph preface = new Paragraph(); 
+			        preface.add(new Paragraph(" ")); 
+			        Paragraph nesto1=new Paragraph("Trgovina d.o.o");
+			        nesto1.setAlignment(Element.ALIGN_LEFT);
+			        nesto1.setFont(smallBold);
+			        document.add(nesto1);
+			      
+			       
+			        Paragraph nesto2=new Paragraph("Sarajevo");
+			        nesto2.setAlignment(Element.ALIGN_LEFT);
+			        nesto2.setFont(smallBold);
+			        document.add(nesto2);
+			       
+			        Paragraph nesto3=new Paragraph("Tel/fax: 033/123-456");
+			        nesto3.setAlignment(Element.ALIGN_LEFT);
+			        nesto3.setFont(smallBold);
+			        document.add(nesto3);
+			        
+
+		            document.add( Chunk.NEWLINE );
+		            document.add( Chunk.NEWLINE );
+		            document.add( Chunk.NEWLINE );
+			       
+			        Date d = new Date();
+			        preface.add(new Paragraph(" "));
+			        String s = Integer.toString(d.getDay())+"." + Integer.toString(d.getMonth())+".20"+Integer.toString(d.getYear()-100) + ".";
+			        preface.add(new Paragraph("Datum: " + s, smallBold));
+			        preface.add(new Paragraph(" "));
+			        preface.add(new Paragraph(" "));
+			        document.add(preface);
+			        Paragraph nesto=new Paragraph("Izvještaj o stalnim sredstvima u upotrebi");
+			        nesto.setAlignment(Element.ALIGN_CENTER);
+			        document.add(nesto);
+					preface = new Paragraph();
+					Query query = session.createQuery("from StalnoSredstvo where UUPOTREBI=true");
+					List<StalnoSredstvo> result = (List<StalnoSredstvo>) query
+							.list();
+					List<StalnoSredstvo> pravi = new ArrayList<StalnoSredstvo>();
+					for (StalnoSredstvo k : result) 
+					{
+						boolean okZaIspisati = true;
+						/*if(k.getDatumNabavke().after(dateChooser.getDate())||k.getDatumNabavke().before(dateChooser_1.getDate()))
+							okZaIspisati = false;
+						if(k.getDatumStavljanjaUUpotrebu().after(dateChooser_3.getDate())||k.getDatumStavljanjaUUpotrebu().before(dateChooser_2.getDate()))
+							okZaIspisati = false;
+						if(k.getNabavnaVrijednost() > (Integer)spinner.getValue() || k.getNabavnaVrijednost() < (Integer)spinner_1.getValue())
+							okZaIspisati = false;
+						if(k.getTrenutnaVrijednost() > (Integer)spinner_2.getValue() || k.getTrenutnaVrijednost() < (Integer)spinner_3.getValue())
+							okZaIspisati = false;
+						if(k.getStopaAmortizacije() > (Integer)spinner_4.getValue() || k.getStopaAmortizacije() < (Integer)spinner_5.getValue())
+							okZaIspisati = false;
+						if(!k.getLokacija().equals(textField.getText()))
+						{
+							if(textField.getText()!="")
+								okZaIspisati = false;
+						}*/
+						if(okZaIspisati)
+						pravi.add(k);						
+						preface.add(new Paragraph(" "));
+					    preface.add(new Paragraph(" "));
+						preface.add(new Paragraph("Broj stalnih sredstava u uptrebi:  " + Integer.toString(pravi.size()), smallBold));
+						preface.add(new Paragraph(" "));
+						preface.add(new Paragraph(" "));
+				        document.add(preface); 
+				        PdfPTable table = new PdfPTable(7); 
+					      
+				        PdfPCell c1 = new PdfPCell(new Phrase("Naziv")); 
+				        c1.setHorizontalAlignment(Element.ALIGN_CENTER); 
+				        table.addCell(c1); 
+				      				      
+				        c1 = new PdfPCell(new Phrase("Tip")); 
+				        c1.setHorizontalAlignment(Element.ALIGN_CENTER); 
+				        table.addCell(c1); 
+				          
+				        c1 = new PdfPCell(new Phrase("Trenutna vrijednost")); 
+				        c1.setHorizontalAlignment(Element.ALIGN_CENTER); 
+				        table.addCell(c1); 
+				        
+				        c1 = new PdfPCell(new Phrase("Stopa")); 
+				        c1.setHorizontalAlignment(Element.ALIGN_CENTER); 
+				        table.addCell(c1);
+				        
+				        c1 = new PdfPCell(new Phrase("Mjesecno ili godisnje")); 
+				        c1.setHorizontalAlignment(Element.ALIGN_CENTER); 
+				        table.addCell(c1);
+				        
+				        c1 = new PdfPCell(new Phrase("Datum stavljanja u upotrebu")); 
+				        c1.setHorizontalAlignment(Element.ALIGN_CENTER); 
+				        table.addCell(c1);
+				        
+				        c1 = new PdfPCell(new Phrase("Datum otpisivanja")); 
+				        c1.setHorizontalAlignment(Element.ALIGN_CENTER); 
+				        table.addCell(c1);
+				        
+				        table.setHeaderRows(1); 
+				        for(int i=0; i<pravi.size(); i++)
+				        {
+				        	table.addCell(pravi.get(i).getNaziv());
+				        	table.addCell(pravi.get(i).getTip().toString());
+				        	table.addCell(Double.toString(pravi.get(i).getTrenutnaVrijednost())+" KM");  
+				        	table.addCell(Double.toString(pravi.get(i).getStopaAmortizacije())+" KM");  
+				        	if(pravi.get(i).isGodisnjaAmort())
+				        		table.addCell("G");
+				        	else table.addCell("M");
+				        	table.addCell(Integer.toString(pravi.get(i).getDatumStavljanjaUUpotrebu().getDay())+"." + Integer.toString(pravi.get(i).getDatumStavljanjaUUpotrebu().getMonth())+".20"+Integer.toString(pravi.get(i).getDatumStavljanjaUUpotrebu().getYear()-100)+".");
+				        	table.addCell("");
+				        }
+				        
+				        document.add(table); 
+
+				        document.close(); 
+				        if (Desktop.isDesktopSupported()) { 
+				              try { 
+				                  File myFile = new File(FILE); 
+				                  Desktop.getDesktop().open(myFile); 
+				              } catch (IOException ex) { 
+				                  // no application registered for PDFs 
+				              } 
+				       } 
+					}
+			    }catch(Exception ex){
+			    	ex.printStackTrace(); 
+			    }
+			}
+		});
+		button.setBounds(397, 440, 89, 23);
+		contentPane.add(button);
+		
 		JPanel panel = new JPanel();
 		panel.setToolTipText("Datum nabavke");
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Datum nabavke", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -82,11 +281,11 @@ public class StalnaSredstvaUUpotrebi1 extends JFrame {
 		lblDonjaGranica.setBounds(27, 65, 97, 14);
 		panel.add(lblDonjaGranica);
 		
-		JDateChooser dateChooser = new JDateChooser();
+		JDateChooser dateChooser = new JDateChooser(new Date());
 		dateChooser.setBounds(134, 28, 153, 20);
 		panel.add(dateChooser);
 		
-		JDateChooser dateChooser_1 = new JDateChooser();
+		JDateChooser dateChooser_1 = new JDateChooser(new Date());
 		dateChooser_1.setBounds(134, 59, 153, 20);
 		panel.add(dateChooser_1);
 		
@@ -154,11 +353,11 @@ public class StalnaSredstvaUUpotrebi1 extends JFrame {
 		label_5.setBounds(20, 64, 97, 14);
 		panel_4.add(label_5);
 		
-		JDateChooser dateChooser_2 = new JDateChooser();
+		JDateChooser dateChooser_2 = new JDateChooser(new Date());
 		dateChooser_2.setBounds(127, 58, 160, 20);
 		panel_4.add(dateChooser_2);
 		
-		JDateChooser dateChooser_3 = new JDateChooser();
+		JDateChooser dateChooser_3 = new JDateChooser(new Date());
 		dateChooser_3.setBounds(127, 27, 160, 20);
 		panel_4.add(dateChooser_3);
 		
@@ -198,11 +397,11 @@ public class StalnaSredstvaUUpotrebi1 extends JFrame {
 		label_9.setBounds(20, 64, 97, 14);
 		panel_6.add(label_9);
 		
-		JDateChooser dateChooser_4 = new JDateChooser();
+		JDateChooser dateChooser_4 = new JDateChooser(new Date());
 		dateChooser_4.setBounds(127, 27, 163, 20);
 		panel_6.add(dateChooser_4);
 		
-		JDateChooser dateChooser_5 = new JDateChooser();
+		JDateChooser dateChooser_5 = new JDateChooser(new Date());
 		dateChooser_5.setBounds(127, 58, 163, 20);
 		panel_6.add(dateChooser_5);
 		
@@ -228,24 +427,6 @@ public class StalnaSredstvaUUpotrebi1 extends JFrame {
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(114, 60, 91, 20);
 		panel_7.add(comboBox);
-		
-		JButton button = new JButton("Uredu");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-					
-					String path=System.getProperty("user.dir");
-					JOptionPane.showMessageDialog(null, path+="\\StalnaSredstvaUUpotrebi.pdf");
-					try {
-						Runtime.getRuntime().exec("rundll32 url.dll, FileProtocolHandler " + path);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-			}
-		});
-		button.setBounds(397, 440, 89, 23);
-		contentPane.add(button);
 		
 		JButton button_1 = new JButton("Iza\u0111i");
 		button_1.addActionListener(new ActionListener() {
