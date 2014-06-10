@@ -1,11 +1,13 @@
 package ba.unsa.etf.si.app.sistemZaEvidencijuStalnihSredstava;
 
 
+import java.awt.Desktop;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 
 
@@ -17,15 +19,33 @@ import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import javax.swing.JSpinner;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
+import ba.unsa.etf.si.klase.StalnoSredstvo;
 import ba.unsa.etf.si.util.HibernateUtil;
 
+import com.itextpdf.text.Font;
 import com.toedter.calendar.JDateChooser;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import javax.swing.SpinnerNumberModel;
 
 public class NabavljenaSredstva extends JFrame {
 
@@ -36,7 +56,29 @@ public class NabavljenaSredstva extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private Session session;
-
+	private JDateChooser dateChooser;
+	private JDateChooser dateChooser_1;
+	private JSpinner spinner;
+	private JSpinner spinner_1;
+	
+	private String getPath() {
+		JFileChooser chooser;
+		String path = "";
+		
+	    chooser = new JFileChooser(); 
+	    chooser.setCurrentDirectory(new java.io.File("."));
+	    chooser.setDialogTitle("Izbor putanje");
+	    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+	    
+	    chooser.setAcceptAllFileFilterUsed(false);
+	        
+	    if (chooser.showOpenDialog(chooser) == JFileChooser.APPROVE_OPTION) { 	      
+	    	path = chooser.getSelectedFile().toString();
+	      }
+    
+		return path;
+	
+	}
 	/**
 	 * Launch the application.
 	 */
@@ -71,18 +113,98 @@ public class NabavljenaSredstva extends JFrame {
 		JButton btnUredu = new JButton("Uredu");
 		btnUredu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-					
-					String path=System.getProperty("user.dir");
-					JOptionPane.showMessageDialog(null, path+="\\nabavljenaStalnaSredstva.pdf");
-					try {
-						Runtime.getRuntime().exec("rundll32 url.dll, FileProtocolHandler " + path);
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+				Random rand = new Random();
+				int x = rand.nextInt(1000);
+						
+				final String FILE = getPath() + File.separator + "NabavljenaStalnaSredstva_" + x +".pdf"; 
+			    final Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD); 
+			    final Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
+			    
+			    try { 
+			        Document document = new Document(); 
+			        PdfWriter.getInstance(document, new FileOutputStream(FILE)); 
+			        document.open(); 
+			        
+			        //addMetaData(document); 
+			        document.addTitle("Izvjestaj o nabavljenim stalnim sredstvima"); 
+			        	        
+			        Paragraph preface = new Paragraph(); 
+			        preface.add(new Paragraph(" ")); 
+			        Date d = new Date();
+			        preface.add(new Paragraph(" "));
+			        String s = Integer.toString(d.getDay())+"." + Integer.toString(d.getMonth())+".20"+Integer.toString(d.getYear()-100) + ".";
+			        preface.add(new Paragraph("Datum: " + s, smallBold));
+			        preface.add(new Paragraph(" "));
+			        preface.add(new Paragraph(" "));
+			        document.add(preface);
+			        Paragraph nesto=new Paragraph("Izvjestaj o nabavljenim stalnim sredstvima");
+			        nesto.setAlignment(Element.ALIGN_CENTER);
+			        document.add(nesto);
+			        preface = new Paragraph();
+			        Query query = session.createQuery("from StalnoSredstvo");
+					List<StalnoSredstvo> result = (List<StalnoSredstvo>)query.list();
+					List<StalnoSredstvo> pravi = new ArrayList<StalnoSredstvo> ();
+					for(StalnoSredstvo k : result)
+					{
+						if(!k.isOtpisano() && !k.isuUpotrebi() &&(dateChooser.getDate().equals(dateChooser_1.getDate())|| (k.getDatumNabavke().before(dateChooser_1.getDate())&& k.getDatumNabavke().after(dateChooser.getDate()))) && (textField.getText().equals("")||textField.getText().equals(k.getLokacija())) && ((spinner.getValue().equals(0) && spinner_1.getValue().equals(0))|| ((Integer)spinner.getValue()<k.getNabavnaVrijednost()&& (Integer)spinner_1.getValue()>k.getNabavnaVrijednost()))  )
+						{
+							pravi.add(k);
+						}
 					}
-					
-				
+					 preface.add(new Paragraph(" "));
+				     preface.add(new Paragraph(" "));
+					preface.add(new Paragraph("Broj nabavljenih stalnih sredstava:  " + Integer.toString(pravi.size()), smallBold));
+					preface.add(new Paragraph(" "));
+					preface.add(new Paragraph(" "));
+			        document.add(preface); 
+			        
+			        PdfPTable table = new PdfPTable(5); 
+			      
+			        PdfPCell c1 = new PdfPCell(new Phrase("Lokacija")); 
+			        c1.setHorizontalAlignment(Element.ALIGN_CENTER); 
+			        table.addCell(c1); 
+			      
+			        c1 = new PdfPCell(new Phrase("Naziv")); 
+			        c1.setHorizontalAlignment(Element.ALIGN_CENTER); 
+			        table.addCell(c1); 
+			      
+			        c1 = new PdfPCell(new Phrase("Tip")); 
+			        c1.setHorizontalAlignment(Element.ALIGN_CENTER); 
+			        table.addCell(c1); 
+			          
+			        c1 = new PdfPCell(new Phrase("Nabavna vrijednost")); 
+			        c1.setHorizontalAlignment(Element.ALIGN_CENTER); 
+			        table.addCell(c1); 
+			        
+			        c1 = new PdfPCell(new Phrase("Datum nabavke")); 
+			        c1.setHorizontalAlignment(Element.ALIGN_CENTER); 
+			        table.addCell(c1);
+			        
+			        table.setHeaderRows(1); 
+			        for(int i=0; i<pravi.size(); i++)
+			        {
+			        	table.addCell(pravi.get(i).getLokacija());
+			        	table.addCell(pravi.get(i).getNaziv());
+			        	table.addCell(pravi.get(i).getTip().toString());
+			        	table.addCell(Double.toString(pravi.get(i).getNabavnaVrijednost())+" KM");      
+			        	table.addCell(Integer.toString(pravi.get(i).getDatumNabavke().getDay())+"." + Integer.toString(pravi.get(i).getDatumNabavke().getMonth())+".20"+Integer.toString(pravi.get(i).getDatumNabavke().getYear()-100)+".");
+			        }
+			        
+			        document.add(table); 
+
+			        document.close(); 
+			          
+			        if (Desktop.isDesktopSupported()) { 
+			              try { 
+			                  File myFile = new File(FILE); 
+			                  Desktop.getDesktop().open(myFile); 
+			              } catch (IOException ex) { 
+			                  // no application registered for PDFs 
+			              } 
+			          } 
+			      } catch (Exception ex) { 
+			        ex.printStackTrace(); 
+			      }
 			}
 		});
 		btnUredu.setBounds(374, 209, 89, 23);
@@ -112,11 +234,11 @@ public class NabavljenaSredstva extends JFrame {
 		label_1.setBounds(27, 59, 97, 14);
 		panel.add(label_1);
 		
-		JDateChooser dateChooser = new JDateChooser();
+		dateChooser = new JDateChooser(new Date());
 		dateChooser.setBounds(134, 22, 132, 20);
 		panel.add(dateChooser);
 		
-		JDateChooser dateChooser_1 = new JDateChooser();
+		dateChooser_1 = new JDateChooser(new Date());
 		dateChooser_1.setBounds(134, 59, 132, 20);
 		panel.add(dateChooser_1);
 		
@@ -134,11 +256,12 @@ public class NabavljenaSredstva extends JFrame {
 		label_3.setBounds(44, 60, 97, 14);
 		panel_1.add(label_3);
 		
-		JSpinner spinner = new JSpinner();
+		spinner = new JSpinner();
+		spinner.setModel(new SpinnerNumberModel(new Integer(0), null, null, new Integer(1)));
 		spinner.setBounds(151, 29, 82, 20);
 		panel_1.add(spinner);
 		
-		JSpinner spinner_1 = new JSpinner();
+		spinner_1 = new JSpinner();
 		spinner_1.setBounds(151, 54, 82, 20);
 		panel_1.add(spinner_1);
 		
