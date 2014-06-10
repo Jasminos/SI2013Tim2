@@ -22,6 +22,7 @@ import org.hibernate.Session;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComboBox;
@@ -177,6 +178,12 @@ public class izmjenaKorisnickihPodataka extends JFrame {
 					}
 				}
 				
+				if(!provjeriJMBG(jmbg))
+				{
+					JOptionPane.showMessageDialog(null, "Neispravan JMBG.");
+					return;
+				}
+				
 				String ime = textField.getText();
 				
 				int c = (int)ime.charAt(0);
@@ -306,5 +313,24 @@ public class izmjenaKorisnickihPodataka extends JFrame {
 		textField_5 = new JPasswordField();
 		textField_5.setBounds(158, 169, 149, 20);
 		contentPane.add(textField_5);
+	}
+	
+	private boolean provjeriJMBG(String JMBG){
+		
+		Boolean ispravno;
+        List<Integer> JMBG_N = new ArrayList<Integer>();
+		
+		for (char c : JMBG.toCharArray()) 
+			JMBG_N.add(Character.getNumericValue(c));
+		
+			double eval = 0;
+			
+			for(int i = 0; i < 6; i++)
+				eval += (7 - i) * (JMBG_N.get(i) + JMBG_N.get(i + 6));
+			
+			ispravno=JMBG_N.get(12) == 11 - eval % 11;
+        
+		return ispravno;
+        
 	}
 }

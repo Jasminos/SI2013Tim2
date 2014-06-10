@@ -19,6 +19,7 @@ import org.hibernate.Transaction;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -192,6 +193,12 @@ public class DodajKorisnika extends JFrame {
 					}
 				}
 				
+				if(!provjeriJMBG(jmbg))
+				{
+					JOptionPane.showMessageDialog(null, "Neispravan JMBG.");
+					return;
+				}
+				
 				//validiranje username, imena i prezimena:
 				
 				for(int i=1; i<username.length(); i++)
@@ -301,5 +308,24 @@ public class DodajKorisnika extends JFrame {
 		passwordField = new JPasswordField();
 		passwordField.setBounds(129, 153, 156, 20);
 		contentPane.add(passwordField);
+	}
+	
+	private boolean provjeriJMBG(String JMBG){
+		
+		Boolean ispravno;
+        List<Integer> JMBG_N = new ArrayList<Integer>();
+		
+		for (char c : JMBG.toCharArray()) 
+			JMBG_N.add(Character.getNumericValue(c));
+		
+			double eval = 0;
+			
+			for(int i = 0; i < 6; i++)
+				eval += (7 - i) * (JMBG_N.get(i) + JMBG_N.get(i + 6));
+			
+			ispravno=JMBG_N.get(12) == 11 - eval % 11;
+        
+		return ispravno;
+        
 	}
 }
